@@ -45,9 +45,11 @@ export const Preview = ({
             {firstParagraph && <p>{firstParagraph}</p>}
             {secondParagraph && <p>{secondParagraph}</p>}
           </div>
-          <div class="list-section">
-            {enabledListSection && <ul class="list">{listItems.map((el) => (el ? <li>{el}</li> : null))}</ul>}
-          </div>
+          {enabledListSection && listItems.length > 0 && (
+            <div class="list-section">
+              <ul class="list">{listItems.map((el) => (el ? <li>{el}</li> : null))}</ul>
+            </div>
+          )}
         </div>
         {enabledBannerSection && (
           <div class="banner-section">

@@ -30,10 +30,13 @@
 
 .top-headers-section > h2 {
   font-size: 27px;
+  letter-spacing: 3px;
 }
 
 .top-headers-section > h3 {
+  letter-spacing: 3px;
   font-size: 19px;
+  color: grey;
 }
 
 .top-headers-section > h4 {
@@ -46,10 +49,13 @@
   font-size: 18px;
   font-family: Roboto;
   margin-bottom: 40px;
+  text-indent: 2em;
+  letter-spacing: 1px;
 }
 
 .description-section > p:first-child {
   padding-bottom: 40px;
+  font-weight: 600;
 }
 
 .list-section {
@@ -58,6 +64,8 @@
 
 .list {
   list-style: none;
+  padding-top: 35px;
+  padding-bottom: 40px;
 }
 
 .list > li {

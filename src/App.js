@@ -12,6 +12,30 @@ const App = () => {
   const [middleHeader, setMiddleHeader] = useState("ODŻYWIENIE SUCHYCH WŁOSÓW");
   const [bottomHeader, setBottomHeader] = useState("Szampon 250ml, Odżywka 150ml, Krem 150ml");
 
+  const [firstParagraph, setFirstParagraph] = useState(
+    "Zestaw Kemon Actyva Nutrizione to pielęgnacja przeznaczona do włosów średnich i cienkich, lekko przesuszonych, wrażliwych oraz normalnej skóry głowy. Szampon, odżywka oraz krem zapewniają optymalne i natychmiastowe odżywienie, zachowując naturalną równowagę skóry głowy. Nawilżają i chronią włosy. Dodają włosom blasku, miękkości, lekkiej objętości, ułatwiają rozczesywanie oraz trwale chronią przed przesuszeniem."
+  );
+  const [secondParagraph, setSecondParagraph] = useState(
+    "Włosy suche charakteryzują się częściową lub całkowitą utratą lipidów lub odwodnieniem. Pozbawione naturalnych substancji łuski zewnętrznej warstwy włosów otwierają się. W efekcie włosy stają się matowe, szorstkie, kruche, elektryzują się, są trudne do rozczesania i ułożenia oraz brakuje im elastyczności. Włosy mogą być z natury suche lub ulec wysuszeniu pod wpływem czynników zewnętrznych lub nawyków danej osoby. Z myślą o pielęgnacji włosów suchych Kemon Actyva proponuje linię Nutrizione z zaawansowaną technologicznie mieszanką surowców oraz składników aktywnych pochodzenia naturalnego, która wszystkim rodzajom włosów przywraca naturalny stan równowagi."
+  );
+
+  const [enabledListSection, setEnabledListSection] = useState(false);
+  const [listItems, setListItems] = useState([
+    "DELIKATNIE OCZYSZCZA WŁOSY I SKÓRĘ GŁOWY",
+    "NAWILŻA I CHRONI WŁOSY",
+    "ODŻYWIA",
+    "POMAGA ZACHOWAĆ NATURALNĄ RÓWNOWAGĘ SKÓRY GŁOWY",
+    "UŁATWIA ROZCZESYWANIE",
+    "DODAJE BLASKU, MIĘKKOŚCI I LEKKOŚCI",
+  ]);
+
+  const [enabledBannerSection, setEnabledBannerSection] = useState(false);
+  const [bannerLink, setBannerLink] = useState(
+    "https://www.brillar-sklep.pl/userdata/public/assets/kemon/kemon-actyva-nutrizione-kosmetyki-do-wlosow-suchych.jpg"
+  );
+
+  const [enabledPicturesSection, setEnabledPicturesSection] = useState(false);
+
   const handleCopyDescriptionCode = () => {
     var previewCode = document.getElementById("preview").innerHTML;
     navigator.clipboard.writeText(previewCode);
@@ -37,11 +61,30 @@ const App = () => {
           setTopHeader={setTopHeader}
           setMiddleHeader={setMiddleHeader}
           setBottomHeader={setBottomHeader}
+          setFirstParagraph={setFirstParagraph}
+          setSecondParagraph={setSecondParagraph}
+          enabledListSection={enabledListSection}
+          setEnabledListSection={setEnabledListSection}
+          setListItems={setListItems}
+          enabledBannerSection={enabledBannerSection}
+          setEnabledBannerSection={setEnabledBannerSection}
+          setBannerLink={setBannerLink}
         />
         <StyledButton onClick={handleCopyDescriptionCode} variant="contained" color="primary">
           Kopiuj kod źródłowy opisu
         </StyledButton>
-        <Preview producer={producer} topHeader={topHeader} middleHeader={middleHeader} bottomHeader={bottomHeader} />
+        <Preview
+          producer={producer}
+          topHeader={topHeader}
+          middleHeader={middleHeader}
+          bottomHeader={bottomHeader}
+          firstParagraph={firstParagraph}
+          secondParagraph={secondParagraph}
+          enabledListSection={enabledListSection}
+          listItems={listItems}
+          bannerLink={bannerLink}
+          enabledBannerSection={enabledBannerSection}
+        />
         <Snackbar
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
           open={open}

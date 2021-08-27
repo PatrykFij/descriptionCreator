@@ -35,6 +35,24 @@ const App = () => {
   );
 
   const [enabledPicturesSection, setEnabledPicturesSection] = useState(false);
+  const [pictureSectionTitle, setPictureSectionTitle] = useState("PRZYKŁADOWY TYTUŁ SEKCJI ZE ZDJĘCIAMI");
+  const [pictureItems, setPictureItems] = useState([
+    {
+      url: "https://www.brillar-sklep.pl/userdata/public/assets/kemon/kemon-actyva-disciplina.jpg",
+      title: "Kemon actyva disciplina",
+      description: "Kontrola włosów kręconych i nieposłusznych",
+    },
+    {
+      url: "https://www.brillar-sklep.pl/userdata/public/assets/kemon/kemon-actyva-nuova-fibra.jpg",
+      title: "Kemon nuova fibra",
+      description: "Wzmocnienie włosów słabych i uszkodzonych",
+    },
+    {
+      url: "https://www.brillar-sklep.pl/userdata/public/assets/kemon/kemon-actyva-colore-brillante.jpg",
+      title: "Kemon colore brillante",
+      description: "Wzmocnienie, ochrona i blask koloru",
+    },
+  ]);
 
   const handleCopyDescriptionCode = () => {
     var previewCode = document.getElementById("preview").innerHTML;
@@ -69,6 +87,9 @@ const App = () => {
           enabledBannerSection={enabledBannerSection}
           setEnabledBannerSection={setEnabledBannerSection}
           setBannerLink={setBannerLink}
+          enabledPicturesSection={enabledPicturesSection}
+          setEnabledPicturesSection={setEnabledPicturesSection}
+          setPictureSectionTitle={setPictureSectionTitle}
         />
         <StyledButton onClick={handleCopyDescriptionCode} variant="contained" color="primary">
           Kopiuj kod źródłowy opisu
@@ -84,6 +105,9 @@ const App = () => {
           listItems={listItems}
           bannerLink={bannerLink}
           enabledBannerSection={enabledBannerSection}
+          enabledPicturesSection={enabledPicturesSection}
+          pictureItems={pictureItems}
+          pictureSectionTitle={pictureSectionTitle}
         />
         <Snackbar
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}

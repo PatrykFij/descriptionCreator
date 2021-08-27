@@ -31,6 +31,9 @@ export const Form = ({
   enabledBannerSection,
   setEnabledBannerSection,
   setBannerLink,
+  enabledPicturesSection,
+  setEnabledPicturesSection,
+  setPictureSectionTitle,
 }) => {
   const handleProducerChange = (e) => {
     setProducer(e.target.value.trim());
@@ -71,6 +74,14 @@ export const Form = ({
 
   const handleBannerLinkChange = (e) => {
     setBannerLink("https://www.brillar-sklep.pl/userdata/public/assets/" + e.target.value.trim());
+  };
+
+  const handleEnablePictureSectionChange = () => {
+    setEnabledPicturesSection(!enabledPicturesSection);
+  };
+
+  const handlePictureSectionTitleChange = (e) => {
+    setPictureSectionTitle(e.target.value.trim());
   };
 
   return (
@@ -133,6 +144,25 @@ export const Form = ({
           label="Nazwe pliku z banerem"
           variant="outlined"
           onChange={handleBannerLinkChange}
+        />
+      )}
+      <StyledFormControlLabel
+        control={
+          <Checkbox
+            checked={enabledPicturesSection}
+            onChange={handleEnablePictureSectionChange}
+            name="checkedB"
+            color="primary"
+          />
+        }
+        label="Sekcja ze zdjęciami"
+      />
+      {enabledPicturesSection && (
+        <StyledTextField
+          id="outlined-multiline-static"
+          label="Tytuł sekcji ze zdjęciami"
+          variant="outlined"
+          onChange={handlePictureSectionTitleChange}
         />
       )}
     </FormWrapper>

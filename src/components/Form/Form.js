@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { useState } from "react";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { TopHeaderSection } from "../Sections/TopHeaderSection/TopHeaderSection";
+import { DescriptionSection } from "../Sections/DescriptionSection/DescriptionSection";
+
 import {
   TextField,
   Checkbox,
@@ -54,26 +57,6 @@ export const Form = ({
     setProducer(e.target.value.trim());
   };
 
-  const handleTopHeaderChange = (e) => {
-    setTopHeader(e.target.value.trim());
-  };
-
-  const handleMiddleHeaderChange = (e) => {
-    setMiddleHeader(e.target.value.trim());
-  };
-
-  const handleBottomHeaderChange = (e) => {
-    setBottomHeader(e.target.value.trim());
-  };
-
-  const handleFirstParagraphChange = (e) => {
-    setFirstParagraph(e.target.value.trim());
-  };
-
-  const handleSecondParagraphChange = (e) => {
-    setSecondParagraph(e.target.value.trim());
-  };
-
   const handleEnableListSectionChange = () => {
     setEnabledListSection(!enabledListSection);
   };
@@ -118,9 +101,11 @@ export const Form = ({
           <h3>Górna sekcja z nagłówkami</h3>
         </AccordionSummary>
         <StyledAccordionDetails>
-          <StyledTextField onChange={handleTopHeaderChange} label="Nagłówek H2" variant="outlined" />
-          <StyledTextField onChange={handleMiddleHeaderChange} label="Nagłówek H3" variant="outlined" />
-          <StyledTextField onChange={handleBottomHeaderChange} label="Nagłówek H4" variant="outlined" />
+          <TopHeaderSection
+            setTopHeader={setTopHeader}
+            setMiddleHeader={setMiddleHeader}
+            setBottomHeader={setBottomHeader}
+          />
         </StyledAccordionDetails>
       </Accordion>
       <Accordion expanded={expanded === "panel3"} onChange={handleExpandedChange("panel3")}>
@@ -128,20 +113,7 @@ export const Form = ({
           <h3>Sekcja z opisami</h3>
         </AccordionSummary>
         <StyledAccordionDetails>
-          <StyledTextField
-            onChange={handleFirstParagraphChange}
-            multiline
-            rows={10}
-            label="Opis akapin nr 1"
-            variant="outlined"
-          />
-          <StyledTextField
-            onChange={handleSecondParagraphChange}
-            multiline
-            rows={10}
-            label="Opis akapin nr 2"
-            variant="outlined"
-          />
+          <DescriptionSection setFirstParagraph={setFirstParagraph} setSecondParagraph={setSecondParagraph} />
         </StyledAccordionDetails>
       </Accordion>
       <Accordion expanded={expanded === "panel4"} onChange={handleExpandedChange("panel4")}>

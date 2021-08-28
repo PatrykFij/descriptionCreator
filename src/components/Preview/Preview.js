@@ -1,4 +1,4 @@
-// import "../../App.scss";
+import "../../App.scss";
 import styled from "styled-components";
 
 const PreviewWrapper = styled.div`

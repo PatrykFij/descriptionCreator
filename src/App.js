@@ -1,4 +1,4 @@
-// import "./App.scss";
+import "./App.scss";
 import { useState } from "react";
 import { Typography, Snackbar } from "@material-ui/core";
 import { MainWrapper, StyledButton } from "./App.css.js";

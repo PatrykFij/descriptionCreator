@@ -3,15 +3,11 @@ import { useState } from "react";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { TopHeaderSection } from "../Sections/TopHeaderSection/TopHeaderSection";
 import { DescriptionSection } from "../Sections/DescriptionSection/DescriptionSection";
+import { ListSection } from "../Sections/ListSection/ListSection";
+import { BannerSection } from "../Sections/BannerSection/BannerSection";
+import { PicturesSection } from "../Sections/PicturesSection/PicturesSection";
 
-import {
-  TextField,
-  Checkbox,
-  FormControlLabel,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-} from "@material-ui/core";
+import { TextField, Accordion, AccordionSummary, AccordionDetails } from "@material-ui/core";
 
 const FormWrapper = styled.div`
   border: 1px solid black;
@@ -24,10 +20,6 @@ const FormWrapper = styled.div`
 const StyledTextField = styled(TextField)`
   width: 100%;
   margin: 10px 0;
-`;
-
-const StyledFormControlLabel = styled(FormControlLabel)`
-  display: block;
 `;
 
 const StyledAccordionDetails = styled(AccordionDetails)`
@@ -55,31 +47,6 @@ export const Form = ({
 
   const handleProducerChange = (e) => {
     setProducer(e.target.value.trim());
-  };
-
-  const handleEnableListSectionChange = () => {
-    setEnabledListSection(!enabledListSection);
-  };
-
-  const handleListItemsChange = (e) => {
-    let items = e.target.value.split("\n");
-    setListItems(!!e.target.value ? items.map((el) => el.trim()) : []);
-  };
-
-  const handleEnableBannerSectionChange = () => {
-    setEnabledBannerSection(!enabledBannerSection);
-  };
-
-  const handleBannerLinkChange = (e) => {
-    setBannerLink("https://www.brillar-sklep.pl/userdata/public/assets/" + e.target.value.trim());
-  };
-
-  const handleEnablePictureSectionChange = () => {
-    setEnabledPicturesSection(!enabledPicturesSection);
-  };
-
-  const handlePictureSectionTitleChange = (e) => {
-    setPictureSectionTitle(e.target.value.trim());
   };
 
   const handleExpandedChange = (panel) => (event, isExpanded) => {
@@ -121,28 +88,11 @@ export const Form = ({
           <h3>Sekcja z listą</h3>
         </AccordionSummary>
         <StyledAccordionDetails>
-          <StyledFormControlLabel
-            control={
-              <Checkbox
-                checked={enabledListSection}
-                onChange={handleEnableListSectionChange}
-                name="checkedB"
-                color="primary"
-              />
-            }
-            label="Sekcja z listą"
+          <ListSection
+            enabledListSection={enabledListSection}
+            setListItems={setListItems}
+            setEnabledListSection={setEnabledListSection}
           />
-          {enabledListSection && (
-            <StyledTextField
-              id="outlined-multiline-static"
-              label="Podaj elementy listy"
-              multiline
-              rows={10}
-              defaultValue=""
-              variant="outlined"
-              onChange={handleListItemsChange}
-            />
-          )}
         </StyledAccordionDetails>
       </Accordion>
       <Accordion expanded={expanded === "panel5"} onChange={handleExpandedChange("panel5")}>
@@ -150,25 +100,11 @@ export const Form = ({
           <h3>Sekcja z banerem</h3>
         </AccordionSummary>
         <StyledAccordionDetails>
-          <StyledFormControlLabel
-            control={
-              <Checkbox
-                checked={enabledBannerSection}
-                onChange={handleEnableBannerSectionChange}
-                name="checkedB"
-                color="primary"
-              />
-            }
-            label="Sekcja z banerem"
+          <BannerSection
+            enabledBannerSection={enabledBannerSection}
+            setBannerLink={setBannerLink}
+            setEnabledBannerSection={setEnabledBannerSection}
           />
-          {enabledBannerSection && (
-            <StyledTextField
-              id="outlined-multiline-static"
-              label="Nazwe pliku z banerem"
-              variant="outlined"
-              onChange={handleBannerLinkChange}
-            />
-          )}
         </StyledAccordionDetails>
       </Accordion>
       <Accordion expanded={expanded === "panel6"} onChange={handleExpandedChange("panel6")}>
@@ -176,25 +112,11 @@ export const Form = ({
           <h3>Sekcja ze zdjęciami</h3>
         </AccordionSummary>
         <StyledAccordionDetails>
-          <StyledFormControlLabel
-            control={
-              <Checkbox
-                checked={enabledPicturesSection}
-                onChange={handleEnablePictureSectionChange}
-                name="checkedB"
-                color="primary"
-              />
-            }
-            label="Sekcja ze zdjęciami"
+          <PicturesSection
+            enabledPicturesSection={enabledPicturesSection}
+            setEnabledPicturesSection={setEnabledPicturesSection}
+            setPictureSectionTitle={setPictureSectionTitle}
           />
-          {enabledPicturesSection && (
-            <StyledTextField
-              id="outlined-multiline-static"
-              label="Tytuł sekcji ze zdjęciami"
-              variant="outlined"
-              onChange={handlePictureSectionTitleChange}
-            />
-          )}
         </StyledAccordionDetails>
       </Accordion>
     </FormWrapper>

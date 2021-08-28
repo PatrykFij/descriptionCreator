@@ -1,5 +1,7 @@
 import "../../App.scss";
 import styled from "styled-components";
+import { useContext } from "react";
+import { AppContext } from "../AppContext/AppContext";
 
 const PreviewWrapper = styled.div`
   border: 1px solid black;
@@ -13,21 +15,23 @@ const PreviewWrapper = styled.div`
   box-sizing: border-box;
 `;
 
-export const Preview = ({
-  producer,
-  topHeader,
-  middleHeader,
-  bottomHeader,
-  firstParagraph,
-  secondParagraph,
-  enabledListSection,
-  listItems,
-  bannerLink,
-  enabledBannerSection,
-  enabledPicturesSection,
-  pictureItems,
-  pictureSectionTitle,
-}) => {
+export const Preview = () => {
+  const {
+    producer,
+    topHeader,
+    middleHeader,
+    bottomHeader,
+    firstParagraph,
+    secondParagraph,
+    enabledListSection,
+    listItems,
+    bannerLink,
+    enabledBannerSection,
+    enabledPicturesSection,
+    pictureItems,
+    pictureSectionTitle,
+  } = useContext(AppContext);
+
   return (
     <PreviewWrapper id="preview">
       <div class="description-container">

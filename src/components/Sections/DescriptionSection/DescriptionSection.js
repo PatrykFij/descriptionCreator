@@ -1,12 +1,16 @@
 import styled from "styled-components";
 import { TextField } from "@material-ui/core";
+import { useContext } from "react";
+import { AppContext } from "../../AppContext/AppContext";
 
 const StyledTextField = styled(TextField)`
   width: 100%;
   margin: 10px 0;
 `;
 
-export const DescriptionSection = ({ setFirstParagraph, setSecondParagraph }) => {
+export const DescriptionSection = () => {
+  const { setFirstParagraph, setSecondParagraph } = useContext(AppContext);
+
   const handleFirstParagraphChange = (e) => {
     setFirstParagraph(e.target.value.trim());
   };

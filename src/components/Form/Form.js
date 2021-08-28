@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AppContext } from "../AppContext/AppContext";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { TopHeaderSection } from "../Sections/TopHeaderSection/TopHeaderSection";
 import { DescriptionSection } from "../Sections/DescriptionSection/DescriptionSection";
@@ -26,36 +27,22 @@ const StyledAccordionDetails = styled(AccordionDetails)`
   display: block;
 `;
 
-export const Form = ({
-  setProducer,
-  setTopHeader,
-  setMiddleHeader,
-  setBottomHeader,
-  setFirstParagraph,
-  setSecondParagraph,
-  enabledListSection,
-  setEnabledListSection,
-  setListItems,
-  enabledBannerSection,
-  setEnabledBannerSection,
-  setBannerLink,
-  enabledPicturesSection,
-  setEnabledPicturesSection,
-  setPictureSectionTitle,
-}) => {
+export const Form = () => {
+  const { setProducer } = useContext(AppContext);
+
   const [expanded, setExpanded] = useState(false);
 
   const handleProducerChange = (e) => {
     setProducer(e.target.value.trim());
   };
 
-  const handleExpandedChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
+  const handleExpandedChange = (section) => (event, isExpanded) => {
+    setExpanded(isExpanded ? section : false);
   };
 
   return (
     <FormWrapper>
-      <Accordion expanded={expanded === "panel1"} onChange={handleExpandedChange("panel1")}>
+      <Accordion expanded={expanded === "section_1"} onChange={handleExpandedChange("section_1")}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
           <h3>Nazwa producenta</h3>
         </AccordionSummary>
@@ -63,60 +50,44 @@ export const Form = ({
           <StyledTextField onChange={handleProducerChange} label="Producent nagłówek H4" variant="outlined" />
         </StyledAccordionDetails>
       </Accordion>
-      <Accordion expanded={expanded === "panel2"} onChange={handleExpandedChange("panel2")}>
+      <Accordion expanded={expanded === "section_2"} onChange={handleExpandedChange("section_2")}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
           <h3>Górna sekcja z nagłówkami</h3>
         </AccordionSummary>
         <StyledAccordionDetails>
-          <TopHeaderSection
-            setTopHeader={setTopHeader}
-            setMiddleHeader={setMiddleHeader}
-            setBottomHeader={setBottomHeader}
-          />
+          <TopHeaderSection />
         </StyledAccordionDetails>
       </Accordion>
-      <Accordion expanded={expanded === "panel3"} onChange={handleExpandedChange("panel3")}>
+      <Accordion expanded={expanded === "section_3"} onChange={handleExpandedChange("section_3")}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel2bh-header">
           <h3>Sekcja z opisami</h3>
         </AccordionSummary>
         <StyledAccordionDetails>
-          <DescriptionSection setFirstParagraph={setFirstParagraph} setSecondParagraph={setSecondParagraph} />
+          <DescriptionSection />
         </StyledAccordionDetails>
       </Accordion>
-      <Accordion expanded={expanded === "panel4"} onChange={handleExpandedChange("panel4")}>
+      <Accordion expanded={expanded === "section_4"} onChange={handleExpandedChange("section_4")}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
           <h3>Sekcja z listą</h3>
         </AccordionSummary>
         <StyledAccordionDetails>
-          <ListSection
-            enabledListSection={enabledListSection}
-            setListItems={setListItems}
-            setEnabledListSection={setEnabledListSection}
-          />
+          <ListSection />
         </StyledAccordionDetails>
       </Accordion>
-      <Accordion expanded={expanded === "panel5"} onChange={handleExpandedChange("panel5")}>
+      <Accordion expanded={expanded === "section_5"} onChange={handleExpandedChange("section_5")}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
           <h3>Sekcja z banerem</h3>
         </AccordionSummary>
         <StyledAccordionDetails>
-          <BannerSection
-            enabledBannerSection={enabledBannerSection}
-            setBannerLink={setBannerLink}
-            setEnabledBannerSection={setEnabledBannerSection}
-          />
+          <BannerSection />
         </StyledAccordionDetails>
       </Accordion>
-      <Accordion expanded={expanded === "panel6"} onChange={handleExpandedChange("panel6")}>
+      <Accordion expanded={expanded === "section_6"} onChange={handleExpandedChange("section_6")}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
           <h3>Sekcja ze zdjęciami</h3>
         </AccordionSummary>
         <StyledAccordionDetails>
-          <PicturesSection
-            enabledPicturesSection={enabledPicturesSection}
-            setEnabledPicturesSection={setEnabledPicturesSection}
-            setPictureSectionTitle={setPictureSectionTitle}
-          />
+          <PicturesSection />
         </StyledAccordionDetails>
       </Accordion>
     </FormWrapper>

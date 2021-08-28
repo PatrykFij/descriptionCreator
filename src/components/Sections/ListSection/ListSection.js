@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { TextField, FormControlLabel, Checkbox } from "@material-ui/core";
+import { useContext } from "react";
+import { AppContext } from "../../AppContext/AppContext";
 
 const StyledTextField = styled(TextField)`
   width: 100%;
@@ -10,7 +12,9 @@ const StyledFormControlLabel = styled(FormControlLabel)`
   display: block;
 `;
 
-export const ListSection = ({ enabledListSection, setListItems, setEnabledListSection }) => {
+export const ListSection = () => {
+  const { enabledListSection, setListItems, setEnabledListSection } = useContext(AppContext);
+
   const handleEnableListSectionChange = () => {
     setEnabledListSection(!enabledListSection);
   };

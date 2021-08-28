@@ -13,8 +13,9 @@ import { TextField, Accordion, AccordionSummary, AccordionDetails } from "@mater
 const FormWrapper = styled.div`
   border: 1px solid black;
   border-radius: 5px;
-  height: 100vh;
+  width: 100%;
   margin: 10px;
+  overflow-y: hidden;
   padding: 10px;
 `;
 

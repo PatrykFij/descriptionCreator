@@ -17,22 +17,25 @@ export const Mock = {
     "UŁATWIA ROZCZESYWANIE",
     "DODAJE BLASKU, MIĘKKOŚCI I LEKKOŚCI",
   ],
-  bannerLink:
-    "https://www.brillar-sklep.pl/userdata/public/assets/kemon/kemon-actyva-nutrizione-kosmetyki-do-wlosow-suchych.jpg",
+  bannerLink: "kemon-actyva-nutrizione-kosmetyki-do-wlosow-suchych.jpg",
   pictureSectionTitle: "PRZYKŁADOWY TYTUŁ SEKCJI ZE ZDJĘCIAMI",
   pictureItems: [
     {
-      url: "https://www.brillar-sklep.pl/userdata/public/assets/kemon/kemon-actyva-disciplina.jpg",
+      url: "kemon-actyva-disciplina.jpg",
+      alt: "To jest widoczne jak grafika się nie załaduje",
       title: "Kemon actyva disciplina",
       description: "Kontrola włosów kręconych i nieposłusznych",
     },
     {
-      url: "https://www.brillar-sklep.pl/userdata/public/assets/kemon/kemon-actyva-nuova-fibra.jpg",
+      url: "kemon-actyva-nuova-fibra.jpg",
+      alt: "To jest widoczne jak grafika się nie załaduje",
       title: "Kemon nuova fibra",
-      description: "Wzmocnienie włosów słabych i uszkodzonych",
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
     },
     {
-      url: "https://www.brillar-sklep.pl/userdata/public/assets/kemon/kemon-actyva-colore-brillante.jpg",
+      url: "kemon-actyva-colore-brillante.jpg",
+      alt: "To jest widoczne jak grafika się nie załaduje",
       title: "Kemon colore brillante",
       description: "Wzmocnienie, ochrona i blask koloru",
     },

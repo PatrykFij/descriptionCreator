@@ -4,7 +4,6 @@ import { Typography, Snackbar } from "@material-ui/core";
 import { MainWrapper, StyledButton } from "./App.css.js";
 import { Form } from "./components/Form/Form";
 import { Preview } from "./components/Preview/Preview";
-import { Mock } from "./constants/Mock";
 import { AppProvider } from "../src/components/AppContext/AppContext";
 
 const App = () => {
@@ -30,11 +29,11 @@ const App = () => {
         <Typography align="center" variant="h1" component="h2">
           Creator opisów Brillar
         </Typography>
+        <StyledButton onClick={handleCopyDescriptionCode} variant="contained" color="primary">
+          Kopiuj kod źródłowy opisu
+        </StyledButton>
         <MainWrapper>
           <Form />
-          <StyledButton onClick={handleCopyDescriptionCode} variant="contained" color="primary">
-            Kopiuj kod źródłowy opisu
-          </StyledButton>
           <Preview />
           <Snackbar
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}

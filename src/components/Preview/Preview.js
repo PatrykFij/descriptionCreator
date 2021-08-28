@@ -6,8 +6,7 @@ import { AppContext } from "../AppContext/AppContext";
 const PreviewWrapper = styled.div`
   border: 1px solid black;
   border-radius: 5px;
-  max-height: 100vh;
-  overflow-y: scroll;
+  overflow-y: hidden;
   min-width: 1180px;
   max-width: 1180px;
   margin: 10px;
@@ -57,16 +56,26 @@ export const Preview = () => {
         </div>
         {enabledBannerSection && (
           <div class="banner-section">
-            {bannerLink && <img src={bannerLink} alt="USTAWIĆ ALT TAK NA PODSTAWIE NAZWY PLIKU !!!" width="auto" />}
+            {bannerLink && (
+              <img
+                src={"https://www.brillar-sklep.pl/userdata/public/assets/kemon/" + bannerLink}
+                alt="USTAWIĆ ALT TAK NA PODSTAWIE NAZWY PLIKU !!!"
+                width="auto"
+              />
+            )}
           </div>
         )}
         {enabledPicturesSection && (
           <>
             {pictureSectionTitle && <h4>{pictureSectionTitle}</h4>}
             <div class="image-section">
-              {pictureItems.map((el) => (
-                <div class="image-container">
-                  <img src={el.url} alt="USTAWIĆ ALT TAK NA PODSTAWIE NAZWY PLIKU !!!" width="auto" />
+              {pictureItems.map((el, index) => (
+                <div key={index} class="image-container">
+                  <img
+                    src={"https://www.brillar-sklep.pl/userdata/public/assets/kemon/" + el.url}
+                    alt={el.alt}
+                    width="auto"
+                  />
                   <h5>{el.title}</h5>
                   <span>{el.description}</span>
                 </div>

@@ -87,10 +87,9 @@
 
 .image-section {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   & .image-container {
-    margin: 0 20px;
     max-width: 360px;
     text-align: center;
 

@@ -6,21 +6,19 @@ const appCtxDefaultValue = {
   topHeader: Mock.topHeader,
   middleHeader: Mock.middleHeader,
   bottomHeader: Mock.bottomHeader,
-  firstParagraph: Mock.firstParagraph,
-  secondParagraph: Mock.secondParagraph,
-  enabledListSection: false,
+  paragraph: Mock.paragraph,
+  enabledListSection: true,
   listItems: Mock.listItems,
-  enabledBannerSection: false,
+  enabledBannerSection: true,
   bannerLink: Mock.bannerLink,
-  enabledPicturesSection: false,
+  enabledPicturesSection: true,
   pictureSectionTitle: Mock.pictureSectionTitle,
   pictureItems: Mock.pictureItems,
   setProducer: () => {},
   setTopHeader: () => {},
   setMiddleHeader: () => {},
   setBottomHeader: () => {},
-  setFirstParagraph: () => {},
-  setSecondParagraph: () => {},
+  setParagraph: () => {},
   setEnabledListSection: () => {},
   setListItems: () => {},
   setEnabledBannerSection: () => {},
@@ -39,16 +37,15 @@ export const AppProvider = ({ children }) => {
   const [middleHeader, setMiddleHeader] = useState(appCtxDefaultValue.middleHeader);
   const [bottomHeader, setBottomHeader] = useState(appCtxDefaultValue.bottomHeader);
 
-  const [firstParagraph, setFirstParagraph] = useState(appCtxDefaultValue.firstParagraph);
-  const [secondParagraph, setSecondParagraph] = useState(appCtxDefaultValue.secondParagraph);
+  const [paragraph, setParagraph] = useState(appCtxDefaultValue.paragraph);
 
-  const [enabledListSection, setEnabledListSection] = useState(false);
+  const [enabledListSection, setEnabledListSection] = useState(appCtxDefaultValue.enabledListSection);
   const [listItems, setListItems] = useState(appCtxDefaultValue.listItems);
 
-  const [enabledBannerSection, setEnabledBannerSection] = useState(false);
+  const [enabledBannerSection, setEnabledBannerSection] = useState(appCtxDefaultValue.enabledBannerSection);
   const [bannerLink, setBannerLink] = useState(appCtxDefaultValue.bannerLink);
 
-  const [enabledPicturesSection, setEnabledPicturesSection] = useState(false);
+  const [enabledPicturesSection, setEnabledPicturesSection] = useState(appCtxDefaultValue.enabledPicturesSection);
   const [pictureSectionTitle, setPictureSectionTitle] = useState(appCtxDefaultValue.pictureSectionTitle);
   const [pictureItems, setPictureItems] = useState(appCtxDefaultValue.pictureItems);
 
@@ -59,8 +56,7 @@ export const AppProvider = ({ children }) => {
         topHeader,
         middleHeader,
         bottomHeader,
-        firstParagraph,
-        secondParagraph,
+        paragraph,
         enabledListSection,
         listItems,
         enabledBannerSection,
@@ -72,8 +68,7 @@ export const AppProvider = ({ children }) => {
         setTopHeader,
         setMiddleHeader,
         setBottomHeader,
-        setFirstParagraph,
-        setSecondParagraph,
+        setParagraph,
         setEnabledListSection,
         setListItems,
         setEnabledBannerSection,

@@ -5,10 +5,8 @@ export const Mock = {
   middleHeader: "ODŻYWIENIE SUCHYCH WŁOSÓW",
   bottomHeader: "Szampon 250ml, Odżywka 150ml, Krem 150ml",
 
-  firstParagraph:
-    "Zestaw Kemon Actyva Nutrizione to pielęgnacja przeznaczona do włosów średnich i cienkich, lekko przesuszonych, wrażliwych oraz normalnej skóry głowy. Szampon, odżywka oraz krem zapewniają optymalne i natychmiastowe odżywienie, zachowując naturalną równowagę skóry głowy. Nawilżają i chronią włosy. Dodają włosom blasku, miękkości, lekkiej objętości, ułatwiają rozczesywanie oraz trwale chronią przed przesuszeniem.",
-  secondParagraph:
-    "Włosy suche charakteryzują się częściową lub całkowitą utratą lipidów lub odwodnieniem. Pozbawione naturalnych substancji łuski zewnętrznej warstwy włosów otwierają się. W efekcie włosy stają się matowe, szorstkie, kruche, elektryzują się, są trudne do rozczesania i ułożenia oraz brakuje im elastyczności. Włosy mogą być z natury suche lub ulec wysuszeniu pod wpływem czynników zewnętrznych lub nawyków danej osoby. Z myślą o pielęgnacji włosów suchych Kemon Actyva proponuje linię Nutrizione z zaawansowaną technologicznie mieszanką surowców oraz składników aktywnych pochodzenia naturalnego, która wszystkim rodzajom włosów przywraca naturalny stan równowagi.",
+  paragraph:
+    "Zestaw Kemon Actyva Nutrizione to pielęgnacja przeznaczona do włosów średnich i cienkich, lekko przesuszonych, wrażliwych oraz normalnej skóry głowy. Szampon, odżywka oraz krem zapewniają optymalne i natychmiastowe odżywienie, zachowując naturalną równowagę skóry głowy. Nawilżają i chronią włosy. Dodają włosom blasku, miękkości, lekkiej objętości, ułatwiają rozczesywanie oraz trwale chronią przed przesuszeniem. <br><br> <p>Włosy suche charakteryzują się częściową lub całkowitą utratą lipidów lub odwodnieniem. Pozbawione naturalnych substancji łuski zewnętrznej warstwy włosów otwierają się. W efekcie włosy stają się matowe, szorstkie, kruche, elektryzują się, są trudne do rozczesania i ułożenia oraz brakuje im elastyczności. Włosy mogą być z natury suche lub ulec wysuszeniu pod wpływem czynników zewnętrznych lub nawyków danej osoby. Z myślą o pielęgnacji włosów suchych Kemon Actyva proponuje linię Nutrizione z zaawansowaną technologicznie mieszanką surowców oraz składników aktywnych pochodzenia naturalnego, która wszystkim rodzajom włosów przywraca naturalny stan równowagi.</p>",
   listItems: [
     "DELIKATNIE OCZYSZCZA WŁOSY I SKÓRĘ GŁOWY",
     "NAWILŻA I CHRONI WŁOSY",

@@ -30,7 +30,7 @@ const StyledAccordionDetails = styled(AccordionDetails)`
 `;
 
 export const Form = () => {
-  const { setProducer } = useContext(AppContext);
+  const { producer, setProducer } = useContext(AppContext);
 
   const [expanded, setExpanded] = useState(false);
 
@@ -49,7 +49,12 @@ export const Form = () => {
           <h3>Nazwa producenta</h3>
         </AccordionSummary>
         <StyledAccordionDetails>
-          <StyledTextField onChange={handleProducerChange} label="Producent nagłówek H4" variant="outlined" />
+          <StyledTextField
+            onChange={handleProducerChange}
+            defaultValue={producer}
+            label="Producent nagłówek H4"
+            variant="outlined"
+          />
         </StyledAccordionDetails>
       </Accordion>
       <Accordion expanded={expanded === "section_2"} onChange={handleExpandedChange("section_2")}>

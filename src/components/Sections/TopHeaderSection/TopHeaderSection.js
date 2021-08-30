@@ -9,7 +9,8 @@ const StyledTextField = styled(TextField)`
 `;
 
 export const TopHeaderSection = () => {
-  const { setTopHeader, setMiddleHeader, setBottomHeader } = useContext(AppContext);
+  const { topHeader, middleHeader, bottomHeader, setTopHeader, setMiddleHeader, setBottomHeader } =
+    useContext(AppContext);
 
   const handleTopHeaderChange = (e) => {
     setTopHeader(e.target.value.trim());
@@ -25,9 +26,24 @@ export const TopHeaderSection = () => {
 
   return (
     <>
-      <StyledTextField onChange={handleTopHeaderChange} label="Nagłówek H2" variant="outlined" />
-      <StyledTextField onChange={handleMiddleHeaderChange} label="Nagłówek H3" variant="outlined" />
-      <StyledTextField onChange={handleBottomHeaderChange} label="Nagłówek H4" variant="outlined" />
+      <StyledTextField
+        onChange={handleTopHeaderChange}
+        defaultValue={topHeader}
+        label="Nagłówek H2"
+        variant="outlined"
+      />
+      <StyledTextField
+        onChange={handleMiddleHeaderChange}
+        defaultValue={middleHeader}
+        label="Nagłówek H3"
+        variant="outlined"
+      />
+      <StyledTextField
+        onChange={handleBottomHeaderChange}
+        defaultValue={bottomHeader}
+        label="Nagłówek H4"
+        variant="outlined"
+      />
     </>
   );
 };

@@ -13,7 +13,7 @@ const StyledFormControlLabel = styled(FormControlLabel)`
 `;
 
 export const BannerSection = () => {
-  const { enabledBannerSection, setBannerLink, setEnabledBannerSection } = useContext(AppContext);
+  const { enabledBannerSection, bannerLink, setBannerLink, setEnabledBannerSection } = useContext(AppContext);
 
   const handleEnableBannerSectionChange = () => {
     setEnabledBannerSection(!enabledBannerSection);
@@ -41,6 +41,7 @@ export const BannerSection = () => {
           id="outlined-multiline-static"
           label="Nazwe pliku z banerem"
           variant="outlined"
+          defaultValue={bannerLink}
           onChange={handleBannerLinkChange}
         />
       )}

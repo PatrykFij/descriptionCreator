@@ -50,8 +50,14 @@ const ButtonsWrapper = styled.div`
 const StyledFormControlLabel = styled(FormControlLabel)``;
 
 export const PicturesSection = () => {
-  const { enabledPicturesSection, setEnabledPicturesSection, setPictureSectionTitle, pictureItems, setPictureItems } =
-    useContext(AppContext);
+  const {
+    enabledPicturesSection,
+    setEnabledPicturesSection,
+    pictureSectionTitle,
+    setPictureSectionTitle,
+    pictureItems,
+    setPictureItems,
+  } = useContext(AppContext);
 
   const [pictureFields, setPictureFields] = useState();
 
@@ -126,6 +132,7 @@ export const PicturesSection = () => {
           <StyledTitleTextField
             label="Tytuł sekcji ze zdjęciami"
             variant="outlined"
+            defaultValue={pictureSectionTitle}
             onChange={handlePictureSectionTitleChange}
           />
           <Button onClick={handleAdd} variant="contained" color="primary">

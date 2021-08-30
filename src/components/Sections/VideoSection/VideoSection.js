@@ -12,39 +12,37 @@ const StyledFormControlLabel = styled(FormControlLabel)`
   display: block;
 `;
 
-export const ListSection = () => {
-  const { enabledListSection, listItems, setListItems, setEnabledListSection } = useContext(AppContext);
+export const VideoSection = () => {
+  const { videoUrl, setVideoUrl, enabledVideoSection, setEnabledVideoSection } = useContext(AppContext);
 
-  const handleEnableListSectionChange = () => {
-    setEnabledListSection(!enabledListSection);
+  const handleEnableVideoSectionChange = () => {
+    setEnabledVideoSection(!enabledVideoSection);
   };
 
-  const handleListItemsChange = (e) => {
-    let items = e.target.value.split("\n");
-    setListItems(!!e.target.value ? items.map((el) => el.trim()) : []);
+  const handleVideoUrlChange = (e) => {
+    setVideoUrl(e.target.value.trim());
   };
+
   return (
     <>
       <StyledFormControlLabel
         control={
           <Checkbox
-            checked={enabledListSection}
-            onChange={handleEnableListSectionChange}
+            checked={enabledVideoSection}
+            onChange={handleEnableVideoSectionChange}
             name="checkedB"
             color="primary"
           />
         }
         label="Sekcja z listą"
       />
-      {enabledListSection && (
+      {enabledVideoSection && (
         <StyledTextField
           id="outlined-multiline-static"
-          label="Podaj elementy listy"
-          multiline
-          rows={10}
-          defaultValue={listItems}
+          label="Podaj link url do filmu"
+          defaultValue={videoUrl}
           variant="outlined"
-          onChange={handleListItemsChange}
+          onChange={handleVideoUrlChange}
         />
       )}
     </>

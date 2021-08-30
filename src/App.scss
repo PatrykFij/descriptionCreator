@@ -88,6 +88,8 @@
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  margin-bottom: 40px;
+
   & .image-container {
     max-width: 360px;
     text-align: center;
@@ -102,5 +104,19 @@
       text-align: center;
       display: block;
     }
+  }
+}
+
+.video-section {
+  padding: 0 0 56.25%;
+  position: relative;
+
+  & > iframe {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 }

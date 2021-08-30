@@ -28,6 +28,8 @@ export const Preview = () => {
     enabledPicturesSection,
     pictureItems,
     pictureSectionTitle,
+    enabledVideoSection,
+    videoUrl,
   } = useContext(AppContext);
 
   return (
@@ -76,6 +78,20 @@ export const Preview = () => {
                   <span>{el.description}</span>
                 </div>
               ))}
+            </div>
+          </>
+        )}
+        {enabledVideoSection && (
+          <>
+            <div class="video-section">
+              <iframe
+                width="100%"
+                src="https://www.youtube.com/embed/m0fIHkfqpfo"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
             </div>
           </>
         )}

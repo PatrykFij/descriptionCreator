@@ -7,6 +7,7 @@ import { DescriptionSection } from "../Sections/DescriptionSection/DescriptionSe
 import { ListSection } from "../Sections/ListSection/ListSection";
 import { BannerSection } from "../Sections/BannerSection/BannerSection";
 import { PicturesSection } from "../Sections/PicturesSection/PicturesSection";
+import { VideoSection } from "../Sections/VideoSection/VideoSection";
 
 import { TextField, Accordion, AccordionSummary, AccordionDetails } from "@material-ui/core";
 
@@ -89,6 +90,14 @@ export const Form = () => {
         </AccordionSummary>
         <StyledAccordionDetails>
           <PicturesSection />
+        </StyledAccordionDetails>
+      </Accordion>
+      <Accordion expanded={expanded === "section_7"} onChange={handleExpandedChange("section_7")}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+          <h3>Sekcja z video</h3>
+        </AccordionSummary>
+        <StyledAccordionDetails>
+          <VideoSection />
         </StyledAccordionDetails>
       </Accordion>
     </FormWrapper>

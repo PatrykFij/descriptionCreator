@@ -38,4 +38,5 @@ export const Mock = {
       description: "Wzmocnienie, ochrona i blask koloru",
     },
   ],
+  videoUrl: "https://youtu.be/m0fIHkfqpfo",
 };

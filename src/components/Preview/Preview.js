@@ -2,6 +2,7 @@ import "../../App.scss";
 import styled from "styled-components";
 import { useContext } from "react";
 import { AppContext } from "../AppContext/AppContext";
+import { mediaQuery } from "../../constants/MediaQueries";
 
 const PreviewWrapper = styled.div`
   border: 1px solid black;
@@ -12,6 +13,25 @@ const PreviewWrapper = styled.div`
   margin: 10px;
   padding: 20px;
   box-sizing: border-box;
+
+  ${mediaQuery.LG} {
+    min-width: 940px;
+    max-width: 940px;
+    margin: 0;
+    padding: 0;
+  }
+
+  ${mediaQuery.MD} {
+    min-width: 700px;
+    max-width: 700px;
+  }
+
+  ${mediaQuery.SM} {
+    min-width: unset;
+    max-width: unset;
+    width: 100%;
+    margin: 0;
+  }
 `;
 
 export const Preview = () => {
@@ -36,24 +56,24 @@ export const Preview = () => {
     <PreviewWrapper id="preview">
       <div class="description-container">
         <div class="top-bar"></div>
-        {producer && <h4 class="producer-header">{producer}</h4>}
+        {producer && <h4 class="section producer-header">{producer}</h4>}
         {(topHeader || middleHeader || bottomHeader) && (
-          <div class="top-headers-section">
+          <div class="section headers-section">
             {topHeader && <h2>{topHeader}</h2>}
             {middleHeader && <h3>{middleHeader}</h3>}
             {bottomHeader && <h4>{bottomHeader}</h4>}
           </div>
         )}
-        <div>
-          <div class="description-section">{paragraph && <p dangerouslySetInnerHTML={{ __html: paragraph }}></p>}</div>
-          {enabledListSection && listItems.length > 0 && (
-            <div class="list-section">
-              <ul class="list">{listItems.map((el) => (el ? <li>{el}</li> : null))}</ul>
-            </div>
-          )}
+        <div class="section description-section">
+          {paragraph && <p dangerouslySetInnerHTML={{ __html: paragraph }}></p>}
         </div>
+        {enabledListSection && listItems.length > 0 && (
+          <div class="section list-section">
+            <ul class="list">{listItems.map((el) => (el ? <li>{el}</li> : null))}</ul>
+          </div>
+        )}
         {enabledBannerSection && (
-          <div class="banner-section">
+          <div class="section banner-section">
             {bannerLink && (
               <img
                 src={"https://www.brillar-sklep.pl/userdata/public/assets/kemon/" + bannerLink}
@@ -66,7 +86,7 @@ export const Preview = () => {
         {enabledPicturesSection && (
           <>
             {pictureSectionTitle && <h4>{pictureSectionTitle}</h4>}
-            <div class="image-section">
+            <div class="section image-section">
               {pictureItems.map((el, index) => (
                 <div key={index} class="image-container">
                   <img
@@ -83,7 +103,7 @@ export const Preview = () => {
         )}
         {enabledVideoSection && (
           <>
-            <div class="video-section">
+            <div class="section video-section">
               <iframe
                 width="100%"
                 src="https://www.youtube.com/embed/m0fIHkfqpfo"

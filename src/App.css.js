@@ -1,9 +1,18 @@
 import styled from "styled-components";
 import { Button } from "@material-ui/core";
+import { mediaQuery } from "./constants/MediaQueries";
 
 export const MainWrapper = styled.div`
   display: flex;
   margin: 30px;
+  justify-content: center;
+  ${mediaQuery.XL} {
+    flex-wrap: wrap;
+  }
+
+  ${mediaQuery.SM} {
+    margin: 0;
+  }
 `;
 
 export const StyledButton = styled(Button)`
@@ -12,4 +21,5 @@ export const StyledButton = styled(Button)`
   align-self: center;
   margin-left: 40px;
   max-width: 200px;
+  flex
 `;

@@ -8,7 +8,6 @@ import { ListSection } from "../Sections/ListSection/ListSection";
 import { BannerSection } from "../Sections/BannerSection/BannerSection";
 import { PicturesSection } from "../Sections/PicturesSection/PicturesSection";
 import { VideoSection } from "../Sections/VideoSection/VideoSection";
-
 import { TextField, Accordion, AccordionSummary, AccordionDetails } from "@material-ui/core";
 
 const FormWrapper = styled.div`
@@ -16,7 +15,8 @@ const FormWrapper = styled.div`
   border-radius: 5px;
   width: 100%;
   margin: 10px;
-  overflow-y: hidden;
+  max-height: 90vh;
+  overflow-y: scroll;
   padding: 10px;
 `;
 

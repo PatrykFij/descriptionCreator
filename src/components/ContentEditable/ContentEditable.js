@@ -1,10 +1,11 @@
+import { useCallback } from "react";
 import styled from "styled-components";
 import { IconButton } from "@material-ui/core";
-import { useState } from "react";
 import ContentEditable from "react-contenteditable";
 import FormatBoldIcon from "@material-ui/icons/FormatBold";
 import FormatItalicIcon from "@material-ui/icons/FormatItalic";
 import FormatUnderlinedIcon from "@material-ui/icons/FormatUnderlined";
+import _ from "lodash";
 
 const StyledContentEditable = styled(ContentEditable)`
   font-family: sans-serif;
@@ -41,6 +42,15 @@ export const TextEditor = ({ value, handleChange }) => {
     }
   };
 
+  const debounceFunc = useCallback(
+    _.debounce((e) => handleChange(e), 500),
+    []
+  );
+
+  const handleThrottledChange = (e) => {
+    debounceFunc(e);
+  };
+
   return (
     <>
       {TextTransforms.map((el) => (
@@ -60,7 +70,7 @@ export const TextEditor = ({ value, handleChange }) => {
         html={value}
         disabled={false}
         onKeyDown={(e) => handleKeyDown(e)}
-        onChange={(e) => handleChange(e)}
+        onChange={(e) => handleThrottledChange(e)}
       />
     </>
   );

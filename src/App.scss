@@ -1,5 +1,9 @@
 .section {
   margin-bottom: 40px;
+
+  & .header {
+    font-size: 28px;
+  }
 }
 
 .description-container {
@@ -33,7 +37,7 @@
   font-family: "Roboto";
 
   & > h2 {
-    font-size: 27px;
+    font-size: 30px;
     letter-spacing: 3px;
   }
   & > h3 {

@@ -57,11 +57,7 @@ export const Preview = () => {
     <PreviewWrapper id="preview">
       <div class="description-container">
         <div class="top-bar"></div>
-        {producer && (
-          <h4 class="section producer-header" data-producer={producer}>
-            {producer}
-          </h4>
-        )}
+        {producer && <h4 class="section producer-header">{producer}</h4>}
         {(topHeader || middleHeader || bottomHeader) && (
           <div class="section headers-section">
             {topHeader && <h2>{topHeader}</h2>}
@@ -90,9 +86,9 @@ export const Preview = () => {
           </div>
         )}
         {enabledPicturesSection && (
-          <>
-            {pictureSectionTitle && <h4>{pictureSectionTitle}</h4>}
-            <div class="section image-section">
+          <div class="section">
+            {pictureSectionTitle && <h4 class="header">{pictureSectionTitle}</h4>}
+            <div class="image-section">
               {pictureItems.map((el, index) => (
                 <div key={index} class="image-container">
                   <img
@@ -105,12 +101,12 @@ export const Preview = () => {
                 </div>
               ))}
             </div>
-          </>
+          </div>
         )}
         {enabledVideoSection && (
           <>
             <div class="section video-section">
-              {videoSection.sectionTitle && <h4 class="section-header">{videoSection.sectionTitle}</h4>}
+              {videoSection.sectionTitle && <h4 class="header">{videoSection.sectionTitle}</h4>}
               {videoSection.description && (
                 <p class="section-description" dangerouslySetInnerHTML={{ __html: videoSection.description }}></p>
               )}
@@ -121,7 +117,7 @@ export const Preview = () => {
                   title={videoSection.videoTitle}
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
+                  allowFullScreen
                 ></iframe>
               </div>
             </div>

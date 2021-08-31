@@ -41,6 +41,7 @@ export const BannerSection = () => {
           id="outlined-multiline-static"
           label="Nazwe pliku z banerem"
           variant="outlined"
+          helperText="* Maxymalna szerokość grafiki nie powinna być większa niż 1000px "
           defaultValue={bannerLink}
           onChange={handleBannerLinkChange}
         />

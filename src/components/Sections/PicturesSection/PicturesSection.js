@@ -15,11 +15,11 @@ const StyledTitleTextField = styled(TextField)`
 const FormWrapper = styled.div`
   display: flex;
   border-bottom: 1px solid black;
-  padding: 2px 0;
+  padding: 15px 0;
 `;
 
 const StyledTextField = styled(TextField)`
-  margin: 2px 0;
+  margin: 5px 0;
   width: 100%;
 `;
 
@@ -147,24 +147,30 @@ export const PicturesSection = () => {
                     onChange={(e) => handleChangePictureUrl(e, index)}
                     defaultValue={el.url}
                     placeholder="Nazwa pliku z grafiką"
+                    label="Nazwa pliku z grafiką"
+                    helperText="* Maxymalna szerokość grafiki nie powinna być większa niż 450px"
                     variant="outlined"
                   />
                   <StyledTextField
                     onChange={(e) => handleChangePicturePictureAlt(e, index)}
                     defaultValue={el.alt}
                     placeholder="ALT tag"
+                    label="ALT tag"
+                    helperText="* Opis zdjęcia wyświetlany w momencie kiedy grafika nie może zostać załadowana"
                     variant="outlined"
                   />
                   <StyledTextField
                     onChange={(e) => handleChangePictureTitle(e, index)}
                     defaultValue={el.title}
                     placeholder="Tytuł pod grafiką"
+                    label="Tytuł pod grafiką"
                     variant="outlined"
                   />
                   <StyledTextField
                     onChange={(e) => handleChangePictureDescription(e, index)}
                     defaultValue={el.description}
                     placeholder="Opis pod grafiką"
+                    label="Opis pod grafiką"
                     variant="outlined"
                   />
                 </FieldsWrapper>

@@ -13,14 +13,28 @@ const StyledFormControlLabel = styled(FormControlLabel)`
 `;
 
 export const VideoSection = () => {
-  const { videoUrl, setVideoUrl, enabledVideoSection, setEnabledVideoSection } = useContext(AppContext);
+  const { videoSection, setVideoSection, enabledVideoSection, setEnabledVideoSection } = useContext(AppContext);
 
   const handleEnableVideoSectionChange = () => {
     setEnabledVideoSection(!enabledVideoSection);
   };
 
+  const handleSectionTitleChange = (e) => {
+    setVideoSection((prevState) => {
+      return { ...prevState, sectionTitle: e.target.value.trim() };
+    });
+  };
+
+  const handleVideoTitleChange = (e) => {
+    setVideoSection((prevState) => {
+      return { ...prevState, videoTitle: e.target.value.trim() };
+    });
+  };
+
   const handleVideoUrlChange = (e) => {
-    setVideoUrl(e.target.value.trim());
+    setVideoSection((prevState) => {
+      return { ...prevState, videoUrl: e.target.value.trim() };
+    });
   };
 
   return (
@@ -37,13 +51,30 @@ export const VideoSection = () => {
         label="Sekcja z listą"
       />
       {enabledVideoSection && (
-        <StyledTextField
-          id="outlined-multiline-static"
-          label="Podaj link url do filmu"
-          defaultValue={videoUrl}
-          variant="outlined"
-          onChange={handleVideoUrlChange}
-        />
+        <>
+          <StyledTextField
+            id="outlined-multiline-static"
+            label="Podaj tytuł sekcji video"
+            defaultValue={videoSection.sectionTitle}
+            variant="outlined"
+            onChange={handleSectionTitleChange}
+          />
+          <StyledTextField
+            id="outlined-multiline-static"
+            label="Podaj tytuł video"
+            defaultValue={videoSection.videoTitle}
+            helperText="* Tytuł wideo nie jest widoczny w opisie, ale należy go poprawnie wprowadzić"
+            variant="outlined"
+            onChange={handleVideoTitleChange}
+          />
+          <StyledTextField
+            id="outlined-multiline-static"
+            label="Podaj link url do filmu"
+            defaultValue={videoSection.videoUrl}
+            variant="outlined"
+            onChange={handleVideoUrlChange}
+          />
+        </>
       )}
     </>
   );

@@ -15,7 +15,7 @@ const appCtxDefaultValue = {
   pictureSectionTitle: Mock.pictureSectionTitle,
   pictureItems: Mock.pictureItems,
   enabledVideoSection: true,
-  videoUrl: Mock.videoUrl,
+  videoSection: Mock.videoSection,
   setProducer: () => {},
   setTopHeader: () => {},
   setMiddleHeader: () => {},
@@ -29,7 +29,7 @@ const appCtxDefaultValue = {
   setPictureSectionTitle: () => {},
   setPictureItems: () => {},
   setEnabledVideoSection: () => {},
-  setVideoUrl: () => {},
+  setVideoSection: () => {},
 };
 
 export const AppContext = React.createContext(appCtxDefaultValue);
@@ -54,7 +54,7 @@ export const AppProvider = ({ children }) => {
   const [pictureItems, setPictureItems] = useState(appCtxDefaultValue.pictureItems);
 
   const [enabledVideoSection, setEnabledVideoSection] = useState(appCtxDefaultValue.enabledVideoSection);
-  const [videoUrl, setVideoUrl] = useState(appCtxDefaultValue.videoUrl);
+  const [videoSection, setVideoSection] = useState(appCtxDefaultValue.videoSection);
 
   return (
     <AppContext.Provider
@@ -72,7 +72,7 @@ export const AppProvider = ({ children }) => {
         pictureSectionTitle,
         pictureItems,
         enabledVideoSection,
-        videoUrl,
+        videoSection,
         setProducer,
         setTopHeader,
         setMiddleHeader,
@@ -86,7 +86,7 @@ export const AppProvider = ({ children }) => {
         setPictureSectionTitle,
         setPictureItems,
         setEnabledVideoSection,
-        setVideoUrl,
+        setVideoSection,
       }}
     >
       {children}

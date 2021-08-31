@@ -176,6 +176,12 @@
 }
 
 @media (max-width: 979px) {
+  .section {
+    & .header {
+      font-size: 24px;
+    }
+  }
+
   .top-bar {
     margin-left: -40px;
     margin-right: -40px;
@@ -207,6 +213,12 @@
 }
 
 @media (max-width: 767px) {
+  .section {
+    & .header {
+      font-size: 20px;
+    }
+  }
+
   .top-bar {
     margin-left: -20px;
     margin-right: -20px;

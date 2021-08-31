@@ -78,7 +78,7 @@ export const Preview = () => {
             {bannerLink && (
               <img
                 class="img-frame"
-                src={"https://www.brillar-sklep.pl/userdata/public/assets/kemon/" + bannerLink}
+                src={"https://www.brillar-sklep.pl/userdata/public/assets/" + bannerLink}
                 alt="USTAWIĆ ALT TAG NA PODSTAWIE NAZWY PLIKU !!!"
                 width="auto"
               />

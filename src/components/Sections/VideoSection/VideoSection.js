@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { TextField, FormControlLabel, Checkbox } from "@material-ui/core";
 import { useContext } from "react";
 import { AppContext } from "../../AppContext/AppContext";
+import { TextEditor } from "../../ContentEditable/ContentEditable";
 
 const StyledTextField = styled(TextField)`
   width: 100%;
@@ -37,6 +38,12 @@ export const VideoSection = () => {
     });
   };
 
+  const handleDecriptionChange = (e) => {
+    setVideoSection((prevState) => {
+      return { ...prevState, description: e.target.value.trim() };
+    });
+  };
+
   return (
     <>
       <StyledFormControlLabel
@@ -59,6 +66,7 @@ export const VideoSection = () => {
             variant="outlined"
             onChange={handleSectionTitleChange}
           />
+          <TextEditor value={videoSection.description} handleChange={handleDecriptionChange} />
           <StyledTextField
             id="outlined-multiline-static"
             label="Podaj tytuł video"

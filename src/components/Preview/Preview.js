@@ -7,9 +7,10 @@ import { mediaQuery } from "../../constants/MediaQueries";
 const PreviewWrapper = styled.div`
   border: 1px solid black;
   border-radius: 5px;
-  overflow-y: hidden;
+  overflow-y: scroll;
   min-width: 1180px;
   max-width: 1180px;
+  max-height: 80vh;
   margin: 10px;
   padding: 20px;
   box-sizing: border-box;
@@ -56,7 +57,11 @@ export const Preview = () => {
     <PreviewWrapper id="preview">
       <div class="description-container">
         <div class="top-bar"></div>
-        {producer && <h4 class="section producer-header">{producer}</h4>}
+        {producer && (
+          <h4 class="section producer-header" data-producer={producer}>
+            {producer}
+          </h4>
+        )}
         {(topHeader || middleHeader || bottomHeader) && (
           <div class="section headers-section">
             {topHeader && <h2>{topHeader}</h2>}
@@ -106,6 +111,9 @@ export const Preview = () => {
           <>
             <div class="section video-section">
               {videoSection.sectionTitle && <h4 class="section-header">{videoSection.sectionTitle}</h4>}
+              {videoSection.description && (
+                <p class="section-description" dangerouslySetInnerHTML={{ __html: videoSection.description }}></p>
+              )}
               <div class="video-wrapper">
                 <iframe
                   width="100%"

@@ -20,7 +20,7 @@ export const BannerSection = () => {
   };
 
   const handleBannerLinkChange = (e) => {
-    setBannerLink("https://www.brillar-sklep.pl/userdata/public/assets/" + e.target.value.trim());
+    setBannerLink(e.target.value.trim());
   };
 
   return (

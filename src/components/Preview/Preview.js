@@ -79,7 +79,7 @@ export const Preview = () => {
               <img
                 class="img-frame"
                 src={"https://www.brillar-sklep.pl/userdata/public/assets/kemon/" + bannerLink}
-                alt="USTAWIĆ ALT TAK NA PODSTAWIE NAZWY PLIKU !!!"
+                alt="USTAWIĆ ALT TAG NA PODSTAWIE NAZWY PLIKU !!!"
                 width="auto"
               />
             )}
@@ -96,8 +96,8 @@ export const Preview = () => {
                     alt={el.alt}
                     width="auto"
                   />
-                  <h5>{el.title}</h5>
-                  <p>{el.description}</p>
+                  {el.title && <h5>{el.title}</h5>}
+                  {el.description && <p>{el.description}</p>}
                 </div>
               ))}
             </div>

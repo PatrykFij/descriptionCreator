@@ -7,15 +7,21 @@ export const Mock = {
 
   paragraph:
     "Zestaw Kemon Actyva Nutrizione to pielęgnacja przeznaczona do włosów średnich i cienkich, lekko przesuszonych, wrażliwych oraz normalnej skóry głowy. Szampon, odżywka oraz krem zapewniają optymalne i natychmiastowe odżywienie, zachowując naturalną równowagę skóry głowy. Nawilżają i chronią włosy. Dodają włosom blasku, miękkości, lekkiej objętości, ułatwiają rozczesywanie oraz trwale chronią przed przesuszeniem. <br><br> <p>Włosy suche charakteryzują się częściową lub całkowitą utratą lipidów lub odwodnieniem. Pozbawione naturalnych substancji łuski zewnętrznej warstwy włosów otwierają się. W efekcie włosy stają się matowe, szorstkie, kruche, elektryzują się, są trudne do rozczesania i ułożenia oraz brakuje im elastyczności. Włosy mogą być z natury suche lub ulec wysuszeniu pod wpływem czynników zewnętrznych lub nawyków danej osoby. Z myślą o pielęgnacji włosów suchych Kemon Actyva proponuje linię Nutrizione z zaawansowaną technologicznie mieszanką surowców oraz składników aktywnych pochodzenia naturalnego, która wszystkim rodzajom włosów przywraca naturalny stan równowagi.</p>",
-  listItems: [
-    "DELIKATNIE OCZYSZCZA WŁOSY I SKÓRĘ GŁOWY",
-    "NAWILŻA I CHRONI WŁOSY",
-    "ODŻYWIA",
-    "POMAGA ZACHOWAĆ NATURALNĄ RÓWNOWAGĘ SKÓRY GŁOWY",
-    "UŁATWIA ROZCZESYWANIE",
-    "DODAJE BLASKU, MIĘKKOŚCI I LEKKOŚCI",
-  ],
-  bannerLink: "kemon-actyva-nutrizione-kosmetyki-do-wlosow-suchych.jpg",
+  listSection: {
+    title: "Tytuł sekcji z listą",
+    listItems: [
+      "DELIKATNIE OCZYSZCZA WŁOSY I SKÓRĘ GŁOWY",
+      "NAWILŻA I CHRONI WŁOSY",
+      "ODŻYWIA",
+      "POMAGA ZACHOWAĆ NATURALNĄ RÓWNOWAGĘ SKÓRY GŁOWY",
+      "UŁATWIA ROZCZESYWANIE",
+      "DODAJE BLASKU, MIĘKKOŚCI I LEKKOŚCI",
+    ],
+  },
+  bannerSection: {
+    imgFileName: "kemon-actyva-nutrizione-kosmetyki-do-wlosow-suchych.jpg",
+    imgAltTag: "USTAWIĆ ALT TAG NA PODSTAWIE NAZWY PLIKU !!!",
+  },
   pictureSectionTitle: "PRZYKŁADOWY TYTUŁ SEKCJI ZE ZDJĘCIAMI",
   pictureItems: [
     {

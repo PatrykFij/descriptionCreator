@@ -13,14 +13,21 @@ const StyledFormControlLabel = styled(FormControlLabel)`
 `;
 
 export const BannerSection = () => {
-  const { enabledBannerSection, bannerLink, setBannerLink, setEnabledBannerSection } = useContext(AppContext);
+  const { enabledBannerSection, bannerSection, setBannerSection, setEnabledBannerSection } = useContext(AppContext);
 
   const handleEnableBannerSectionChange = () => {
     setEnabledBannerSection(!enabledBannerSection);
   };
 
-  const handleBannerLinkChange = (e) => {
-    setBannerLink(e.target.value.trim());
+  const handleFileNameChange = (e) => {
+    setBannerSection((prevState) => {
+      return { ...prevState, imgFileName: e.target.value.trim() };
+    });
+  };
+  const handleAltTagChange = (e) => {
+    setBannerSection((prevState) => {
+      return { ...prevState, imgAltTag: e.target.value.trim() };
+    });
   };
 
   return (
@@ -37,14 +44,23 @@ export const BannerSection = () => {
         label="Sekcja z banerem"
       />
       {enabledBannerSection && (
-        <StyledTextField
-          id="outlined-multiline-static"
-          label="Nazwe pliku z banerem"
-          variant="outlined"
-          helperText="* Maxymalna szerokość grafiki nie powinna być większa niż 1000px "
-          defaultValue={bannerLink}
-          onChange={handleBannerLinkChange}
-        />
+        <>
+          <StyledTextField
+            id="outlined-multiline-static"
+            label="Nazwe pliku z banerem"
+            variant="outlined"
+            helperText="* Maxymalna szerokość grafiki nie powinna być większa niż 1000px "
+            defaultValue={bannerSection.imgFileName}
+            onChange={handleFileNameChange}
+          />
+          <StyledTextField
+            id="outlined-multiline-static"
+            label="Podaj ALT TAG opisujący zdjęcie"
+            variant="outlined"
+            defaultValue={bannerSection.imgAltTag}
+            onChange={handleAltTagChange}
+          />
+        </>
       )}
     </>
   );

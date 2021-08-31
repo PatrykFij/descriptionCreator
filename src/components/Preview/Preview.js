@@ -43,8 +43,8 @@ export const Preview = () => {
     bottomHeader,
     paragraph,
     enabledListSection,
-    listItems,
-    bannerLink,
+    listSection,
+    bannerSection,
     enabledBannerSection,
     enabledPicturesSection,
     pictureItems,
@@ -68,18 +68,19 @@ export const Preview = () => {
         <div class="section description-section">
           {paragraph && <p dangerouslySetInnerHTML={{ __html: paragraph }}></p>}
         </div>
-        {enabledListSection && listItems.length > 0 && (
+        {enabledListSection && listSection.listItems.length > 0 && (
           <div class="section list-section">
-            <ul class="list">{listItems.map((el) => (el ? <li>{el}</li> : null))}</ul>
+            {listSection.title && <h4 class="header">{listSection.title}</h4>}
+            <ul class="list">{listSection.listItems.map((el) => (el ? <li>{el}</li> : null))}</ul>
           </div>
         )}
         {enabledBannerSection && (
           <div class="section banner-section">
-            {bannerLink && (
+            {bannerSection.imgFileName && (
               <img
                 class="img-frame"
-                src={"https://www.brillar-sklep.pl/userdata/public/assets/" + bannerLink}
-                alt="USTAWIĆ ALT TAG NA PODSTAWIE NAZWY PLIKU !!!"
+                src={"https://www.brillar-sklep.pl/userdata/public/assets/" + bannerSection.imgFileName}
+                alt={bannerSection.imgAltTag}
                 width="auto"
               />
             )}

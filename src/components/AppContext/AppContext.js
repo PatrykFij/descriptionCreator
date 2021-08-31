@@ -8,9 +8,9 @@ const appCtxDefaultValue = {
   bottomHeader: Mock.bottomHeader,
   paragraph: Mock.paragraph,
   enabledListSection: true,
-  listItems: Mock.listItems,
+  listSection: Mock.listSection,
   enabledBannerSection: true,
-  bannerLink: Mock.bannerLink,
+  bannerSection: Mock.bannerSection,
   enabledPicturesSection: true,
   pictureSectionTitle: Mock.pictureSectionTitle,
   pictureItems: Mock.pictureItems,
@@ -22,9 +22,9 @@ const appCtxDefaultValue = {
   setBottomHeader: () => {},
   setParagraph: () => {},
   setEnabledListSection: () => {},
-  setListItems: () => {},
+  setListSection: () => {},
   setEnabledBannerSection: () => {},
-  setBannerLink: () => {},
+  setBannerSection: () => {},
   setEnabledPicturesSection: () => {},
   setPictureSectionTitle: () => {},
   setPictureItems: () => {},
@@ -44,10 +44,10 @@ export const AppProvider = ({ children }) => {
   const [paragraph, setParagraph] = useState(appCtxDefaultValue.paragraph);
 
   const [enabledListSection, setEnabledListSection] = useState(appCtxDefaultValue.enabledListSection);
-  const [listItems, setListItems] = useState(appCtxDefaultValue.listItems);
+  const [listSection, setListSection] = useState(appCtxDefaultValue.listSection);
 
   const [enabledBannerSection, setEnabledBannerSection] = useState(appCtxDefaultValue.enabledBannerSection);
-  const [bannerLink, setBannerLink] = useState(appCtxDefaultValue.bannerLink);
+  const [bannerSection, setBannerSection] = useState(appCtxDefaultValue.bannerSection);
 
   const [enabledPicturesSection, setEnabledPicturesSection] = useState(appCtxDefaultValue.enabledPicturesSection);
   const [pictureSectionTitle, setPictureSectionTitle] = useState(appCtxDefaultValue.pictureSectionTitle);
@@ -65,9 +65,9 @@ export const AppProvider = ({ children }) => {
         bottomHeader,
         paragraph,
         enabledListSection,
-        listItems,
+        listSection,
         enabledBannerSection,
-        bannerLink,
+        bannerSection,
         enabledPicturesSection,
         pictureSectionTitle,
         pictureItems,
@@ -79,9 +79,9 @@ export const AppProvider = ({ children }) => {
         setBottomHeader,
         setParagraph,
         setEnabledListSection,
-        setListItems,
+        setListSection,
         setEnabledBannerSection,
-        setBannerLink,
+        setBannerSection,
         setEnabledPicturesSection,
         setPictureSectionTitle,
         setPictureItems,

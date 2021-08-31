@@ -13,16 +13,25 @@ const StyledFormControlLabel = styled(FormControlLabel)`
 `;
 
 export const ListSection = () => {
-  const { enabledListSection, listItems, setListItems, setEnabledListSection } = useContext(AppContext);
+  const { enabledListSection, listSection, setListSection, setEnabledListSection } = useContext(AppContext);
 
   const handleEnableListSectionChange = () => {
     setEnabledListSection(!enabledListSection);
   };
 
+  const handleTitleChange = (e) => {
+    setListSection((prevState) => {
+      return { ...prevState, title: e.target.value.trim() };
+    });
+  };
+
   const handleListItemsChange = (e) => {
     let items = e.target.value.split("\n");
-    setListItems(!!e.target.value ? items.map((el) => el.trim()) : []);
+    setListSection((prevState) => {
+      return { ...prevState, listItems: !!e.target.value ? items.map((el) => el.trim()) : [] };
+    });
   };
+
   return (
     <>
       <StyledFormControlLabel
@@ -37,15 +46,24 @@ export const ListSection = () => {
         label="Sekcja z listą"
       />
       {enabledListSection && (
-        <StyledTextField
-          id="outlined-multiline-static"
-          label="Podaj elementy listy"
-          multiline
-          rows={10}
-          defaultValue={listItems}
-          variant="outlined"
-          onChange={handleListItemsChange}
-        />
+        <>
+          <StyledTextField
+            id="outlined-multiline-static"
+            label="Podaj tytuł sekcji z listą"
+            defaultValue={listSection.title}
+            variant="outlined"
+            onChange={handleTitleChange}
+          />
+          <StyledTextField
+            id="outlined-multiline-static"
+            label="Podaj elementy listy"
+            multiline
+            rows={10}
+            defaultValue={listSection.listItems.map((el) => el + "\n")}
+            variant="outlined"
+            onChange={handleListItemsChange}
+          />
+        </>
       )}
     </>
   );

@@ -15,6 +15,10 @@ const App = () => {
     setOpen(true);
   };
 
+  const handleClearLocalStorage = () => {
+    localStorage.removeItem("descriptionValues");
+  };
+
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -31,6 +35,9 @@ const App = () => {
         </Typography>
         <StyledButton onClick={handleCopyDescriptionCode} variant="contained" color="primary">
           Kopiuj kod źródłowy opisu
+        </StyledButton>
+        <StyledButton onClick={handleClearLocalStorage} variant="contained" color="secondary">
+          Wyczyść pamięć podręczną
         </StyledButton>
         <MainWrapper>
           <Form />

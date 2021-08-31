@@ -97,7 +97,7 @@ export const Preview = () => {
                     width="auto"
                   />
                   <h5>{el.title}</h5>
-                  <span>{el.description}</span>
+                  <p>{el.description}</p>
                 </div>
               ))}
             </div>

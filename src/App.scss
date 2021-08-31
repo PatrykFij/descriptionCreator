@@ -3,6 +3,7 @@
 
   & .header {
     font-size: 28px;
+    color: #666;
   }
 }
 
@@ -123,9 +124,12 @@
       text-align: center;
     }
 
-    & > span {
+    & > p {
       text-align: center;
-      display: block;
+      line-height: 28px;
+      font-size: 16px;
+      font-family: Roboto;
+      letter-spacing: 1px;
     }
   }
 }
@@ -208,6 +212,11 @@
       max-width: unset;
       width: 100%;
       margin-bottom: 10px;
+
+      & > p {
+        line-height: 24px;
+        font-size: 15px;
+      }
     }
   }
 }
@@ -240,10 +249,10 @@
     }
     & > h3 {
       letter-spacing: 3px;
-      font-size: 14px;
+      font-size: 15px;
     }
     & > h4 {
-      font-size: 12px;
+      font-size: 13px;
     }
   }
 
@@ -255,12 +264,19 @@
       }
 
       & > h5 {
-        font-size: 15px;
+        font-size: 17px;
       }
 
-      & > span {
-        font-size: 13px;
+      & > p {
+        font-size: 14px;
       }
+    }
+  }
+
+  .video-section {
+    & .section-description {
+      line-height: 40px;
+      font-size: 14px;
     }
   }
 }

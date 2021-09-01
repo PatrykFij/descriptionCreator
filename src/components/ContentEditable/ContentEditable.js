@@ -71,6 +71,11 @@ export const TextEditor = ({ value, handleChange }) => {
         disabled={false}
         onKeyDown={(e) => handleKeyDown(e)}
         onChange={(e) => handleThrottledChange(e)}
+        onPaste={(e) => {
+          e.preventDefault();
+          const text = e.clipboardData.getData("text");
+          document.execCommand("insertText", false, text);
+        }}
       />
     </>
   );

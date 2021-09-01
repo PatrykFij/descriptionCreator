@@ -1,5 +1,5 @@
 export const Mock = {
-  producer: "KEMON",
+  producer: "producer-kemon.png",
 
   topHeader: "ZESTAW DO WŁOSÓW PRZESUSZONYCH",
   middleHeader: "ODŻYWIENIE SUCHYCH WŁOSÓW",

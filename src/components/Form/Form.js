@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { useState, useContext } from "react";
-import { AppContext } from "../AppContext/AppContext";
+import { useState } from "react";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { TopHeaderSection } from "../Sections/TopHeaderSection/TopHeaderSection";
 import { DescriptionSection } from "../Sections/DescriptionSection/DescriptionSection";
@@ -8,6 +7,7 @@ import { ListSection } from "../Sections/ListSection/ListSection";
 import { BannerSection } from "../Sections/BannerSection/BannerSection";
 import { PicturesSection } from "../Sections/PicturesSection/PicturesSection";
 import { VideoSection } from "../Sections/VideoSection/VideoSection";
+import { ProducerSection } from "../Sections/ProducerSection/ProducerSection";
 import { TextField, Accordion, AccordionSummary, AccordionDetails } from "@material-ui/core";
 
 const FormWrapper = styled.div`
@@ -20,23 +20,12 @@ const FormWrapper = styled.div`
   padding: 10px;
 `;
 
-const StyledTextField = styled(TextField)`
-  width: 100%;
-  margin: 10px 0;
-`;
-
 const StyledAccordionDetails = styled(AccordionDetails)`
   display: block;
 `;
 
 export const Form = () => {
-  const { producer, setProducer } = useContext(AppContext);
-
   const [expanded, setExpanded] = useState(false);
-
-  const handleProducerChange = (e) => {
-    setProducer(e.target.value.trim());
-  };
 
   const handleExpandedChange = (section) => (event, isExpanded) => {
     setExpanded(isExpanded ? section : false);
@@ -49,12 +38,7 @@ export const Form = () => {
           <h3>Nazwa producenta</h3>
         </AccordionSummary>
         <StyledAccordionDetails>
-          <StyledTextField
-            onChange={handleProducerChange}
-            defaultValue={producer}
-            label="Producent nagłówek H4"
-            variant="outlined"
-          />
+          <ProducerSection />
         </StyledAccordionDetails>
       </Accordion>
       <Accordion expanded={expanded === "section_2"} onChange={handleExpandedChange("section_2")}>

@@ -7,6 +7,12 @@
   }
 }
 
+.producer-logo {
+  & > img {
+    max-width: 180px;
+  }
+}
+
 .description-container {
   padding: 0 70px;
 }

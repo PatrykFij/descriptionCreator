@@ -57,7 +57,15 @@ export const Preview = () => {
     <PreviewWrapper id="preview">
       <div class="description-container">
         <div class="top-bar"></div>
-        {producer && <h4 class="section producer-header">{producer}</h4>}
+        {producer && (
+          <div class="producer-logo">
+            <img
+              src={"https://www.brillar-sklep.pl/userdata/public/assets/" + producer}
+              alt="Logo producenta"
+              width="auto"
+            />
+          </div>
+        )}
         {(topHeader || middleHeader || bottomHeader) && (
           <div class="section headers-section">
             {topHeader && <h2>{topHeader}</h2>}
@@ -93,7 +101,7 @@ export const Preview = () => {
               {pictureItems.map((el, index) => (
                 <div key={index} class="image-container">
                   <img
-                    src={"https://www.brillar-sklep.pl/userdata/public/assets/kemon/" + el.url}
+                    src={"https://www.brillar-sklep.pl/userdata/public/assets/" + el.url}
                     alt={el.alt}
                     width="auto"
                   />

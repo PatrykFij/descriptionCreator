@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TextField, FormControlLabel, FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
+import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
 import { useContext } from "react";
 import { AppContext } from "../../AppContext/AppContext";
 
@@ -22,11 +22,11 @@ export const ProducerSection = () => {
     <StyledFormControl>
       <InputLabel>Age</InputLabel>
       <Select value={producer} onChange={handleChange}>
-        <MenuItem value={"producer-kemon.png"}>Kemon</MenuItem>
-        <MenuItem value={"producer-yonelle.png"}>Yonelle</MenuItem>
-        <MenuItem value={"producer-shangpree.png"}>Shangpree</MenuItem>
-        <MenuItem value={"producer-alfapar.png"}>Alfapar</MenuItem>
-        <MenuItem value={"producer-grazette.png"}>Grazette</MenuItem>
+        <MenuItem value={"kemon"}>Kemon</MenuItem>
+        <MenuItem value={"yonelle"}>Yonelle</MenuItem>
+        <MenuItem value={"shangpree"}>Shangpree</MenuItem>
+        <MenuItem value={"alfapar"}>Alfapar</MenuItem>
+        <MenuItem value={"grazette"}>Grazette</MenuItem>
       </Select>
     </StyledFormControl>
   );

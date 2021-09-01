@@ -59,11 +59,13 @@ export const Preview = () => {
         <div class="top-bar"></div>
         {producer && (
           <div class="producer-logo">
-            <img
-              src={"https://www.brillar-sklep.pl/userdata/public/assets/" + producer}
-              alt="Logo producenta"
-              width="auto"
-            />
+            <a href={`https://www.brillar-sklep.pl/` + producer}>
+              <img
+                src={"https://www.brillar-sklep.pl/userdata/public/assets/producer-" + producer + ".png"}
+                alt="Logo producenta"
+                width="auto"
+              />
+            </a>
           </div>
         )}
         {(topHeader || middleHeader || bottomHeader) && (

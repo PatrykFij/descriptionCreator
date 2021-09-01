@@ -20,7 +20,7 @@ export const ProducerSection = () => {
 
   return (
     <StyledFormControl>
-      <InputLabel>Age</InputLabel>
+      <InputLabel>Producent</InputLabel>
       <Select value={producer} onChange={handleChange}>
         <MenuItem value={"kemon"}>Kemon</MenuItem>
         <MenuItem value={"yonelle"}>Yonelle</MenuItem>

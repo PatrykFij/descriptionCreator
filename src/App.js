@@ -4,19 +4,25 @@ import { Typography, Snackbar } from "@material-ui/core";
 import { MainWrapper, StyledButton } from "./App.css.js";
 import { Form } from "./components/Form/Form";
 import { Preview } from "./components/Preview/Preview";
+import { SourceCodeDialog } from "./components/SourceCodeDialog/SourceCodeDialog";
 import { AppProvider } from "../src/components/AppContext/AppContext";
 
 const App = () => {
-  const [open, setOpen] = useState(false);
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+  const [isSourceCodeDialogOpen, setIsSourceCodeDialogOpen] = useState(false);
 
   const handleCopyDescriptionCode = () => {
     var previewCode = document.getElementById("preview").innerHTML;
     navigator.clipboard.writeText(previewCode);
-    setOpen(true);
+    setIsSnackbarOpen(true);
   };
 
   const handleClearLocalStorage = () => {
     localStorage.removeItem("descriptionValues");
+  };
+
+  const handleOpenSourceCodeDialog = () => {
+    setIsSourceCodeDialogOpen(true);
   };
 
   const handleClose = (event, reason) => {
@@ -24,7 +30,7 @@ const App = () => {
       return;
     }
 
-    setOpen(false);
+    setIsSnackbarOpen(false);
   };
 
   return (
@@ -39,15 +45,16 @@ const App = () => {
         <StyledButton onClick={handleClearLocalStorage} variant="contained" color="secondary">
           Wyczyść pamięć podręczną
         </StyledButton>
-        <StyledButton onClick={handleClearLocalStorage} variant="contained" color="default">
+        <StyledButton onClick={handleOpenSourceCodeDialog} variant="contained" color="default">
           Wprowadź istniejącą ofertę
         </StyledButton>
+        <SourceCodeDialog isOpen={isSourceCodeDialogOpen} setIsOpen={setIsSourceCodeDialogOpen} />
         <MainWrapper>
           <Form />
           <Preview />
           <Snackbar
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            open={open}
+            open={isSnackbarOpen}
             autoHideDuration={2000}
             onClose={handleClose}
             message="Skopiowano"

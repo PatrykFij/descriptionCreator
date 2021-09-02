@@ -8,9 +8,9 @@ import {
   DialogActions,
 } from "@material-ui/core";
 
-export const SourceCodeDialog = ({ isOpen, setOpenSourceCodeDialog }) => {
+export const SourceCodeDialog = ({ isOpen, setIsOpen }) => {
   const handleClose = () => {
-    setOpenSourceCodeDialog(false);
+    setIsOpen(false);
   };
 
   return (

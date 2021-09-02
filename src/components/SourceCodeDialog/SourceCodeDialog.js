@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Button,
   Dialog,
@@ -9,12 +10,20 @@ import {
 } from "@material-ui/core";
 
 export const SourceCodeDialog = ({ isOpen, setIsOpen }) => {
+  const [sourceCode, setSourceCode] = useState();
+
   const handleClose = () => {
+    setSourceCode();
     setIsOpen(false);
   };
 
   const handleApprove = () => {
+    setSourceCode();
     setIsOpen(false);
+  };
+
+  const handleChange = (e) => {
+    setSourceCode(e.target.value.trim());
   };
 
   return (
@@ -24,7 +33,16 @@ export const SourceCodeDialog = ({ isOpen, setIsOpen }) => {
         <DialogContentText>
           Wprowadź kod źródłowy istniejącej oferty shoper i zawtwierdź, aby rozpocząć edycje.
         </DialogContentText>
-        <TextField autoFocus margin="dense" label="Kod żródłowy" multiline rows={10} fullWidth />
+        <TextField
+          autoFocus
+          margin="dense"
+          label="Kod żródłowy"
+          multiline
+          rows={10}
+          value={sourceCode}
+          onChange={handleChange}
+          fullWidth
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="secondary">

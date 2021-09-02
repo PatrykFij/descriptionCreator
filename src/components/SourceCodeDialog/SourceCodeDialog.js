@@ -25,7 +25,7 @@ export const SourceCodeDialog = ({ isOpen, setOpenSourceCodeDialog }) => {
           Zamknij
         </Button>
         <Button onClick={handleClose} color="primary">
-          Potwierdź
+          Zatwierdź
         </Button>
       </DialogActions>
     </Dialog>

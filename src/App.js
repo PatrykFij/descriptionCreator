@@ -39,6 +39,9 @@ const App = () => {
         <StyledButton onClick={handleClearLocalStorage} variant="contained" color="secondary">
           Wyczyść pamięć podręczną
         </StyledButton>
+        <StyledButton onClick={handleClearLocalStorage} variant="contained" color="default">
+          Wprowadź istniejącą ofertę
+        </StyledButton>
         <MainWrapper>
           <Form />
           <Preview />

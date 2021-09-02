@@ -13,18 +13,24 @@ export const SourceCodeDialog = ({ isOpen, setIsOpen }) => {
     setIsOpen(false);
   };
 
+  const handleApprove = () => {
+    setIsOpen(false);
+  };
+
   return (
     <Dialog open={isOpen} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Kod źródłowy shoper</DialogTitle>
       <DialogContent>
-        <DialogContentText>Wprowadź kod źródłowy istniejącej oferty shoper, aby rozpocząć edycje.</DialogContentText>
+        <DialogContentText>
+          Wprowadź kod źródłowy istniejącej oferty shoper i zawtwierdź, aby rozpocząć edycje.
+        </DialogContentText>
         <TextField autoFocus margin="dense" label="Kod żródłowy" multiline rows={10} fullWidth />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="secondary">
           Zamknij
         </Button>
-        <Button onClick={handleClose} color="primary">
+        <Button onClick={handleApprove} color="primary">
           Zatwierdź
         </Button>
       </DialogActions>

@@ -8,6 +8,7 @@ import {
   DialogContentText,
   TextField,
   DialogActions,
+  Snackbar,
 } from "@material-ui/core";
 
 const getExistingOfferFields = (existingOffer) => {
@@ -99,6 +100,8 @@ const getExistingOfferFields = (existingOffer) => {
 
 export const SourceCodeDialog = ({ isOpen, setIsOpen }) => {
   const [sourceCode, setSourceCode] = useState();
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+
   const {
     setProducer,
     setTopHeader,
@@ -182,6 +185,7 @@ export const SourceCodeDialog = ({ isOpen, setIsOpen }) => {
       setEnabledSections(existingOffer);
     } else {
       console.log("Błędny format oferty");
+      setIsSnackbarOpen(true);
     }
     setIsOpen(false);
   };
@@ -190,32 +194,49 @@ export const SourceCodeDialog = ({ isOpen, setIsOpen }) => {
     setSourceCode(e.target.value.trim());
   };
 
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setIsSnackbarOpen(false);
+  };
+
   return (
-    <Dialog open={isOpen} onClose={handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">Kod źródłowy shoper</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          Wprowadź kod źródłowy istniejącej oferty shoper i zawtwierdź, aby rozpocząć edycje.
-        </DialogContentText>
-        <TextField
-          autoFocus
-          margin="dense"
-          label="Kod żródłowy"
-          multiline
-          rows={10}
-          value={sourceCode}
-          onChange={handleChange}
-          fullWidth
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose} color="secondary">
-          Zamknij
-        </Button>
-        <Button onClick={handleApprove} color="primary">
-          Zatwierdź
-        </Button>
-      </DialogActions>
-    </Dialog>
+    <>
+      <Dialog open={isOpen} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Kod źródłowy shoper</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Wprowadź kod źródłowy istniejącej oferty shoper i zawtwierdź, aby rozpocząć edycje.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Kod żródłowy"
+            multiline
+            rows={10}
+            value={sourceCode}
+            onChange={handleChange}
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="secondary">
+            Zamknij
+          </Button>
+          <Button onClick={handleApprove} color="primary">
+            Zatwierdź
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Snackbar
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        open={isSnackbarOpen}
+        autoHideDuration={2000}
+        onClose={handleCloseSnackbar}
+        message="Błędny format oferty"
+      />
+    </>
   );
 };

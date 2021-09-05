@@ -10,13 +10,166 @@ import {
   DialogActions,
 } from "@material-ui/core";
 
+const getExistingOfferFields = (existingOffer) => {
+  const producer = existingOffer
+    .querySelector('#producer-logo-section [data-id="a_1"]')
+    .href.replace("https://www.brillar-sklep.pl/", "");
+
+  const topHeader = existingOffer.querySelector('#headers-section [data-id="h2_1"]')
+    ? existingOffer.querySelector('#headers-section [data-id="h2_1"]').innerHTML
+    : "";
+
+  const middleHeader = existingOffer.querySelector('#headers-section [data-id="h3_1"]')
+    ? existingOffer.querySelector('#headers-section [data-id="h3_1"]').innerHTML
+    : "";
+
+  const bottomHeader = existingOffer.querySelector('#headers-section [data-id="h4_1"]')
+    ? existingOffer.querySelector('#headers-section [data-id="h4_1"]').innerHTML
+    : "";
+
+  const descriptionSection = existingOffer.querySelector('#description_section [data-id="p_1"]')
+    ? existingOffer.querySelector('#description_section [data-id="p_1"]').innerHTML
+    : "";
+
+  const listSection = {
+    title: existingOffer.querySelector('#list_section [data-id="h4_1"]')
+      ? existingOffer.querySelector('#list_section [data-id="h4_1"]').innerHTML
+      : "",
+    listItems: existingOffer.querySelector('#list_section [data-id="ul_1"]')
+      ? [...existingOffer.querySelector('#list_section [data-id="ul_1"]').childNodes].map((el) => el.innerHTML)
+      : [],
+  };
+
+  const bannerSection = {
+    imgFileName: existingOffer.querySelector('#banner-section [data-id="img_1"]')
+      ? existingOffer
+          .querySelector('#banner-section [data-id="img_1"]')
+          .src.replace("https://www.brillar-sklep.pl/userdata/public/assets/", "")
+      : "",
+    imgAltTag: existingOffer.querySelector('#banner-section [data-id="img_1"]')
+      ? existingOffer.querySelector('#banner-section [data-id="img_1"]').alt
+      : "",
+  };
+
+  const pictureSectionTitle = existingOffer.querySelector('#pictures-section [data-id="h4_1"]')
+    ? existingOffer.querySelector('#pictures-section [data-id="h4_1"]').innerHTML
+    : "";
+
+  let pictureSectionItems = [...existingOffer.querySelectorAll("#pictures-section #pictures-wrapper .image-container")];
+
+  pictureSectionItems = pictureSectionItems.length
+    ? pictureSectionItems.map((el) => ({
+        url: el
+          .querySelector('[data-id="img_1"]')
+          .src.replace("https://www.brillar-sklep.pl/userdata/public/assets/", ""),
+        alt: el.querySelector('[data-id="img_1"]').alt,
+        title: el.querySelector('[data-id="h5_1"]').innerHTML,
+        description: el.querySelector('[data-id="p_1"]').innerHTML,
+      }))
+    : [];
+
+  const videoSection = {
+    sectionTitle: existingOffer.querySelector('#video-section [data-id="h4_1"]')
+      ? existingOffer.querySelector('#video-section [data-id="h4_1"]').innerHTML
+      : "",
+    description: existingOffer.querySelector('#video-section [data-id="p_1"]')
+      ? existingOffer.querySelector('#video-section [data-id="p_1"]').innerHTML
+      : "",
+    videoTitle: existingOffer.querySelector('#video-section [data-id="iframe_1"]')
+      ? existingOffer.querySelector('#video-section [data-id="iframe_1"]').title
+      : "",
+    videoUrl: existingOffer.querySelector('#video-section [data-id="iframe_1"]')
+      ? existingOffer.querySelector('#video-section [data-id="iframe_1"]').src
+      : "",
+  };
+
+  return {
+    producer,
+    topHeader,
+    middleHeader,
+    bottomHeader,
+    descriptionSection,
+    listSection,
+    bannerSection,
+    pictureSectionTitle,
+    pictureSectionItems,
+    videoSection,
+  };
+};
+
 export const SourceCodeDialog = ({ isOpen, setIsOpen }) => {
   const [sourceCode, setSourceCode] = useState();
-  const { setProducer } = useContext(AppContext);
+  const {
+    setProducer,
+    setTopHeader,
+    setMiddleHeader,
+    setBottomHeader,
+    setParagraph,
+    setListSection,
+    setEnabledListSection,
+    setBannerSection,
+    setEnabledBannerSection,
+    setPictureSectionTitle,
+    setPictureItems,
+    setEnabledPicturesSection,
+    setVideoSection,
+    setEnabledVideoSection,
+  } = useContext(AppContext);
 
   const handleClose = () => {
     setSourceCode();
     setIsOpen(false);
+  };
+
+  const setExistingOffer = ({
+    producer,
+    topHeader,
+    middleHeader,
+    bottomHeader,
+    descriptionSection,
+    listSection,
+    bannerSection,
+    pictureSectionTitle,
+    pictureSectionItems,
+    videoSection,
+  }) => {
+    setProducer(producer);
+    setTopHeader(topHeader);
+    setMiddleHeader(middleHeader);
+    setBottomHeader(bottomHeader);
+    setParagraph(descriptionSection);
+    setListSection(listSection);
+    setBannerSection(bannerSection);
+    setPictureSectionTitle(pictureSectionTitle);
+    setPictureItems(pictureSectionItems);
+    setVideoSection(videoSection);
+  };
+
+  const setEnabledSections = (existingOffer) => {
+    const isListSectionEnabled = existingOffer.querySelector("#list_section");
+    setEnabledListSection(!!isListSectionEnabled);
+    if (!isListSectionEnabled) {
+      setListSection({ title: "", listItems: [] });
+    }
+
+    const isBannerSectionEnabled = existingOffer.querySelector("#banner-section");
+    setEnabledBannerSection(!!isBannerSectionEnabled);
+    if (!isBannerSectionEnabled) {
+      setBannerSection({ imgAltTag: "", imgFileName: "" });
+    }
+
+    const isPicturesSectionEnabled = existingOffer.querySelector("#pictures-section");
+    setEnabledPicturesSection(!!isPicturesSectionEnabled);
+    if (!isPicturesSectionEnabled) {
+      setPictureSectionTitle("");
+      setPictureItems([]);
+    }
+
+    const isVideoSectionEnabled = existingOffer.querySelector("#video-section");
+    setEnabledVideoSection(!!isVideoSectionEnabled);
+    if (!isVideoSectionEnabled) {
+      setVideoSection({ sectionTitle: "", description: "", videoTitle: "", videoUrl: "" });
+    }
   };
 
   const handleApprove = () => {
@@ -24,37 +177,9 @@ export const SourceCodeDialog = ({ isOpen, setIsOpen }) => {
     var existingOffer = parser.parseFromString(sourceCode, "text/html").querySelector(".description-container");
 
     if (existingOffer) {
-      const producer = existingOffer
-        .querySelector('#producer-logo-section [data-id="a_1"]')
-        .href.replace("https://www.brillar-sklep.pl/", "");
-
-      const topHeader = existingOffer.querySelector('#headers-section [data-id="h2_1"]').innerHTML;
-      const middleHeader = existingOffer.querySelector('#headers-section [data-id="h3_1"]').innerHTML;
-      const bottomHeader = existingOffer.querySelector('#headers-section [data-id="h4_1"]').innerHTML;
-
-      const descriptionSection = existingOffer.querySelector('#description_section [data-id="p_1"]').innerHTML;
-
-      const listSection = {
-        title: existingOffer.querySelector('#list_section [data-id="h4_1"]').innerHTML,
-        listItems: [...existingOffer.querySelector('#list_section [data-id="ul_1"]').childNodes].map(
-          (el) => el.innerHTML
-        ),
-      };
-
-      const bannerSection = {
-        imgFileName: existingOffer
-          .querySelector('#banner-section [data-id="img_1"]')
-          .src.replace("https://www.brillar-sklep.pl/userdata/public/assets/", ""),
-        imgAltTag: existingOffer.querySelector('#banner-section [data-id="img_1"]').alt,
-      };
-
-      const pictureSectionTitle = existingOffer.querySelector('#pictures-section [data-id="h4_1"]').innerHTML;
-      const pictureSectionItems = existingOffer.querySelectorAll(
-        "#pictures-section #pictures-wrapper .image-container"
-      );
-
-      console.log(pictureSectionItems);
-      // setProducer(producer);
+      const existingFields = getExistingOfferFields(existingOffer);
+      setExistingOffer(existingFields);
+      setEnabledSections(existingOffer);
     } else {
       console.log("Błędny format oferty");
     }

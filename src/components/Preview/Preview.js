@@ -78,7 +78,7 @@ export const Preview = () => {
         <div id="description_section" class="section description-section">
           {paragraph && <p data-id="p_1" dangerouslySetInnerHTML={{ __html: paragraph }}></p>}
         </div>
-        {enabledListSection && listSection.listItems.length > 0 && (
+        {enabledListSection && (listSection.title || listSection.listItems.length > 0) && (
           <div id="list_section" class="section list-section">
             {listSection.title && (
               <h4 data-id="h4_1" class="header">
@@ -90,43 +90,43 @@ export const Preview = () => {
             </ul>
           </div>
         )}
-        {enabledBannerSection && (
+        {enabledBannerSection && bannerSection.imgFileName && (
           <div id="banner-section" class="section banner-section">
-            {bannerSection.imgFileName && (
-              <img
-                data-id="img_1"
-                class="img-frame"
-                src={"https://www.brillar-sklep.pl/userdata/public/assets/" + bannerSection.imgFileName}
-                alt={bannerSection.imgAltTag}
-                width="auto"
-              />
-            )}
+            <img
+              data-id="img_1"
+              class="img-frame"
+              src={"https://www.brillar-sklep.pl/userdata/public/assets/" + bannerSection.imgFileName}
+              alt={bannerSection.imgAltTag}
+              width="auto"
+            />
           </div>
         )}
-        {enabledPicturesSection && (
+        {enabledPicturesSection && (pictureSectionTitle || pictureItems.length > 0) && (
           <div id="pictures-section" class="section">
             {pictureSectionTitle && (
               <h4 data-id="h4_1" class="header">
                 {pictureSectionTitle}
               </h4>
             )}
-            <div id="pictures-wrapper" class="image-section">
-              {pictureItems.map((el, index) => (
-                <div key={index} class="image-container">
-                  <img
-                    data-id="img_1"
-                    src={"https://www.brillar-sklep.pl/userdata/public/assets/" + el.url}
-                    alt={el.alt}
-                    width="auto"
-                  />
-                  {el.title && <h5 data-id="h5_1">{el.title}</h5>}
-                  {el.description && <p data-id="p_1">{el.description}</p>}
-                </div>
-              ))}
-            </div>
+            {pictureItems.length > 0 && (
+              <div id="pictures-wrapper" class="image-section">
+                {pictureItems.map((el, index) => (
+                  <div key={index} class="image-container">
+                    <img
+                      data-id="img_1"
+                      src={"https://www.brillar-sklep.pl/userdata/public/assets/" + el.url}
+                      alt={el.alt}
+                      width="auto"
+                    />
+                    {el.title && <h5 data-id="h5_1">{el.title}</h5>}
+                    {el.description && <p data-id="p_1">{el.description}</p>}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
-        {enabledVideoSection && (
+        {enabledVideoSection && (videoSection.sectionTitle || videoSection.description || videoSection.videoUrl) && (
           <div id="video-section" class="section video-section">
             {videoSection.sectionTitle && (
               <h4 data-id="h4_1" class="header">

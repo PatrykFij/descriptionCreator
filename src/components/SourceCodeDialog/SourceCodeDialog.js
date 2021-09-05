@@ -28,16 +28,16 @@ const getExistingOfferFields = (existingOffer) => {
     ? existingOffer.querySelector('#headers-section [data-id="h4_1"]').innerHTML
     : "";
 
-  const descriptionSection = existingOffer.querySelector('#description_section [data-id="p_1"]')
-    ? existingOffer.querySelector('#description_section [data-id="p_1"]').innerHTML
+  const descriptionSection = existingOffer.querySelector('#description-section [data-id="p_1"]')
+    ? existingOffer.querySelector('#description-section [data-id="p_1"]').innerHTML
     : "";
 
   const listSection = {
-    title: existingOffer.querySelector('#list_section [data-id="h4_1"]')
-      ? existingOffer.querySelector('#list_section [data-id="h4_1"]').innerHTML
+    title: existingOffer.querySelector('#list-section [data-id="h4_1"]')
+      ? existingOffer.querySelector('#list-section [data-id="h4_1"]').innerHTML
       : "",
-    listItems: existingOffer.querySelector('#list_section [data-id="ul_1"]')
-      ? [...existingOffer.querySelector('#list_section [data-id="ul_1"]').childNodes].map((el) => el.innerHTML)
+    listItems: existingOffer.querySelector('#list-section [data-id="ul_1"]')
+      ? [...existingOffer.querySelector('#list-section [data-id="ul_1"]').childNodes].map((el) => el.innerHTML)
       : [],
   };
 

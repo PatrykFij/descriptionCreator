@@ -40,7 +40,7 @@
   }
 }
 
-.headers-section {
+#headers-section {
   text-align: center;
   font-family: "Roboto";
 
@@ -58,7 +58,7 @@
   }
 }
 
-.description-section {
+#description-section {
   text-align: justify;
   line-height: 45px;
   font-size: 18px;
@@ -72,7 +72,7 @@
   }
 }
 
-.list-section {
+#list-section {
   & .list {
     list-style: none;
     padding-top: 35px;
@@ -96,7 +96,7 @@
   }
 }
 
-.banner-section {
+#banner-section {
   margin-bottom: 40px;
   display: flex;
   justify-content: center;
@@ -114,7 +114,7 @@
   }
 }
 
-.image-section {
+#pictures-wrapper {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
@@ -140,7 +140,7 @@
   }
 }
 
-.video-section {
+#video-section {
   & .video-wrapper {
     padding: 0 0 56.25%;
     position: relative;
@@ -177,7 +177,7 @@
     padding: 0 60px;
   }
 
-  .list-section {
+  #list-section {
     & .list {
       padding-top: 0;
       padding-bottom: 30px;
@@ -201,7 +201,7 @@
     padding: 0 40px;
   }
 
-  .list-section {
+  #list-section {
     & .list {
       padding-left: 15px;
 
@@ -211,7 +211,7 @@
     }
   }
 
-  .image-section {
+  #pictures-wrapper {
     justify-content: center;
 
     & .image-container {
@@ -239,16 +239,22 @@
     margin-right: -20px;
   }
 
+  .producer-logo {
+    & > a > img {
+      max-width: 110px;
+    }
+  }
+
   .description-container {
     padding: 0 10px;
   }
 
-  .description-section {
+  #description-section {
     font-size: 14px;
     line-height: 40px;
   }
 
-  .headers-section {
+  #headers-section {
     & > h2 {
       font-size: 24px;
       letter-spacing: 2px;
@@ -262,7 +268,7 @@
     }
   }
 
-  .image-section {
+  #pictures-wrapper {
     & .image-container {
       & > img {
         width: 80%;
@@ -279,7 +285,7 @@
     }
   }
 
-  .video-section {
+  #video-section {
     & .section-description {
       line-height: 30px;
       font-size: 14px;

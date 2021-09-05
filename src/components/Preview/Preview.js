@@ -69,17 +69,17 @@ export const Preview = () => {
           </div>
         )}
         {(topHeader || middleHeader || bottomHeader) && (
-          <div id="headers-section" class="section headers-section">
+          <div id="headers-section" class="section">
             {topHeader && <h2 data-id="h2_1">{topHeader}</h2>}
             {middleHeader && <h3 data-id="h3_1">{middleHeader}</h3>}
             {bottomHeader && <h4 data-id="h4_1">{bottomHeader}</h4>}
           </div>
         )}
-        <div id="description_section" class="section description-section">
+        <div id="description-section" class="section">
           {paragraph && <p data-id="p_1" dangerouslySetInnerHTML={{ __html: paragraph }}></p>}
         </div>
         {enabledListSection && (listSection.title || listSection.listItems.length > 0) && (
-          <div id="list_section" class="section list-section">
+          <div id="list-section" class="section">
             {listSection.title && (
               <h4 data-id="h4_1" class="header">
                 {listSection.title}
@@ -91,7 +91,7 @@ export const Preview = () => {
           </div>
         )}
         {enabledBannerSection && bannerSection.imgFileName && (
-          <div id="banner-section" class="section banner-section">
+          <div id="banner-section" class="section">
             <img
               data-id="img_1"
               class="img-frame"

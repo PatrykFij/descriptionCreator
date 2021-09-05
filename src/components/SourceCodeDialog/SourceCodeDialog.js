@@ -184,7 +184,6 @@ export const SourceCodeDialog = ({ isOpen, setIsOpen }) => {
       setExistingOffer(existingFields);
       setEnabledSections(existingOffer);
     } else {
-      console.log("Błędny format oferty");
       setIsSnackbarOpen(true);
     }
     setIsOpen(false);

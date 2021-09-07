@@ -1,20 +1,34 @@
 import "./App.scss";
 import { useState } from "react";
+import styled from "styled-components";
 import { Typography, Snackbar } from "@material-ui/core";
 import { MainWrapper, StyledButton } from "./App.css.js";
 import { Form } from "./components/Form/Form";
 import { Preview } from "./components/Preview/Preview";
 import { SourceCodeDialog } from "./components/SourceCodeDialog/SourceCodeDialog";
 import { AppProvider } from "../src/components/AppContext/AppContext";
+import { offerValidator } from "./utils/offerValidator";
+
+const StyledAlertSnackbar = styled(Snackbar)`
+  .MuiSnackbarContent-root {
+    background-color: #f44336;
+  }
+`;
 
 const App = () => {
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [isSourceCodeDialogOpen, setIsSourceCodeDialogOpen] = useState(false);
+  const [isOfferValidatorAlertOpen, setIsOfferValidatorAlertOpen] = useState(false);
 
   const handleCopyDescriptionCode = () => {
-    var previewCode = document.getElementById("preview").innerHTML;
-    navigator.clipboard.writeText(previewCode);
-    setIsSnackbarOpen(true);
+    const isValidOffer = offerValidator.validAltTags();
+    if (isValidOffer) {
+      var previewCode = document.getElementById("preview").innerHTML;
+      navigator.clipboard.writeText(previewCode);
+      setIsSnackbarOpen(true);
+    } else {
+      setIsOfferValidatorAlertOpen(true);
+    }
   };
 
   const handleClearLocalStorage = () => {
@@ -32,6 +46,7 @@ const App = () => {
     }
 
     setIsSnackbarOpen(false);
+    setIsOfferValidatorAlertOpen(false);
   };
 
   return (
@@ -53,6 +68,14 @@ const App = () => {
         <MainWrapper>
           <Form />
           <Preview />
+          <StyledAlertSnackbar
+            severity="error"
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            autoHideDuration={2000}
+            open={isOfferValidatorAlertOpen}
+            onClose={handleClose}
+            message="Nie wprowadzono ALT tagów dla wszystkich zdjęć!"
+          />
           <Snackbar
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             open={isSnackbarOpen}

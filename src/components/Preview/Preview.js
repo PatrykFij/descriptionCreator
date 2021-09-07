@@ -78,6 +78,18 @@ export const Preview = () => {
         <div id="description-section" class="section">
           {paragraph && <p data-id="p_1" dangerouslySetInnerHTML={{ __html: paragraph }}></p>}
         </div>
+
+        {enabledBannerSection && bannerSection.imgFileName && (
+          <div id="banner-section" class="section">
+            <img
+              data-id="img_1"
+              class="img-frame"
+              src={"https://www.brillar-sklep.pl/userdata/public/assets/" + bannerSection.imgFileName}
+              alt={bannerSection.imgAltTag}
+              width="auto"
+            />
+          </div>
+        )}
         {enabledListSection && (listSection.title || listSection.listItems.length > 0) && (
           <div id="list-section" class="section">
             {listSection.title && (
@@ -88,17 +100,6 @@ export const Preview = () => {
             <ul data-id="ul_1" class="list">
               {listSection.listItems.map((el) => (el ? <li>{el}</li> : null))}
             </ul>
-          </div>
-        )}
-        {enabledBannerSection && bannerSection.imgFileName && (
-          <div id="banner-section" class="section">
-            <img
-              data-id="img_1"
-              class="img-frame"
-              src={"https://www.brillar-sklep.pl/userdata/public/assets/" + bannerSection.imgFileName}
-              alt={bannerSection.imgAltTag}
-              width="auto"
-            />
           </div>
         )}
         {enabledPicturesSection && (pictureSectionTitle || pictureItems.length > 0) && (

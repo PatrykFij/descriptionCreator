@@ -32,7 +32,7 @@ export const VideoSection = () => {
     });
   };
 
-  const handleDecriptionChange = (e) => {
+  const handleDescriptionChange = (e) => {
     setVideoSection((prevState) => {
       return { ...prevState, description: e.target.value.trim() };
     });
@@ -60,7 +60,7 @@ export const VideoSection = () => {
             variant="outlined"
             onChange={handleSectionTitleChange}
           />
-          <TextEditor value={videoSection.description} handleChange={handleDecriptionChange} />
+          <TextEditor value={videoSection.description} handleChange={handleDescriptionChange} />
           <StyledTextField
             id="outlined-multiline-static"
             label="Podaj link url do filmu"

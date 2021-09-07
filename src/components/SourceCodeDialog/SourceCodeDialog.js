@@ -29,7 +29,9 @@ const getExistingOfferFields = (existingOffer) => {
     : "";
 
   const descriptionSection = existingOffer.querySelector('#description-section [data-id="p_1"]')
-    ? existingOffer.querySelector('#description-section [data-id="p_1"]').innerHTML
+    ? existingOffer
+        .querySelector('#description-section [data-id="p_1"]')
+        .innerHTML.replace(/(?:^(?:&nbsp;)+)|(?:(?:&nbsp;)+$)/g, "")
     : "";
 
   const listSection = {
@@ -60,27 +62,30 @@ const getExistingOfferFields = (existingOffer) => {
 
   pictureSectionItems = pictureSectionItems.length
     ? pictureSectionItems.map((el) => ({
-        url: el
-          .querySelector('[data-id="img_1"]')
-          .src.replace("https://www.brillar-sklep.pl/userdata/public/assets/", ""),
-        alt: el.querySelector('[data-id="img_1"]').alt,
-        title: el.querySelector('[data-id="h5_1"]').innerHTML,
-        description: el.querySelector('[data-id="p_1"]').innerHTML,
+        url: el.querySelector('[data-id="img_1"]')
+          ? el
+              .querySelector('[data-id="img_1"]')
+              .src.replace("https://www.brillar-sklep.pl/userdata/public/assets/", "")
+          : "",
+        alt: el.querySelector('[data-id="img_1"]') ? el.querySelector('[data-id="img_1"]').alt : "",
+        title: el.querySelector('[data-id="h5_1"]')
+          ? el.querySelector('[data-id="h5_1"]').innerHTML
+          : el.querySelector('[data-id="h5_1"]'),
+        description: el.querySelector('[data-id="p_1"]') ? el.querySelector('[data-id="p_1"]').innerHTML : "",
       }))
     : [];
 
   const videoSection = {
     sectionTitle: existingOffer.querySelector('#video-section [data-id="h4_1"]')
-      ? existingOffer.querySelector('#video-section [data-id="h4_1"]').innerHTML
+      ? existingOffer.querySelector('#video-section [data-id="h4_1"]').innerHTML.trim()
       : "",
     description: existingOffer.querySelector('#video-section [data-id="p_1"]')
-      ? existingOffer.querySelector('#video-section [data-id="p_1"]').innerHTML
-      : "",
-    videoTitle: existingOffer.querySelector('#video-section [data-id="iframe_1"]')
-      ? existingOffer.querySelector('#video-section [data-id="iframe_1"]').title
+      ? existingOffer
+          .querySelector('#video-section [data-id="p_1"]')
+          .innerHTML.replace(/(?:^(?:&nbsp;)+)|(?:(?:&nbsp;)+$)/g, "")
       : "",
     videoUrl: existingOffer.querySelector('#video-section [data-id="iframe_1"]')
-      ? existingOffer.querySelector('#video-section [data-id="iframe_1"]').src
+      ? existingOffer.querySelector('#video-section [data-id="iframe_1"]').src.trim()
       : "",
   };
 

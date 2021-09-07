@@ -37,7 +37,7 @@ const getExistingOfferFields = (existingOffer) => {
       ? existingOffer.querySelector('#list-section [data-id="h4_1"]').innerHTML
       : "",
     listItems: existingOffer.querySelector('#list-section [data-id="ul_1"]')
-      ? [...existingOffer.querySelector('#list-section [data-id="ul_1"]').childNodes].map((el) => el.innerHTML)
+      ? [...existingOffer.querySelectorAll('#list-section [data-id="ul_1"] > li')].map((el) => el.innerHTML)
       : [],
   };
 
@@ -149,7 +149,7 @@ export const SourceCodeDialog = ({ isOpen, setIsOpen }) => {
   };
 
   const setEnabledSections = (existingOffer) => {
-    const isListSectionEnabled = existingOffer.querySelector("#list_section");
+    const isListSectionEnabled = existingOffer.querySelector("#list-section");
     setEnabledListSection(!!isListSectionEnabled);
     if (!isListSectionEnabled) {
       setListSection({ title: "", listItems: [] });

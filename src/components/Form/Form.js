@@ -57,20 +57,21 @@ export const Form = () => {
           <DescriptionSection />
         </StyledAccordionDetails>
       </Accordion>
+
       <Accordion expanded={expanded === "section_4"} onChange={handleExpandedChange("section_4")}>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
-          <h3>Sekcja z listą</h3>
-        </AccordionSummary>
-        <StyledAccordionDetails>
-          <ListSection />
-        </StyledAccordionDetails>
-      </Accordion>
-      <Accordion expanded={expanded === "section_5"} onChange={handleExpandedChange("section_5")}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
           <h3>Sekcja z banerem</h3>
         </AccordionSummary>
         <StyledAccordionDetails>
           <BannerSection />
+        </StyledAccordionDetails>
+      </Accordion>
+      <Accordion expanded={expanded === "section_5"} onChange={handleExpandedChange("section_5")}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+          <h3>Sekcja z listą</h3>
+        </AccordionSummary>
+        <StyledAccordionDetails>
+          <ListSection />
         </StyledAccordionDetails>
       </Accordion>
       <Accordion expanded={expanded === "section_6"} onChange={handleExpandedChange("section_6")}>

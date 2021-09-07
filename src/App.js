@@ -19,6 +19,7 @@ const App = () => {
 
   const handleClearLocalStorage = () => {
     localStorage.removeItem("descriptionValues");
+    window.location.reload();
   };
 
   const handleOpenSourceCodeDialog = () => {

@@ -186,6 +186,7 @@ export const SourceCodeDialog = ({ isOpen, setIsOpen }) => {
     } else {
       setIsSnackbarOpen(true);
     }
+    setSourceCode();
     setIsOpen(false);
   };
 

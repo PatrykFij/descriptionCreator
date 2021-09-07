@@ -49,7 +49,7 @@ export const ListSection = () => {
         <>
           <StyledTextField
             id="outlined-multiline-static"
-            label="Podaj tytuł sekcji z listą"
+            label="Nagłówek H4"
             defaultValue={listSection.title}
             variant="outlined"
             onChange={handleTitleChange}

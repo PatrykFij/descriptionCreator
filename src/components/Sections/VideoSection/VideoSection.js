@@ -55,7 +55,7 @@ export const VideoSection = () => {
         <>
           <StyledTextField
             id="outlined-multiline-static"
-            label="Podaj tytuł sekcji video"
+            label="Nagłówek H4"
             defaultValue={videoSection.sectionTitle}
             variant="outlined"
             onChange={handleSectionTitleChange}

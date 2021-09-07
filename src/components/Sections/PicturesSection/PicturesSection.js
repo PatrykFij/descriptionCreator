@@ -130,7 +130,7 @@ export const PicturesSection = () => {
       {enabledPicturesSection && (
         <>
           <StyledTitleTextField
-            label="Tytuł sekcji ze zdjęciami"
+            label="Nagłówek H4"
             variant="outlined"
             defaultValue={pictureSectionTitle}
             onChange={handlePictureSectionTitleChange}

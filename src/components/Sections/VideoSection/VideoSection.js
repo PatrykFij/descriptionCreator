@@ -26,15 +26,9 @@ export const VideoSection = () => {
     });
   };
 
-  const handleVideoTitleChange = (e) => {
-    setVideoSection((prevState) => {
-      return { ...prevState, videoTitle: e.target.value.trim() };
-    });
-  };
-
   const handleVideoUrlChange = (e) => {
     setVideoSection((prevState) => {
-      return { ...prevState, videoUrl: e.target.value.trim() };
+      return { ...prevState, videoUrl: e.target.value.replace("watch?v=", "embed/").trim() };
     });
   };
 
@@ -67,14 +61,6 @@ export const VideoSection = () => {
             onChange={handleSectionTitleChange}
           />
           <TextEditor value={videoSection.description} handleChange={handleDecriptionChange} />
-          <StyledTextField
-            id="outlined-multiline-static"
-            label="Podaj tytuł video"
-            defaultValue={videoSection.videoTitle}
-            helperText="* Tytuł wideo nie jest widoczny w opisie, ale należy go poprawnie wprowadzić"
-            variant="outlined"
-            onChange={handleVideoTitleChange}
-          />
           <StyledTextField
             id="outlined-multiline-static"
             label="Podaj link url do filmu"

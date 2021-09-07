@@ -145,7 +145,7 @@ export const Preview = () => {
                 data-id="iframe_1"
                 width="100%"
                 src={videoSection.videoUrl}
-                title={videoSection.videoTitle}
+                title="YouTube video player"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen

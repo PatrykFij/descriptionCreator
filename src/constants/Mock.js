@@ -20,26 +20,26 @@ export const Mock = {
   },
   bannerSection: {
     imgFileName: "kemon-actyva-nutrizione-kosmetyki-do-wlosow-suchych.jpg",
-    imgAltTag: "USTAWIĆ ALT TAG NA PODSTAWIE NAZWY PLIKU !!!",
+    imgAltTag: "",
   },
   pictureSectionTitle: "PRZYKŁADOWY TYTUŁ SEKCJI ZE ZDJĘCIAMI",
   pictureItems: [
     {
       url: "kemon-actyva-disciplina.jpg",
-      alt: "To jest widoczne jak grafika się nie załaduje",
+      alt: "",
       title: "Kemon actyva disciplina",
       description: "Kontrola włosów kręconych i nieposłusznych",
     },
     {
       url: "kemon-actyva-nuova-fibra.jpg",
-      alt: "To jest widoczne jak grafika się nie załaduje",
+      alt: "",
       title: "Kemon nuova fibra",
       description:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
     },
     {
       url: "kemon-actyva-colore-brillante.jpg",
-      alt: "To jest widoczne jak grafika się nie załaduje",
+      alt: "",
       title: "Kemon colore brillante",
       description: "Wzmocnienie, ochrona i blask koloru",
     },

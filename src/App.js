@@ -23,7 +23,9 @@ const App = () => {
   const handleCopyDescriptionCode = () => {
     const isValidOffer = offerValidator.validAltTags();
     if (isValidOffer) {
-      var previewCode = document.getElementById("preview").innerHTML;
+      var previewCode = document
+        .getElementById("preview")
+        .innerHTML.replaceAll('src="https://www.brillar-sklep.pl', 'src="');
       navigator.clipboard.writeText(previewCode);
       setIsSnackbarOpen(true);
     } else {

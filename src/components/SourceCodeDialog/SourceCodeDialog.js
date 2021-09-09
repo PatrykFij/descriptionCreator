@@ -146,6 +146,7 @@ export const SourceCodeDialog = ({ isOpen, setIsOpen }) => {
     setParagraph(descriptionSection);
     setListSection(listSection);
     setBannerSection(bannerSection);
+    debugger;
     setPictureSectionTitle(pictureSectionTitle);
     setPictureItems(pictureSectionItems);
     setVideoSection(videoSection);

@@ -37,7 +37,7 @@ export const TextEditor = ({ value, handleChange }) => {
   const handleKeyDown = (e) => {
     if (e.keyCode === 13) {
       e.preventDefault();
-      document.execCommand("insertHTML", false, "<br>");
+      document.execCommand("insertHTML", false, "<br><br>");
       return false;
     }
   };
@@ -49,6 +49,12 @@ export const TextEditor = ({ value, handleChange }) => {
 
   const handleThrottledChange = (e) => {
     debounceFunc(e);
+  };
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const text = (e.originalEvent || e).clipboardData.getData("text");
+    window.document.execCommand("insertText", false, text.replace(/\n/g, ""));
   };
 
   return (
@@ -71,11 +77,7 @@ export const TextEditor = ({ value, handleChange }) => {
         disabled={false}
         onKeyDown={(e) => handleKeyDown(e)}
         onChange={(e) => handleThrottledChange(e)}
-        onPaste={(e) => {
-          e.preventDefault();
-          const text = e.clipboardData.getData("text");
-          document.execCommand("insertText", false, text);
-        }}
+        onPaste={(e) => handlePaste(e)}
       />
     </>
   );

@@ -29,9 +29,7 @@ const getExistingOfferFields = (existingOffer) => {
     : "";
 
   const descriptionSection = existingOffer.querySelector('#description-section [data-id="p_1"]')
-    ? existingOffer
-        .querySelector('#description-section [data-id="p_1"]')
-        .innerHTML.replace(/(?:^(?:&nbsp;)+)|(?:(?:&nbsp;)+$)/g, "")
+    ? existingOffer.querySelector('#description-section [data-id="p_1"]').innerHTML
     : "";
 
   const listSection = {

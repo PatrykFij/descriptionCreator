@@ -57,6 +57,7 @@ export const VideoSection = () => {
             id="outlined-multiline-static"
             label="Nagłówek H4"
             defaultValue={videoSection.sectionTitle}
+            value={videoSection.sectionTitle}
             variant="outlined"
             onChange={handleSectionTitleChange}
           />
@@ -65,6 +66,7 @@ export const VideoSection = () => {
             id="outlined-multiline-static"
             label="Podaj link url do filmu"
             defaultValue={videoSection.videoUrl}
+            value={videoSection.videoUrl}
             variant="outlined"
             onChange={handleVideoUrlChange}
           />

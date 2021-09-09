@@ -29,18 +29,21 @@ export const TopHeaderSection = () => {
       <StyledTextField
         onChange={handleTopHeaderChange}
         defaultValue={topHeader}
+        value={topHeader}
         label="Nagłówek H2"
         variant="outlined"
       />
       <StyledTextField
         onChange={handleMiddleHeaderChange}
         defaultValue={middleHeader}
+        value={middleHeader}
         label="Nagłówek H3"
         variant="outlined"
       />
       <StyledTextField
         onChange={handleBottomHeaderChange}
         defaultValue={bottomHeader}
+        value={bottomHeader}
         label="Nagłówek H4"
         variant="outlined"
       />

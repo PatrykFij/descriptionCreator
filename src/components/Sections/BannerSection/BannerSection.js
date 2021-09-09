@@ -51,6 +51,7 @@ export const BannerSection = () => {
             variant="outlined"
             helperText="* Maxymalna szerokość grafiki nie powinna być większa niż 1000px "
             defaultValue={bannerSection.imgFileName}
+            value={bannerSection.imgFileName}
             onChange={handleFileNameChange}
           />
           <StyledTextField
@@ -58,6 +59,7 @@ export const BannerSection = () => {
             label="Podaj ALT TAG opisujący zdjęcie"
             variant="outlined"
             defaultValue={bannerSection.imgAltTag}
+            value={bannerSection.imgAltTag}
             onChange={handleAltTagChange}
           />
         </>

@@ -51,6 +51,7 @@ export const ListSection = () => {
             id="outlined-multiline-static"
             label="Nagłówek H4"
             defaultValue={listSection.title}
+            value={listSection.title}
             variant="outlined"
             onChange={handleTitleChange}
           />

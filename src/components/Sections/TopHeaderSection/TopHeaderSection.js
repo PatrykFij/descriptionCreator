@@ -13,15 +13,15 @@ export const TopHeaderSection = () => {
     useContext(AppContext);
 
   const handleTopHeaderChange = (e) => {
-    setTopHeader(e.target.value.trim());
+    setTopHeader(e.target.value);
   };
 
   const handleMiddleHeaderChange = (e) => {
-    setMiddleHeader(e.target.value.trim());
+    setMiddleHeader(e.target.value);
   };
 
   const handleBottomHeaderChange = (e) => {
-    setBottomHeader(e.target.value.trim());
+    setBottomHeader(e.target.value);
   };
 
   return (

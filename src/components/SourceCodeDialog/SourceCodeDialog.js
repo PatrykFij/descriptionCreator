@@ -40,18 +40,18 @@ const getExistingOfferFields = (existingOffer) => {
       ? [...existingOffer.querySelectorAll('#list-section [data-id="ul_1"] > li')].map((el) => el.innerHTML)
       : [],
   };
-
+  console.log(existingOffer.querySelector('#banner-section [data-id="img_1"]'));
   const bannerSection = {
     imgFileName: existingOffer.querySelector('#banner-section [data-id="img_1"]')
       ? existingOffer
           .querySelector('#banner-section [data-id="img_1"]')
-          .src.replace("https://www.brillar-sklep.pl/userdata/public/assets/", "")
+          .src.replace(`${window.location.href}userdata/public/assets/`, "")
       : "",
     imgAltTag: existingOffer.querySelector('#banner-section [data-id="img_1"]')
       ? existingOffer.querySelector('#banner-section [data-id="img_1"]').alt
       : "",
   };
-
+  debugger;
   const pictureSectionTitle = existingOffer.querySelector('#pictures-section [data-id="h4_1"]')
     ? existingOffer.querySelector('#pictures-section [data-id="h4_1"]').innerHTML
     : "";
@@ -61,9 +61,7 @@ const getExistingOfferFields = (existingOffer) => {
   pictureSectionItems = pictureSectionItems.length
     ? pictureSectionItems.map((el) => ({
         url: el.querySelector('[data-id="img_1"]')
-          ? el
-              .querySelector('[data-id="img_1"]')
-              .src.replace("https://www.brillar-sklep.pl/userdata/public/assets/", "")
+          ? el.querySelector('[data-id="img_1"]').src.replace(`${window.location.href}userdata/public/assets/`, "")
           : "",
         alt: el.querySelector('[data-id="img_1"]') ? el.querySelector('[data-id="img_1"]').alt : "",
         title: el.querySelector('[data-id="h5_1"]')

@@ -45,7 +45,7 @@ const getExistingOfferFields = (existingOffer) => {
     imgFileName: existingOffer.querySelector('#banner-section [data-id="img_1"]')
       ? existingOffer
           .querySelector('#banner-section [data-id="img_1"]')
-          .src.replace(`${window.location.href}userdata/public/assets/`, "")
+          .src.replace(`${window.location.origin}userdata/public/assets/`, "")
       : "",
     imgAltTag: existingOffer.querySelector('#banner-section [data-id="img_1"]')
       ? existingOffer.querySelector('#banner-section [data-id="img_1"]').alt
@@ -61,7 +61,7 @@ const getExistingOfferFields = (existingOffer) => {
   pictureSectionItems = pictureSectionItems.length
     ? pictureSectionItems.map((el) => ({
         url: el.querySelector('[data-id="img_1"]')
-          ? el.querySelector('[data-id="img_1"]').src.replace(`${window.location.href}userdata/public/assets/`, "")
+          ? el.querySelector('[data-id="img_1"]').src.replace(`${window.location.origin}userdata/public/assets/`, "")
           : "",
         alt: el.querySelector('[data-id="img_1"]') ? el.querySelector('[data-id="img_1"]').alt : "",
         title: el.querySelector('[data-id="h5_1"]')

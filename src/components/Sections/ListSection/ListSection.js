@@ -21,7 +21,7 @@ export const ListSection = () => {
 
   const handleTitleChange = (e) => {
     setListSection((prevState) => {
-      return { ...prevState, title: e.target.value.trim() };
+      return { ...prevState, title: e.target.value };
     });
   };
 

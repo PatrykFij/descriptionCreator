@@ -27,6 +27,7 @@ export const ProducerSection = () => {
         <MenuItem value={"shangpree"}>Shangpree</MenuItem>
         <MenuItem value={"alfapar"}>Alfapar</MenuItem>
         <MenuItem value={"grazette"}>Grazette</MenuItem>
+        <MenuItem value={"davines"}>Davines</MenuItem>
       </Select>
     </StyledFormControl>
   );

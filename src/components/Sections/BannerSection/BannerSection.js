@@ -21,12 +21,12 @@ export const BannerSection = () => {
 
   const handleFileNameChange = (e) => {
     setBannerSection((prevState) => {
-      return { ...prevState, imgFileName: e.target.value.trim() };
+      return { ...prevState, imgFileName: e.target.value };
     });
   };
   const handleAltTagChange = (e) => {
     setBannerSection((prevState) => {
-      return { ...prevState, imgAltTag: e.target.value.trim() };
+      return { ...prevState, imgAltTag: e.target.value };
     });
   };
 

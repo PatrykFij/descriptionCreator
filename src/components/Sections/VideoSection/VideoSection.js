@@ -22,7 +22,7 @@ export const VideoSection = () => {
 
   const handleSectionTitleChange = (e) => {
     setVideoSection((prevState) => {
-      return { ...prevState, sectionTitle: e.target.value.trim() };
+      return { ...prevState, sectionTitle: e.target.value };
     });
   };
 
@@ -34,7 +34,7 @@ export const VideoSection = () => {
 
   const handleDescriptionChange = (e) => {
     setVideoSection((prevState) => {
-      return { ...prevState, description: e.target.value.trim() };
+      return { ...prevState, description: e.target.value };
     });
   };
 

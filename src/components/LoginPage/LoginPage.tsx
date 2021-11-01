@@ -23,13 +23,17 @@ const LoginPage = () => {
     const { username, password } = getValues();
     //brillar-sklep.pl/webapi/rest/auth
     try {
-      const { data } = await axios.post("https://brillar-sklep.pl/webapi/rest/auth", {
-        auth: {
-          username: username,
-          password: password,
-        },
-        headers: { "Access-Control-Allow-Origin": "*" },
-      });
+      const { data } = await axios.post(
+        "https://brillar-sklep.pl/webapi/rest/auth",
+        {},
+        {
+          auth: {
+            username: username,
+            password: password,
+          },
+          headers: { "Access-Control-Allow-Origin": "*" },
+        }
+      );
       console.log(data);
     } catch (e) {
       console.log(e);

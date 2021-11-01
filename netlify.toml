@@ -1,8 +1,8 @@
 # example netlify.toml
 [build]
-  command = "yarn run build"
-  functions = "functions"
-  publish = "build"
+  command = "yarn build"
+  functions = "netlify/functions"
+  publish = "public"
 
  [build.environment] 
   NETLIFY_USE_YARN = "true"

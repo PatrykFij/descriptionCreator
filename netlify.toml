@@ -1,8 +1,13 @@
 # example netlify.toml
 [build]
-  command = "yarn build"
+  command = "yarn build && cd netlify/functions && yarn"
   functions = "functions"
   publish = "build"
+
+ [build.environment] 
+  NETLIFY_USE_YARN = "true"
+  NPM_VERSION = "12.18.1"
+  YARN_VERSION = "1.22.4"
 
   ## Uncomment to use this redirect for Single Page Applications like create-react-app.
   ## Not needed for static site generators.

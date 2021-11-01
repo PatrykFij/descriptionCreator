@@ -1,11 +1,11 @@
 import { useCallback } from "react";
-import styled from "styled-components";
-import { IconButton } from "@material-ui/core";
 import ContentEditable from "react-contenteditable";
+import { IconButton } from "@material-ui/core";
 import FormatBoldIcon from "@material-ui/icons/FormatBold";
 import FormatItalicIcon from "@material-ui/icons/FormatItalic";
 import FormatUnderlinedIcon from "@material-ui/icons/FormatUnderlined";
 import _ from "lodash";
+import styled from "styled-components";
 
 const StyledContentEditable = styled(ContentEditable)`
   font-family: sans-serif;

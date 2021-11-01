@@ -24,14 +24,14 @@ const LoginPage = () => {
     //brillar-sklep.pl/webapi/rest/auth
     try {
       const { data } = await axios.post(
-        "https://brillar-sklep.pl/webapi/rest/auth",
+        "/.netlify/functions/node-fetch",
         {},
         {
           auth: {
             username: username,
             password: password,
           },
-          headers: { "Access-Control-Allow-Origin": "*" },
+          headers: { accept: "Accept: application/json" },
         }
       );
       console.log(data);

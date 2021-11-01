@@ -1,8 +1,8 @@
 # example netlify.toml
 [build]
   command = "yarn build && cd functions/node-fetch && yarn"
-  functions = "netlify/functions"
-  publish = "build"
+  functions = "functions"
+  publish = "dist"
 
   ## Uncomment to use this redirect for Single Page Applications like create-react-app.
   ## Not needed for static site generators.

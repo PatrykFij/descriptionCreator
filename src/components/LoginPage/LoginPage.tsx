@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { Button } from "@material-ui/core";
 import axios from "axios";
 import { useToggle } from "hooks/useToggle";
+import { AuthContext } from "components/AuthProvider/AuthProvider";
 import Dialog from "components/Dialog";
 import TextInput from "components/Inputs/TextInput";
+import { handleException } from "utils/handleException";
 import * as T from "./types";
 
 const LoginPage = () => {
+  const { setIsAuth } = useContext(AuthContext);
   const form = useForm<T.LoginFields>({
     mode: "onSubmit",
   });
@@ -23,7 +27,7 @@ const LoginPage = () => {
     const { username, password } = getValues();
     //brillar-sklep.pl/webapi/rest/auth
     try {
-      const { data } = await axios.post(
+      const response = await axios.post(
         "/.netlify/functions/node-fetch",
         {},
         {
@@ -34,9 +38,11 @@ const LoginPage = () => {
           headers: { accept: "Accept: application/json" },
         }
       );
-      console.log(data);
+      toast.success("Pomyślnie zalogowano");
+      setIsAuth(true);
     } catch (e) {
-      console.log(e);
+      toast.error(e.response.statusText);
+      handleException(e);
     }
   });
 

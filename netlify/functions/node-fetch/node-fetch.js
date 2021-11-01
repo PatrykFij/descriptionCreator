@@ -8,9 +8,11 @@ const handler = async function (event) {
         Authorization: event.headers.authorization,
       },
     });
+    console.log(response);
     if (!response.ok) {
       // NOT res.status >= 200 && res.status < 300
-      return { statusCode: response.status, body: response.statusText };
+      console.log("asdasdsasad");
+      return { statusCode: response.status, body: JSON.stringify(response.statusText) };
     }
     const data = await response.json();
 

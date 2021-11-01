@@ -1,14 +1,27 @@
 import React, { useState } from "react";
+import ToastProvider from "components/ToastProvider";
 import LoginPage from "../LoginPage/LoginPage";
 
 const appCtxDefaultValue = {
   isAuth: false,
+  setIsAuth: (val: boolean) => {},
 };
 
-export const AppContext = React.createContext(appCtxDefaultValue);
+export const AuthContext = React.createContext(appCtxDefaultValue);
 
 export const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(appCtxDefaultValue.isAuth);
 
-  return <AppContext.Provider value={{ isAuth }}>{isAuth ? children : <LoginPage />}</AppContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ isAuth, setIsAuth }}>
+      {isAuth ? (
+        children
+      ) : (
+        <>
+          <ToastProvider />
+          <LoginPage />
+        </>
+      )}
+    </AuthContext.Provider>
+  );
 };

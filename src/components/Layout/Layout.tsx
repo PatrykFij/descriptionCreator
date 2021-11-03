@@ -1,18 +1,19 @@
 import { ReactNode, useContext, useMemo } from "react";
 import { AuthContext } from "components/AuthProvider/AuthProvider";
 import LoginPage from "components/LoginPage";
+import Header from "components/Header";
+import { Redirect } from "react-router-dom";
+import * as URL from "../../routes/url";
 
 interface Props {
   children: ReactNode;
 }
 
 const Layout = ({ children }: Props) => {
-  const { isAuth } = useContext(AuthContext);
-  const showPages = useMemo(() => (isAuth ? <>{children}</> : <LoginPage />), [children, isAuth]);
-
   return (
     <>
-      <div>{showPages}</div>
+      <Header />
+      {children}
     </>
   );
 };

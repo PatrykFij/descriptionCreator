@@ -1,17 +1,17 @@
 import { Route, Switch } from "react-router-dom";
 import Layout from "components/Layout";
 import LoginPage from "components/LoginPage";
+import DescriptionCreator from "modules/DescriptionCreator/DescriptionCreator";
 import * as URL from "./url";
+import PrivateRoute from "./PrivateRoute";
 
 export default (
   <Layout>
     <Switch>
-      <Route path={URL.URL_LOGIN}>
+      <Route path={URL.LOGIN}>
         <LoginPage />
       </Route>
-      <Route path={URL.DESCRIPTION_CREATOR}>
-        <h1>asasdasddas</h1>
-      </Route>
+      <PrivateRoute path={URL.DESCRIPTION_CREATOR} component={DescriptionCreator} />
     </Switch>
   </Layout>
 );

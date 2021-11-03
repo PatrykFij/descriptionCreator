@@ -9,9 +9,11 @@ import Dialog from "components/Dialog";
 import TextInput from "components/Inputs/TextInput";
 import { handleException } from "utils/handleException";
 import * as T from "./types";
+import { Redirect } from "react-router-dom";
+import * as URL from "../../routes/url";
 
 const LoginPage = () => {
-  const { setIsAuth, setAccessToken } = useContext(AuthContext);
+  const { isAuthenticated, setIsAuthenticated, setAccessToken } = useContext(AuthContext);
   const form = useForm<T.LoginFields>({
     mode: "onSubmit",
   });
@@ -39,7 +41,7 @@ const LoginPage = () => {
         }
       );
       toast.success("Pomyślnie zalogowano");
-      setIsAuth(true);
+      setIsAuthenticated(true);
       setAccessToken(response.data.data.access_toke);
       sessionStorage.setItem("access_token", response.data.data.access_token);
     } catch (e: any) {
@@ -51,19 +53,25 @@ const LoginPage = () => {
   const [bondholderMeetingsFormOpen, openBondholderMeetingsForm, closeBondholderMeetingsForm] = useToggle();
 
   return (
-    <Dialog
-      maxWidth="sm"
-      title="Zaloguj"
-      onClose={closeBondholderMeetingsForm}
-      dialogActions={
-        <>
-          <Button onClick={onSubmit}>Save</Button>
-        </>
-      }
-    >
-      <TextInput name="username" label="Login" control={control} errors={errors} required />
-      <TextInput name="password" label="Password" control={control} errors={errors} required />
-    </Dialog>
+    <>
+      {isAuthenticated ? (
+        <Redirect to={URL.LOGIN} />
+      ) : (
+        <Dialog
+          maxWidth="sm"
+          title="Zaloguj"
+          onClose={closeBondholderMeetingsForm}
+          dialogActions={
+            <>
+              <Button onClick={onSubmit}>Save</Button>
+            </>
+          }
+        >
+          <TextInput name="username" label="Login" control={control} errors={errors} required />
+          <TextInput name="password" label="Password" control={control} errors={errors} required />
+        </Dialog>
+      )}
+    </>
   );
 };
 

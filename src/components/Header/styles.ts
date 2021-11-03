@@ -4,7 +4,7 @@ import theme from "theme";
 import { Button, Toolbar as MToolbar } from "@material-ui/core";
 
 export const Header = styled.header`
-  background-color: black;
+  background-color: #00000042;
   color: white;
 `;
 
@@ -54,7 +54,7 @@ export const MainMenuLink = styled(NavLink)`
   line-height: 20px;
   font-size: 0.8125rem;
   &.active {
-    background-color: #424242;
+    background-color: #8f8f8f;
     border-bottom: 4px solid white;
   }
 `;

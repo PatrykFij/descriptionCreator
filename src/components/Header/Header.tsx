@@ -2,6 +2,7 @@ import * as S from "./styles";
 import * as URL from "../../routes/url";
 import { AuthContext } from "components/AuthProvider/AuthProvider";
 import { useContext } from "react";
+import Logo from "./Logo";
 
 const menuLinks = [
   { label: "Kreator Opisów", link: URL.DESCRIPTION_CREATOR },
@@ -17,7 +18,7 @@ const Header = () => {
         <S.LeftToolbar>
           <S.MainMenuBox>
             <S.LogoLink to={URL.ROOT}>
-              <h5>LOGO</h5>
+              <Logo />
             </S.LogoLink>
           </S.MainMenuBox>
         </S.LeftToolbar>

@@ -9,11 +9,13 @@ import Dialog from "components/Dialog";
 import TextInput from "components/Inputs/TextInput";
 import { handleException } from "utils/handleException";
 import * as T from "./types";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import * as URL from "../../routes/url";
 
 const LoginPage = () => {
   const { isAuthenticated, setIsAuthenticated, setAccessToken } = useContext(AuthContext);
+  let history = useHistory();
+
   const form = useForm<T.LoginFields>({
     mode: "onSubmit",
   });
@@ -44,13 +46,14 @@ const LoginPage = () => {
       setIsAuthenticated(true);
       setAccessToken(response.data.data.access_toke);
       sessionStorage.setItem("access_token", response.data.data.access_token);
+      history.push(URL.DESCRIPTION_CREATOR);
     } catch (e: any) {
       toast.error(e.response.statusText);
       handleException(e);
     }
   });
 
-  const [bondholderMeetingsFormOpen, openBondholderMeetingsForm, closeBondholderMeetingsForm] = useToggle();
+  const [loginFormOpen, openLoginForm, closeLoginForm] = useToggle();
 
   return (
     <>
@@ -60,7 +63,7 @@ const LoginPage = () => {
         <Dialog
           maxWidth="sm"
           title="Zaloguj"
-          onClose={closeBondholderMeetingsForm}
+          onClose={closeLoginForm}
           dialogActions={
             <>
               <Button onClick={onSubmit}>Save</Button>

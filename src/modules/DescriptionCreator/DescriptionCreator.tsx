@@ -45,9 +45,6 @@ const DescriptionCreator = () => {
   return (
     <>
       <div className="App">
-        <Typography align="center" variant="h1" component="h2">
-          Creator opisów Brillar
-        </Typography>
         <S.CustomButton onClick={handleCopyDescriptionCode} variant="contained" color="primary">
           Kopiuj kod źródłowy opisu
         </S.CustomButton>

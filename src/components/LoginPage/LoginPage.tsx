@@ -11,7 +11,7 @@ import { handleException } from "utils/handleException";
 import * as T from "./types";
 
 const LoginPage = () => {
-  const { setIsAuth } = useContext(AuthContext);
+  const { setIsAuth, setAccessToken } = useContext(AuthContext);
   const form = useForm<T.LoginFields>({
     mode: "onSubmit",
   });
@@ -40,6 +40,8 @@ const LoginPage = () => {
       );
       toast.success("Pomyślnie zalogowano");
       setIsAuth(true);
+      setAccessToken(response.data.data.access_toke);
+      sessionStorage.setItem("access_token", response.data.data.access_token);
     } catch (e) {
       toast.error(e.response.statusText);
       handleException(e);

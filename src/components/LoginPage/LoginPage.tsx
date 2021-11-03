@@ -42,7 +42,7 @@ const LoginPage = () => {
       setIsAuth(true);
       setAccessToken(response.data.data.access_toke);
       sessionStorage.setItem("access_token", response.data.data.access_token);
-    } catch (e) {
+    } catch (e: any) {
       toast.error(e.response.statusText);
       handleException(e);
     }

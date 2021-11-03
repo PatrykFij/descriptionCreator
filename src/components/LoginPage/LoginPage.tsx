@@ -32,7 +32,7 @@ const LoginPage = () => {
     //brillar-sklep.pl/webapi/rest/auth
     try {
       const response = await axios.post(
-        "/.netlify/functions/node-fetch",
+        "/.netlify/functions/node-fetch?url=auth",
         {},
         {
           auth: {

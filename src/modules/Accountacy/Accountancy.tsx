@@ -1,15 +1,15 @@
 import { Button } from '@material-ui/core';
-import * as api from './api';
-
-import { useEffect } from 'react';
 import {
   sumOfAllProductsPrice,
   sumOfAllProductsPriceBuying,
 } from 'utils/counters/counters';
+import * as api from './api';
 
 const Accountancy = () => {
   const { isLoading: isLoadingProducts, getAllProducts } = api.useGetProducts();
   const { isLoading: isLoadingOrders, getAllOrders } = api.useGetOrders();
+  const { isLoading: isLoadingOrderedProducts, getAllOrderedProducts } =
+    api.useGetOrderedProducts();
 
   const handleGetProducts = async () => {
     const allProducts = await getAllProducts();
@@ -26,11 +26,21 @@ const Accountancy = () => {
     }
   };
 
+  const handleGetOrderedProducts = async () => {
+    const allOrderedProducts = await getAllOrderedProducts();
+    if (allOrderedProducts) {
+      console.log(allOrderedProducts);
+    }
+  };
+
   return (
     <>
       <h1>Księgowość</h1>
       <Button onClick={handleGetProducts}>Pobierz produkty</Button>
       <Button onClick={handleGetOrders}>Pobierz zamówienia</Button>
+      <Button onClick={handleGetOrderedProducts}>
+        Pobierz zamówione produkty
+      </Button>
     </>
   );
 };

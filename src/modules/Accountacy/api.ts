@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useAxios } from 'hooks/useAxios';
 
 export const useGetProducts = () => {
@@ -45,7 +44,6 @@ export const useGetOrders = () => {
     const {
       data: { data },
     } = await getOrders({ url });
-    debugger;
     list.push(...data.list);
 
     if (data.pages > 1) {
@@ -64,5 +62,37 @@ export const useGetOrders = () => {
   return {
     isLoading,
     getAllOrders,
+  };
+};
+
+export const useGetOrderedProducts = () => {
+  const [, getOrderedProducts] = useAxios({}, { manual: true });
+
+  const [isLoading, setIsLoading] = useState(false);
+  const getAllOrderedProducts = useCallback(async () => {
+    setIsLoading(true);
+    let list = [];
+    const url = `node-fetch?url=order-products&limit=50`;
+    const {
+      data: { data },
+    } = await getOrderedProducts({ url });
+    list.push(...data.list);
+
+    if (data.pages > 1) {
+      for (let i = 2; i <= data.pages; i++) {
+        const url = `node-fetch?url=order-products&limit=50&page=${i}`;
+        const {
+          data: { data },
+        } = await getOrderedProducts({ url });
+        list.push(...data.list);
+      }
+      setIsLoading(false);
+      return list;
+    }
+  }, [getOrderedProducts]);
+
+  return {
+    isLoading,
+    getAllOrderedProducts,
   };
 };

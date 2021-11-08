@@ -6,13 +6,13 @@ const axiosInstance = axios.create({
   baseURL: '/.netlify/functions',
 });
 
-const token = sessionStorage.getItem('access_token');
-
 axiosInstance.interceptors.request.use(
   (config) => {
+    const token = sessionStorage.getItem('access_token');
+
     config.headers = {
       ...config.headers,
-      Authorization: `Bearer 49fa8c69cc0dc3b3a13858b643def534d1274e4e`,
+      Authorization: `Bearer ${token}`,
     };
     return config;
   },

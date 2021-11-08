@@ -4,12 +4,16 @@ import * as api from './api';
 import { useEffect } from 'react';
 
 const Accountancy = () => {
-  const { getAllProducts } = api.useGetOrders();
+  const { getAllProducts, isLoading } = api.useGetOrders();
 
   const handleGetProducts = async () => {
     const allProducts = await getAllProducts();
     console.log(allProducts);
   };
+
+  useEffect(() => {
+    console.log(isLoading);
+  }, [isLoading]);
 
   return (
     <>

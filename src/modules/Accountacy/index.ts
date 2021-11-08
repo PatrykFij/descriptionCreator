@@ -1,3 +1,3 @@
-import Accountancy from "./Accountancy";
+import Accountancy from './Accountancy';
 
 export default Accountancy;

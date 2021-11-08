@@ -1,17 +1,15 @@
-import { Button } from "@material-ui/core";
-import { useEffect } from "react";
-import * as api from "./api";
+import { Button } from '@material-ui/core';
+import * as api from './api';
+
+import { useEffect } from 'react';
 
 const Accountancy = () => {
-  const { getAllProducts, products } = api.useGetOrders();
+  const { getAllProducts } = api.useGetOrders();
 
-  const handleGetProducts = () => {
-    getAllProducts();
+  const handleGetProducts = async () => {
+    const allProducts = await getAllProducts();
+    console.log(allProducts);
   };
-
-  useEffect(() => {
-    console.log(products);
-  }, [products]);
 
   return (
     <>

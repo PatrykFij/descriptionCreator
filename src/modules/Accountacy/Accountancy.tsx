@@ -1,9 +1,14 @@
 import { Button } from '@material-ui/core';
-import {
-  sumOfAllProductsPrice,
-  sumOfAllProductsPriceBuying,
-} from 'utils/counters/counters';
+import { Order } from 'types/Order';
+import { OrderedProduct } from 'types/OrderedProduct';
+import { Product } from 'types/Product';
 import * as api from './api';
+
+interface Data {
+  allProducts: Product[];
+  allOrders: Order[];
+  allOrderedProducts: OrderedProduct[];
+}
 
 const Accountancy = () => {
   const { isLoading: isLoadingProducts, getAllProducts } = api.useGetProducts();
@@ -11,36 +16,64 @@ const Accountancy = () => {
   const { isLoading: isLoadingOrderedProducts, getAllOrderedProducts } =
     api.useGetOrderedProducts();
 
-  const handleGetProducts = async () => {
+  const handleGetData = async () => {
     const allProducts = await getAllProducts();
-    if (allProducts) {
-      console.log(sumOfAllProductsPriceBuying(allProducts));
-      console.log(sumOfAllProductsPrice(allProducts));
-    }
-  };
-
-  const handleGetOrders = async () => {
     const allOrders = await getAllOrders();
-    if (allOrders) {
-      console.log(allOrders);
+    const allOrderedProducts = await getAllOrderedProducts();
+
+    if (allProducts && allOrders && allOrderedProducts) {
+      const data = {
+        allProducts: allProducts,
+        allOrders: allOrders,
+        allOrderedProducts: allOrderedProducts,
+      };
+      localStorage.setItem('data', JSON.stringify(data));
+      // console.log(sumOfAllProductsPriceBuying(allProducts));
+      // console.log(sumOfAllProductsPrice(allProducts));
     }
   };
 
-  const handleGetOrderedProducts = async () => {
-    const allOrderedProducts = await getAllOrderedProducts();
-    if (allOrderedProducts) {
-      console.log(allOrderedProducts);
+  const createOrdersWithBuyingPrice = () => {
+    const data = localStorage.getItem('data');
+    const ordersWithBuyingPrice: any = [];
+
+    if (data) {
+      const parsedData = JSON.parse(data) as Data;
+      parsedData.allOrders
+        .filter(({ is_paid }) => is_paid)
+        .map(({ order_id, paid, is_paid, sum }) => {
+          const obj: any = { order_id, paid, is_paid, sum };
+          obj.stock = [];
+          parsedData.allOrderedProducts
+            .filter(({ order_id: id }) => id === order_id)
+            .map(({ product_id, name, quantity, price, stock_id }) => {
+              const productStock = parsedData.allProducts.filter(
+                (el) => el.product_id === product_id,
+              );
+              let price_buying = null;
+              if (productStock.length) {
+                price_buying = productStock[0].stock.price_buying;
+              }
+              obj.stock.push({
+                product_id,
+                name,
+                quantity,
+                price,
+                stock_id,
+                price_buying,
+              });
+            });
+          ordersWithBuyingPrice.push(obj);
+        });
     }
+    console.log(ordersWithBuyingPrice);
   };
 
   return (
     <>
       <h1>Księgowość</h1>
-      <Button onClick={handleGetProducts}>Pobierz produkty</Button>
-      <Button onClick={handleGetOrders}>Pobierz zamówienia</Button>
-      <Button onClick={handleGetOrderedProducts}>
-        Pobierz zamówione produkty
-      </Button>
+      <Button onClick={handleGetData}>Pobierz produkty</Button>
+      <Button onClick={createOrdersWithBuyingPrice}>Pobierz produkty</Button>
     </>
   );
 };

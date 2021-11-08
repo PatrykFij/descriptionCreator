@@ -43,7 +43,7 @@ const Accountancy = () => {
         .filter(({ is_paid }) => is_paid)
         .map(({ order_id, paid, is_paid, sum }) => {
           const obj: any = { order_id, paid, is_paid, sum };
-          obj.stock = [];
+          obj.productsInOrder = [];
           parsedData.allOrderedProducts
             .filter(({ order_id: id }) => id === order_id)
             .map(({ product_id, name, quantity, price, stock_id }) => {
@@ -54,7 +54,7 @@ const Accountancy = () => {
               if (productStock.length) {
                 price_buying = productStock[0].stock.price_buying;
               }
-              obj.stock.push({
+              obj.productsInOrder.push({
                 product_id,
                 name,
                 quantity,

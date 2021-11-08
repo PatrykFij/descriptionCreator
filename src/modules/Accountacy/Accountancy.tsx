@@ -8,7 +8,8 @@ import {
 } from 'utils/counters/counters';
 
 const Accountancy = () => {
-  const { getAllProducts, isLoading } = api.useGetOrders();
+  const { isLoading: isLoadingProducts, getAllProducts } = api.useGetProducts();
+  const { isLoading: isLoadingOrders, getAllOrders } = api.useGetOrders();
 
   const handleGetProducts = async () => {
     const allProducts = await getAllProducts();
@@ -18,14 +19,18 @@ const Accountancy = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(isLoading);
-  }, [isLoading]);
+  const handleGetOrders = async () => {
+    const allOrders = await getAllOrders();
+    if (allOrders) {
+      console.log(allOrders);
+    }
+  };
 
   return (
     <>
       <h1>Księgowość</h1>
-      <Button onClick={handleGetProducts}>Pobierz dane</Button>
+      <Button onClick={handleGetProducts}>Pobierz produkty</Button>
+      <Button onClick={handleGetOrders}>Pobierz zamówienia</Button>
     </>
   );
 };

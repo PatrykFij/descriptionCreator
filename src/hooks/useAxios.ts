@@ -1,12 +1,12 @@
-import { toast } from "react-toastify";
-import axios from "axios";
-import { makeUseAxios } from "axios-hooks";
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { makeUseAxios } from 'axios-hooks';
 
 const axiosInstance = axios.create({
-  baseURL: "/.netlify/functions",
+  baseURL: '/.netlify/functions',
 });
 
-const token = sessionStorage.getItem("access_token");
+const token = sessionStorage.getItem('access_token');
 
 axiosInstance.interceptors.request.use(
   (config) => {
@@ -17,7 +17,7 @@ axiosInstance.interceptors.request.use(
     return config;
   },
 
-  (error) => error
+  (error) => error,
 );
 
 axiosInstance.interceptors.response.use(
@@ -26,10 +26,7 @@ axiosInstance.interceptors.response.use(
     let serverMessage = error?.response?.data?.message;
     let serverDetails = error?.response?.data?.details;
 
-    const message =
-      serverMessage ||
-      `Unknown error has occurred.
-      Please contact Soprano team.`;
+    const message = serverMessage || `Nieznany błąd.`;
 
     // if (error?.response?.status === 401) {
     //   login();
@@ -45,7 +42,7 @@ axiosInstance.interceptors.response.use(
       console.error(`API response error serverDetails: ${serverDetails}`);
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export const useAxios = makeUseAxios({

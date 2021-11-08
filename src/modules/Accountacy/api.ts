@@ -1,9 +1,8 @@
-import { useCallback, useMemo, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useAxios } from 'hooks/useAxios';
 
 export const useGetOrders = () => {
-  const [{ data: products, loading: isLoadingProducts }, getProducts] =
-    useAxios({}, { manual: true });
+  const [, getProducts] = useAxios({}, { manual: true });
 
   const getAllProducts = useCallback(async () => {
     let list;

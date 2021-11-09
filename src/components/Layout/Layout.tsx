@@ -1,9 +1,6 @@
-import { ReactNode, useContext, useMemo } from "react";
-import { AuthContext } from "components/AuthProvider/AuthProvider";
-import LoginPage from "components/LoginPage";
-import Header from "components/Header";
-import { Redirect } from "react-router-dom";
-import * as URL from "../../routes/url";
+import { ReactNode } from 'react';
+import Header from 'components/Header';
+import * as S from './styles';
 
 interface Props {
   children: ReactNode;
@@ -13,7 +10,7 @@ const Layout = ({ children }: Props) => {
   return (
     <>
       <Header />
-      {children}
+      <S.MainContainer>{children}</S.MainContainer>
     </>
   );
 };

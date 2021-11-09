@@ -1,7 +1,7 @@
-import { NavLink } from "react-router-dom";
-import styled from "styled-components";
-import theme from "theme";
-import { Button, Toolbar as MToolbar } from "@material-ui/core";
+import { NavLink } from 'react-router-dom';
+import { Button, Toolbar as MToolbar } from '@material-ui/core';
+import styled from 'styled-components';
+import theme from 'theme/theme';
 
 export const Header = styled.header`
   background-color: #00000042;
@@ -13,9 +13,10 @@ export const LogoLink = styled(NavLink)`
 `;
 
 export const HeaderToolbar = styled(MToolbar)`
-  max-height: "64px";
+  max-height: '64px';
   display: flex;
   justify-content: space-between;
+  max-width: ${`${theme.breakpoints.values.xl}px`};
   margin: 0 auto;
   min-height: 4rem;
   box-sizing: border-box;

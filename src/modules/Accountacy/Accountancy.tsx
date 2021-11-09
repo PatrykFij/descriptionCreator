@@ -1,80 +1,94 @@
-import { Button } from '@material-ui/core';
-import { Order } from 'types/Order';
-import { OrderedProduct } from 'types/OrderedProduct';
-import { Product } from 'types/Product';
+import { useMemo, useState } from 'react';
+import { Button, Card } from '@material-ui/core';
+import { Column } from 'material-table';
+import Table from 'components/Table';
+import { sumOfOrderProductsPriceBuying } from 'utils/counters/counters';
+import { handleException } from 'utils/handleException';
+import { mapOrdersWithBuyingPrice } from 'utils/mappers/mapOrdersWithPriceBuying';
+import { MappedOrder } from 'utils/mappers/types';
 import * as api from './api';
 
-interface Data {
-  allProducts: Product[];
-  allOrders: Order[];
-  allOrderedProducts: OrderedProduct[];
-}
-
 const Accountancy = () => {
+  const [orders, setOrders] = useState<MappedOrder[] | []>([]);
+
   const { isLoading: isLoadingProducts, getAllProducts } = api.useGetProducts();
   const { isLoading: isLoadingOrders, getAllOrders } = api.useGetOrders();
   const { isLoading: isLoadingOrderedProducts, getAllOrderedProducts } =
     api.useGetOrderedProducts();
 
   const handleGetData = async () => {
-    const allProducts = await getAllProducts();
-    const allOrders = await getAllOrders();
-    const allOrderedProducts = await getAllOrderedProducts();
+    let data = {};
 
-    if (allProducts && allOrders && allOrderedProducts) {
-      const data = {
-        allProducts: allProducts,
-        allOrders: allOrders,
-        allOrderedProducts: allOrderedProducts,
-      };
-      localStorage.setItem('data', JSON.stringify(data));
-      // console.log(sumOfAllProductsPriceBuying(allProducts));
-      // console.log(sumOfAllProductsPrice(allProducts));
+    if (localStorage.getItem('data')) {
+      data = JSON.parse(localStorage.getItem('data') || '{}');
+      const mappedData = mapOrdersWithBuyingPrice();
+      setOrders(mappedData);
+    } else {
+      try {
+        const allProducts = await getAllProducts();
+        const allOrders = await getAllOrders();
+        const allOrderedProducts = await getAllOrderedProducts();
+        if (allProducts && allOrders && allOrderedProducts) {
+          data = {
+            allProducts: allProducts,
+            allOrders: allOrders,
+            allOrderedProducts: allOrderedProducts,
+          };
+          localStorage.setItem('data', JSON.stringify(data));
+        }
+        const mappedData = mapOrdersWithBuyingPrice();
+        setOrders(mappedData);
+      } catch (e) {
+        handleException(e);
+      }
     }
   };
 
-  const createOrdersWithBuyingPrice = () => {
-    const data = localStorage.getItem('data');
-    const ordersWithBuyingPrice: any = [];
+  const isLoading = useMemo(
+    () => isLoadingProducts || isLoadingOrders || isLoadingOrderedProducts,
+    [isLoadingOrderedProducts, isLoadingOrders, isLoadingProducts],
+  );
 
-    if (data) {
-      const parsedData = JSON.parse(data) as Data;
-      parsedData.allOrders
-        .filter(({ is_paid }) => is_paid)
-        .map(({ order_id, paid, is_paid, sum }) => {
-          const obj: any = { order_id, paid, is_paid, sum };
-          obj.productsInOrder = [];
-          parsedData.allOrderedProducts
-            .filter(({ order_id: id }) => id === order_id)
-            .map(({ product_id, name, quantity, price, stock_id }) => {
-              const productStock = parsedData.allProducts.filter(
-                (el) => el.product_id === product_id,
-              );
-              let price_buying = null;
-              if (productStock.length) {
-                price_buying = productStock[0].stock.price_buying;
-              }
-              obj.productsInOrder.push({
-                product_id,
-                name,
-                quantity,
-                price,
-                stock_id,
-                price_buying,
-              });
-            });
-          ordersWithBuyingPrice.push(obj);
-        });
-    }
-    console.log(ordersWithBuyingPrice);
-  };
+  const columns: Column<MappedOrder>[] = [
+    {
+      title: 'ID',
+      field: 'order_id',
+      type: 'string',
+      width: '5%',
+    },
+    {
+      title: 'Zapłacona kwota',
+      field: 'paid',
+      width: '7%',
+      // TODO - add users here and in the interface for 'Advisor'
+    },
+    {
+      title: 'Zapłacona kwota',
+      field: 'sum',
+      width: '7%',
+      // TODO - add users here and in the interface for 'Advisor'
+    },
+    {
+      title: 'Produkty w zamówieniu',
+      field: 'productsInOrder',
+      render: (a) => a.productsInOrder.map(({ name }) => `${name}`),
+      width: '15%',
+      // TODO - add users here and in the interface for 'Advisor'
+    },
+    {
+      title: 'Kwota zakupu produktów',
+      field: 'productsInOrder',
+      render: (a) => sumOfOrderProductsPriceBuying(a.productsInOrder),
+      // TODO - add users here and in the interface for 'Advisor'
+    },
+  ];
 
   return (
-    <>
+    <Card>
       <h1>Księgowość</h1>
       <Button onClick={handleGetData}>Pobierz produkty</Button>
-      <Button onClick={createOrdersWithBuyingPrice}>Pobierz produkty</Button>
-    </>
+      <Table columns={columns} data={orders} isLoading={isLoading} />
+    </Card>
   );
 };
 

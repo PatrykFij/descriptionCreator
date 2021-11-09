@@ -1,12 +1,12 @@
-import * as S from "./styles";
-import * as URL from "../../routes/url";
-import { AuthContext } from "components/AuthProvider/AuthProvider";
-import { useContext } from "react";
-import Logo from "./Logo";
+import { useContext } from 'react';
+import { AuthContext } from 'components/AuthProvider/AuthProvider';
+import * as URL from '../../routes/url';
+import Logo from './Logo';
+import * as S from './styles';
 
 const menuLinks = [
-  { label: "Kreator Opisów", link: URL.DESCRIPTION_CREATOR },
-  { label: "Księgowość", link: URL.ACCOUNTANCY },
+  { label: 'Kreator Opisów', link: URL.DESCRIPTION_CREATOR },
+  { label: 'Księgowość', link: URL.ACCOUNTANCY },
 ];
 
 const Header = () => {

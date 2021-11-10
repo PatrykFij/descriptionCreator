@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { Container, Grid } from '@material-ui/core';
 import { Column } from 'material-table';
 import Button from 'components/Button';
 import Card from 'components/Card';
@@ -8,7 +9,9 @@ import { sumOfOrderProductsPriceBuying } from 'utils/counters/counters';
 import { handleException } from 'utils/handleException';
 import { mapOrdersWithBuyingPrice } from 'utils/mappers/mapOrdersWithPriceBuying';
 import { MappedOrder } from 'utils/mappers/types';
+import Summary from './components/Summary';
 import * as api from './api';
+import * as S from './styles';
 
 const columns: Column<MappedOrder>[] = [
   {
@@ -96,36 +99,48 @@ const Accountancy = () => {
   }, [orders, ordersRange]);
 
   return (
-    <>
-      <Card
-        title="Zamówienia"
-        customAction={
-          <>
-            <RangeInput
-              width={500}
-              handleRangeChange={setOrdersRange}
-              min={600}
-              max={740}
-              defaultRange={ordersRange}
-            />
+    <Container maxWidth="xl">
+      <Grid container spacing={2}>
+        <S.Summary item>
+          <Card title="Stan magazynowy"></Card>
+        </S.Summary>
+        <S.Summary item>
+          <Summary ordersByRange={ordersByRange} />
+        </S.Summary>
+      </Grid>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Card
+            title="Zamówienia"
+            customAction={
+              <>
+                <RangeInput
+                  width={500}
+                  handleRangeChange={setOrdersRange}
+                  min={0}
+                  max={807}
+                  defaultRange={ordersRange}
+                />
 
-            <Button onClick={handleGetData}>Pobierz zamówienia</Button>
-          </>
-        }
-      >
-        <Table
-          columns={columns}
-          data={ordersByRange}
-          options={{
-            paging: true,
-            sorting: false,
-            filtering: false,
-            maxBodyHeight: '50rem',
-          }}
-          isLoading={isLoading}
-        />
-      </Card>
-    </>
+                <Button onClick={handleGetData}>Pobierz zamówienia</Button>
+              </>
+            }
+          >
+            <Table
+              columns={columns}
+              data={ordersByRange}
+              options={{
+                paging: true,
+                sorting: false,
+                filtering: false,
+                maxBodyHeight: '50rem',
+              }}
+              isLoading={isLoading}
+            />
+          </Card>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 

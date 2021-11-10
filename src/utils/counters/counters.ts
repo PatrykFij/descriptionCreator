@@ -1,5 +1,5 @@
 import { Product } from 'types/Product';
-import { ProductInOrder } from 'utils/mappers/types';
+import { MappedOrder, ProductInOrder } from 'utils/mappers/types';
 
 export const sumOfAllProductsPriceBuying = (products: Product[]) => {
   return products
@@ -20,5 +20,17 @@ export const sumOfOrderProductsPriceBuying = (products: ProductInOrder[]) => {
       ({ quantity, price_buying }: ProductInOrder) =>
         Number(quantity) * Number(price_buying),
     )
+    .reduce((prev, next) => prev + next, 0);
+};
+
+export const sumOfAllOrdersPriceBuying = (products: MappedOrder[]) => {
+  return products
+    .map((el) => sumOfOrderProductsPriceBuying(el.productsInOrder))
+    .reduce((prev, next) => prev + next, 0);
+};
+
+export const sumOfAllOrdersPricePaid = (products: MappedOrder[]) => {
+  return products
+    .map((el) => Number(el.paid))
     .reduce((prev, next) => prev + next, 0);
 };

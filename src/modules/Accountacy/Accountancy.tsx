@@ -1,12 +1,48 @@
 import { useMemo, useState } from 'react';
-import { Button, Card } from '@material-ui/core';
 import { Column } from 'material-table';
+import Button from 'components/Button';
+import Card from 'components/Card';
+import RangeInput from 'components/RangeInput';
 import Table from 'components/Table';
 import { sumOfOrderProductsPriceBuying } from 'utils/counters/counters';
 import { handleException } from 'utils/handleException';
 import { mapOrdersWithBuyingPrice } from 'utils/mappers/mapOrdersWithPriceBuying';
 import { MappedOrder } from 'utils/mappers/types';
 import * as api from './api';
+
+const columns: Column<MappedOrder>[] = [
+  {
+    title: 'ID',
+    field: 'order_id',
+    type: 'string',
+    width: '5%',
+  },
+  {
+    title: 'Zapłacona kwota',
+    field: 'paid',
+    width: '7%',
+    // TODO - add users here and in the interface for 'Advisor'
+  },
+  {
+    title: 'Zapłacona kwota',
+    field: 'sum',
+    width: '7%',
+    // TODO - add users here and in the interface for 'Advisor'
+  },
+  {
+    title: 'Produkty w zamówieniu',
+    field: 'productsInOrder',
+    render: (a) => a.productsInOrder.map(({ name }) => `${name}`),
+    width: '15%',
+    // TODO - add users here and in the interface for 'Advisor'
+  },
+  {
+    title: 'Kwota zakupu produktów',
+    field: 'productsInOrder',
+    render: (a) => sumOfOrderProductsPriceBuying(a.productsInOrder),
+    // TODO - add users here and in the interface for 'Advisor'
+  },
+];
 
 const Accountancy = () => {
   const [orders, setOrders] = useState<MappedOrder[] | []>([]);
@@ -49,46 +85,47 @@ const Accountancy = () => {
     [isLoadingOrderedProducts, isLoadingOrders, isLoadingProducts],
   );
 
-  const columns: Column<MappedOrder>[] = [
-    {
-      title: 'ID',
-      field: 'order_id',
-      type: 'string',
-      width: '5%',
-    },
-    {
-      title: 'Zapłacona kwota',
-      field: 'paid',
-      width: '7%',
-      // TODO - add users here and in the interface for 'Advisor'
-    },
-    {
-      title: 'Zapłacona kwota',
-      field: 'sum',
-      width: '7%',
-      // TODO - add users here and in the interface for 'Advisor'
-    },
-    {
-      title: 'Produkty w zamówieniu',
-      field: 'productsInOrder',
-      render: (a) => a.productsInOrder.map(({ name }) => `${name}`),
-      width: '15%',
-      // TODO - add users here and in the interface for 'Advisor'
-    },
-    {
-      title: 'Kwota zakupu produktów',
-      field: 'productsInOrder',
-      render: (a) => sumOfOrderProductsPriceBuying(a.productsInOrder),
-      // TODO - add users here and in the interface for 'Advisor'
-    },
-  ];
+  const [ordersRange, setOrdersRange] = useState<number[]>([0]);
+
+  const ordersByRange = useMemo(() => {
+    return orders.filter(
+      (el) =>
+        Number(el.order_id) >= ordersRange[0] &&
+        Number(el.order_id) <= ordersRange[1],
+    );
+  }, [orders, ordersRange]);
 
   return (
-    <Card>
-      <h1>Księgowość</h1>
-      <Button onClick={handleGetData}>Pobierz produkty</Button>
-      <Table columns={columns} data={orders} isLoading={isLoading} />
-    </Card>
+    <>
+      <Card
+        title="Zamówienia"
+        customAction={
+          <>
+            <RangeInput
+              width={500}
+              handleRangeChange={setOrdersRange}
+              min={600}
+              max={740}
+              defaultRange={ordersRange}
+            />
+
+            <Button onClick={handleGetData}>Pobierz zamówienia</Button>
+          </>
+        }
+      >
+        <Table
+          columns={columns}
+          data={ordersByRange}
+          options={{
+            paging: true,
+            sorting: false,
+            filtering: false,
+            maxBodyHeight: '50rem',
+          }}
+          isLoading={isLoading}
+        />
+      </Card>
+    </>
   );
 };
 

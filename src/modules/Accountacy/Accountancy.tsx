@@ -83,6 +83,7 @@ const Accountancy = () => {
           <OrdersTable
             ordersByRange={ordersByRange}
             isLoading={isLoading}
+            orders={orders}
             ordersRange={ordersRange}
             setOrdersRange={setOrdersRange}
             handleGetData={handleDownloadData}

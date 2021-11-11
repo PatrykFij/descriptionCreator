@@ -43,6 +43,7 @@ const columns: Column<MappedOrder>[] = [
 
 interface Props {
   isLoading: boolean;
+  orders?: MappedOrder[];
   ordersByRange?: MappedOrder[];
   ordersRange?: number[];
   setOrdersRange: Dispatch<SetStateAction<number[] | undefined>>;
@@ -51,6 +52,7 @@ interface Props {
 
 const OrdersTable = ({
   isLoading,
+  orders,
   ordersByRange,
   setOrdersRange,
   ordersRange,
@@ -68,8 +70,9 @@ const OrdersTable = ({
               ordersRange={ordersRange}
             />
           )}
-
-          <Button onClick={handleGetData}>Pobierz zamówienia</Button>
+          <Button onClick={handleGetData}>
+            {orders ? 'Pobierz zamówienia' : 'Aktualizuj dane'}
+          </Button>
         </>
       }
     >

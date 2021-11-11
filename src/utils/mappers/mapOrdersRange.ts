@@ -1,5 +1,6 @@
 import { MappedOrder } from './types';
 
 export const mapOrdersRange = (orders: MappedOrder[]): number[] => {
-  return [0, 500];
+  const ordersId = orders.map((el) => Number(el.order_id));
+  return [Math.min(...ordersId), Math.max(...ordersId)];
 };

@@ -32,14 +32,20 @@ export const sumOfOrdersProducts = (products: ProductInOrder[]) => {
 
 export const sumOfAllOrdersPriceBuying = (products: MappedOrder[]) => {
   return products
-    .map((el) => Number(sumOfOrderProductsPriceBuying(el.productsInOrder)))
-    .reduce((prev, next) => prev + next, 0)
-    .toFixed(2);
+    .map(({ productsInOrder }) =>
+      Number(sumOfOrderProductsPriceBuying(productsInOrder)),
+    )
+    .reduce((prev, next) => prev + next, 0);
 };
 
 export const sumOfAllOrdersPricePaid = (products: MappedOrder[]) => {
   return products
-    .map((el) => Number(el.paid))
-    .reduce((prev, next) => prev + next, 0)
-    .toFixed(2);
+    .map(({ paid }) => Number(paid))
+    .reduce((prev, next) => prev + next, 0);
+};
+
+export const sumOfAllOrdersShippings = (products: MappedOrder[]) => {
+  return products
+    .map(({ shipping_cost }) => Number(shipping_cost))
+    .reduce((prev, next) => prev + next, 0);
 };

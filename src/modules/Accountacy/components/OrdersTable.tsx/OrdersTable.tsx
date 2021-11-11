@@ -111,9 +111,10 @@ const OrdersTable = ({
         columns={columns}
         data={ordersByRange}
         options={{
+          pageSize: 25,
           paging: true,
-          sorting: false,
-          filtering: false,
+          sorting: true,
+          filtering: true,
           maxBodyHeight: '50rem',
         }}
         isLoading={isLoading}

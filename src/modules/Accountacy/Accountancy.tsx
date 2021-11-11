@@ -55,7 +55,7 @@ const Accountancy = () => {
         setOrders(mappedData);
         setOrdersRange(orderRange);
       }
-    } catch (e) {
+    } catch (e: any) {
       handleException(e);
     }
   };

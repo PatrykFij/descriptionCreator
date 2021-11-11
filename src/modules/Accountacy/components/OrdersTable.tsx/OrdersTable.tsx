@@ -93,7 +93,7 @@ const OrdersTable = ({
         <>
           {ordersRange && (
             <RangeInput
-              width={500}
+              width={800}
               handleRangeChange={setOrdersRange}
               ordersRange={ordersRange}
               disabled={isLoading}

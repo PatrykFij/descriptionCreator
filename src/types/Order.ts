@@ -3,6 +3,9 @@ export interface Order {
   sum: string;
   is_paid: boolean;
   paid: string;
+  date: string;
+  shipping_cost: string;
+  shipping_id: string;
 }
 
 // {

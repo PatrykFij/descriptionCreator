@@ -69,6 +69,7 @@ export const useGetOrderedProducts = () => {
   const [, getOrderedProducts] = useAxios({}, { manual: true });
 
   const [isLoading, setIsLoading] = useState(false);
+
   const getAllOrderedProducts = useCallback(async () => {
     setIsLoading(true);
     let list = [];
@@ -86,13 +87,30 @@ export const useGetOrderedProducts = () => {
         } = await getOrderedProducts({ url });
         list.push(...data.list);
       }
-      setIsLoading(false);
-      return list;
     }
+    setIsLoading(false);
+    return list;
   }, [getOrderedProducts]);
 
   return {
     isLoading,
     getAllOrderedProducts,
+  };
+};
+
+export const useGetShippingMethod = () => {
+  const [{ loading: isLoadingShippings }, getShippings] = useAxios(
+    { url: 'node-fetch?url=shippings&limit=50' },
+    { manual: true },
+  );
+
+  const getShippingMethods = useCallback(async () => {
+    const response = await getShippings();
+    return response.data.data.list;
+  }, [getShippings]);
+
+  return {
+    isLoadingShippings,
+    getShippingMethods,
   };
 };

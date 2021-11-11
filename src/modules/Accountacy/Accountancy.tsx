@@ -4,7 +4,7 @@ import Card from 'components/Card';
 import { handleException } from 'utils/handleException';
 import { mapOrdersRange } from 'utils/mappers/mapOrdersRange';
 import { mapOrdersWithBuyingPrice } from 'utils/mappers/mapOrdersWithPriceBuying';
-import { MappedOrder } from 'utils/mappers/types';
+import { Data, MappedOrder } from 'utils/mappers/types';
 import OrdersTable from './components/OrdersTable.tsx';
 import Summary from './components/Summary';
 import * as api from './api';
@@ -14,12 +14,17 @@ const Accountancy = () => {
   const [orders, setOrders] = useState<MappedOrder[]>();
   const [ordersRange, setOrdersRange] = useState<number[]>();
 
+  const { isLoadingShippings, getShippingMethods } = api.useGetShippingMethod();
   const { isLoading: isLoadingProducts, getAllProducts } = api.useGetProducts();
   const { isLoading: isLoadingOrders, getAllOrders } = api.useGetOrders();
   const { isLoading: isLoadingOrderedProducts, getAllOrderedProducts } =
     api.useGetOrderedProducts();
 
   useEffect(() => {
+    handleMapData();
+  }, []);
+
+  const handleMapData = () => {
     const localStorageData = localStorage.getItem('data');
     if (localStorageData) {
       const data = JSON.parse(localStorageData);
@@ -28,16 +33,18 @@ const Accountancy = () => {
       setOrders(mappedData);
       setOrdersRange(orderRange);
     }
-  }, []);
+  };
 
   const handleDownloadData = async () => {
     try {
+      const shippingMethods = await getShippingMethods();
       const allProducts = await getAllProducts();
       const allOrders = await getAllOrders();
       const allOrderedProducts = await getAllOrderedProducts();
 
-      if (allProducts && allOrders && allOrderedProducts) {
-        const data = {
+      if (allProducts && allOrders && allOrderedProducts && shippingMethods) {
+        const data: Data = {
+          shippingMethods: shippingMethods,
           allProducts: allProducts,
           allOrders: allOrders,
           allOrderedProducts: allOrderedProducts,
@@ -54,8 +61,17 @@ const Accountancy = () => {
   };
 
   const isLoading = useMemo(
-    () => isLoadingProducts || isLoadingOrders || isLoadingOrderedProducts,
-    [isLoadingOrderedProducts, isLoadingOrders, isLoadingProducts],
+    () =>
+      isLoadingProducts ||
+      isLoadingOrders ||
+      isLoadingOrderedProducts ||
+      isLoadingShippings,
+    [
+      isLoadingOrderedProducts,
+      isLoadingOrders,
+      isLoadingProducts,
+      isLoadingShippings,
+    ],
   );
 
   const ordersByRange = useMemo(() => {
@@ -87,6 +103,7 @@ const Accountancy = () => {
             ordersRange={ordersRange}
             setOrdersRange={setOrdersRange}
             handleGetData={handleDownloadData}
+            handleMapData={handleMapData}
           />
         </Grid>
       </Grid>

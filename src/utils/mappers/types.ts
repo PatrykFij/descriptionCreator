@@ -6,8 +6,13 @@ export interface Data {
   allProducts: Product[];
   allOrders: Order[];
   allOrderedProducts: OrderedProduct[];
+  shippingMethods: ShippingMethod[];
 }
 
+export interface ShippingMethod {
+  shipping_id: string;
+  name: string;
+}
 export interface ProductInOrder {
   product_id: string;
   name: string;
@@ -20,7 +25,10 @@ export interface ProductInOrder {
 export interface MappedOrder {
   order_id: string;
   paid: string;
+  date: string;
   is_paid: string;
   sum: string;
+  shipping_name: string;
+  shipping_cost: string;
   productsInOrder: ProductInOrder[];
 }

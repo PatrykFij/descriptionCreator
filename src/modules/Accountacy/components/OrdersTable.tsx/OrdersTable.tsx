@@ -5,39 +5,66 @@ import Card from 'components/Card';
 import RangeInput from 'components/RangeInput';
 import Table from 'components/Table';
 import { sumOfOrderProductsPriceBuying } from 'utils/counters/counters';
+import { numberFormatter } from 'utils/formatters/numberFormatter';
 import { MappedOrder } from 'utils/mappers/types';
+import * as S from './styles';
 
 const columns: Column<MappedOrder>[] = [
   {
     title: 'ID',
     field: 'order_id',
     type: 'string',
-    width: '5%',
+    width: '4%',
   },
   {
-    title: 'Zapłacona kwota',
-    field: 'paid',
-    width: '7%',
-    // TODO - add users here and in the interface for 'Advisor'
+    title: 'Data zamówienia',
+    field: 'date',
+    width: '10%',
   },
   {
     title: 'Zapłacona kwota',
     field: 'sum',
     width: '7%',
-    // TODO - add users here and in the interface for 'Advisor'
-  },
-  {
-    title: 'Produkty w zamówieniu',
-    field: 'productsInOrder',
-    render: (a) => a.productsInOrder.map(({ name }) => `${name}`),
-    width: '15%',
-    // TODO - add users here and in the interface for 'Advisor'
+    render: ({ sum }) => numberFormatter(sum),
   },
   {
     title: 'Kwota zakupu produktów',
     field: 'productsInOrder',
-    render: (a) => sumOfOrderProductsPriceBuying(a.productsInOrder),
-    // TODO - add users here and in the interface for 'Advisor'
+    render: ({ productsInOrder }) =>
+      sumOfOrderProductsPriceBuying(productsInOrder),
+    width: '7%',
+  },
+  {
+    title: 'Kwota przysyłki',
+    field: 'shipping_cost',
+    width: '7%',
+    render: ({ shipping_cost }) => numberFormatter(shipping_cost),
+  },
+  {
+    title: 'Typ przesłki',
+    field: 'shipping_name',
+    width: '15%',
+  },
+  {
+    title: 'Zysk',
+    field: 'sum',
+    width: '7%',
+    render: ({ sum, productsInOrder }) =>
+      numberFormatter(
+        `${
+          Number(sum) - Number(sumOfOrderProductsPriceBuying(productsInOrder))
+        }`,
+      ),
+  },
+  {
+    title: 'Produkty w zamówieniu',
+    field: 'productsInOrder',
+    render: (a) =>
+      a.productsInOrder.map(({ name, quantity }) => (
+        <S.Product>
+          {quantity}szt. - {name}
+        </S.Product>
+      )),
   },
 ];
 
@@ -48,6 +75,7 @@ interface Props {
   ordersRange?: number[];
   setOrdersRange: Dispatch<SetStateAction<number[] | undefined>>;
   handleGetData: () => Promise<void>;
+  handleMapData: () => void;
 }
 
 const OrdersTable = ({
@@ -57,6 +85,7 @@ const OrdersTable = ({
   setOrdersRange,
   ordersRange,
   handleGetData,
+  handleMapData,
 }: Props) => {
   return (
     <Card
@@ -68,10 +97,12 @@ const OrdersTable = ({
               width={500}
               handleRangeChange={setOrdersRange}
               ordersRange={ordersRange}
+              disabled={isLoading}
             />
           )}
+          <Button onClick={handleMapData}>Przemapuj dane</Button>
           <Button onClick={handleGetData}>
-            {orders ? 'Pobierz zamówienia' : 'Aktualizuj dane'}
+            {orders ? 'Aktualizuj dane' : 'Pobierz zamówienia'}
           </Button>
         </>
       }

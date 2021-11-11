@@ -37,10 +37,10 @@ const Summary = ({ ordersByRange }: Props) => {
       <DataRow label="Kwota zakupu" value={summaryData.sumOfPriceBuying} />
       <DataRow
         label="Zysk"
-        value={`${
+        value={(
           Number(summaryData.sumOfPaidPrice) -
           Number(summaryData.sumOfPriceBuying)
-        }`}
+        ).toFixed(2)}
       />
       <DataRow label="Issuer" value="test" />
     </Card>

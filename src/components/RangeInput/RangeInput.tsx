@@ -12,9 +12,15 @@ interface Props {
   width: number;
   handleRangeChange: Dispatch<SetStateAction<number[] | undefined>>;
   ordersRange: number[];
+  disabled: boolean;
 }
 
-const RangeInput = ({ width, handleRangeChange, ordersRange }: Props) => {
+const RangeInput = ({
+  width,
+  handleRangeChange,
+  ordersRange,
+  disabled,
+}: Props) => {
   const [value, setValue] = useState<number[]>(ordersRange);
 
   const handleChange = (
@@ -51,6 +57,7 @@ const RangeInput = ({ width, handleRangeChange, ordersRange }: Props) => {
         valueLabelDisplay={'on'}
         max={max}
         min={min}
+        disabled={disabled}
       />
     </S.RangeInputWrapper>
   );

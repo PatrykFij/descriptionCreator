@@ -18,7 +18,7 @@ const PreviewDialog = ({ onClose, ordersByRange, summaryData }: Props) => {
   const componentRef = useRef(null);
   const pageStyle = `
   @page {
-    size: 80mm 50mm;
+    size: 297mm 210mm;
   }
 
   @media all {
@@ -113,7 +113,7 @@ const PreviewDialog = ({ onClose, ordersByRange, summaryData }: Props) => {
             </tr>
             <tr>
               <td>Kwota sprzedaży produktów (Sprzedaż z VAT)</td>
-              <td>{numberFormatter(summaryData.profitWithVat)}</td>
+              <td>{numberFormatter(summaryData.sumOfPaidPrice)}</td>
             </tr>
             <tr>
               <td>Kwota zakupu produktów (Zakup z VAT)</td>

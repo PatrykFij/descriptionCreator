@@ -4,6 +4,7 @@ export const PrintOrderTable = styled.table`
   && {
     border-collapse: collapse;
     font-size: 11px !important;
+    width: 100%;
   }
 
   & th,
@@ -14,6 +15,17 @@ export const PrintOrderTable = styled.table`
     white-space: nowrap;
   }
 
+  td:nth-child(3),
+  td:nth-child(4),
+  td:nth-child(5),
+  td:nth-child(6) {
+    text-align: center;
+  }
+
+  td:last-child {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
   p {
     margin: 0;
   }

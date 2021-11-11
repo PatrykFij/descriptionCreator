@@ -103,7 +103,6 @@ const Accountancy = () => {
             ordersRange={ordersRange}
             setOrdersRange={setOrdersRange}
             handleGetData={handleDownloadData}
-            handleMapData={handleMapData}
           />
         </Grid>
       </Grid>

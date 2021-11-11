@@ -47,7 +47,7 @@ const columns: Column<MappedOrder>[] = [
   },
   {
     title: 'Zysk',
-    field: 'sum',
+    field: 'profit',
     width: '7%',
     render: ({ sum, productsInOrder }) =>
       numberFormatter(
@@ -75,7 +75,6 @@ interface Props {
   ordersRange?: number[];
   setOrdersRange: Dispatch<SetStateAction<number[] | undefined>>;
   handleGetData: () => Promise<void>;
-  handleMapData: () => void;
 }
 
 const OrdersTable = ({
@@ -85,10 +84,10 @@ const OrdersTable = ({
   setOrdersRange,
   ordersRange,
   handleGetData,
-  handleMapData,
 }: Props) => {
   return (
     <Card
+      id="ordersTable"
       title="Zamówienia"
       customAction={
         <>
@@ -100,7 +99,6 @@ const OrdersTable = ({
               disabled={isLoading}
             />
           )}
-          <Button onClick={handleMapData}>Przemapuj dane</Button>
           <Button onClick={handleGetData}>
             {orders ? 'Aktualizuj dane' : 'Pobierz zamówienia'}
           </Button>

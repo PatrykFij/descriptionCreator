@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useToggle } from 'hooks/useToggle';
+import Button from 'components/Button';
 import Card from 'components/Card';
 import DataRow from 'components/DataRow';
 import {
@@ -8,12 +10,13 @@ import {
 } from 'utils/counters/counters';
 import { numberFormatter } from 'utils/formatters/numberFormatter';
 import { MappedOrder } from 'utils/mappers/types';
+import PreviewDialog from './components/PreviewDialog';
 
 interface Props {
   ordersByRange?: MappedOrder[];
 }
 
-interface Summary {
+export interface Summary {
   ordersAmount: number;
   sumOfPaidPrice: number;
   sumOfPriceBuying: number;
@@ -27,6 +30,7 @@ interface Summary {
 
 const Summary = ({ ordersByRange }: Props) => {
   const [summaryData, setSummaryData] = useState<Summary>({} as Summary);
+
   useEffect(() => {
     if (ordersByRange) {
       const ordersAmount = ordersByRange.length;
@@ -54,12 +58,21 @@ const Summary = ({ ordersByRange }: Props) => {
     }
   }, [ordersByRange]);
 
+  const [isPreviewOpen, openPreview, closePreview] = useToggle();
   return (
-    <Card title="Podsumowanie">
-      <DataRow
-        label="Ilość zamówień"
-        value={numberFormatter(summaryData.ordersAmount)}
-      />
+    <Card
+      title="Podsumowanie"
+      customAction={<Button onClick={openPreview}>Podgląd</Button>}
+    >
+      {isPreviewOpen && (
+        <PreviewDialog
+          ordersByRange={ordersByRange}
+          summaryData={summaryData}
+          onClose={closePreview}
+        />
+      )}
+
+      <DataRow label="Ilość zamówień" value={`${summaryData.ordersAmount}`} />
       <DataRow
         label="Kwota sprzedaży produktów (Sprzedaż z VAT)"
         value={numberFormatter(summaryData.sumOfPaidPrice)}

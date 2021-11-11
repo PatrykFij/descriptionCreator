@@ -18,6 +18,7 @@ interface Props {
   isLoading?: boolean;
   customAction?: JSX.Element;
   isHeader?: boolean;
+  id?: string;
 }
 
 const Card = ({
@@ -30,9 +31,10 @@ const Card = ({
   isLoading,
   customAction,
   isHeader = true,
+  id,
 }: Props) => {
   return (
-    <S.CardWrapper withoutpadding={withoutPadding?.toString()}>
+    <S.CardWrapper id={id} withoutpadding={withoutPadding?.toString()}>
       {isLoading && (
         <S.PreloaderWrapper>
           <CircularProgress />

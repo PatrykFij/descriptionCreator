@@ -1,17 +1,21 @@
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useMemo,
+  useState,
+} from 'react';
 import { Slider } from '@material-ui/core';
 import * as S from './styles';
 
 interface Props {
   width: number;
-  handleRangeChange: Dispatch<SetStateAction<number[]>>;
-  max: number;
-  min: number;
-  defaultRange: number[];
+  handleRangeChange: Dispatch<SetStateAction<number[] | undefined>>;
+  ordersRange: number[];
 }
 
-const RangeInput = ({ width, handleRangeChange, max, min }: Props) => {
-  const [value, setValue] = useState<number[]>([min, max]);
+const RangeInput = ({ width, handleRangeChange, ordersRange }: Props) => {
+  const [value, setValue] = useState<number[]>(ordersRange);
 
   const handleChange = (
     event: ChangeEvent<{}>,
@@ -31,14 +35,20 @@ const RangeInput = ({ width, handleRangeChange, max, min }: Props) => {
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const min = useMemo(() => ordersRange?.[0], []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const max = useMemo(() => ordersRange?.[1], []);
+
   return (
     <S.RangeInputWrapper sx={{ width }}>
       <S.Title>Zakres zamówień</S.Title>
       <Slider
         value={value}
+        defaultValue={ordersRange}
         onChange={handleChange}
         onChangeCommitted={onChangeCommitted}
-        valueLabelDisplay="on"
+        valueLabelDisplay={'on'}
         max={max}
         min={min}
       />

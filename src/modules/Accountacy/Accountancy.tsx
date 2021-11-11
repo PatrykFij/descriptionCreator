@@ -1,48 +1,55 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Container, Grid } from '@material-ui/core';
 import Card from 'components/Card';
 import { handleException } from 'utils/handleException';
+import { mapOrdersRange } from 'utils/mappers/mapOrdersRange';
 import { mapOrdersWithBuyingPrice } from 'utils/mappers/mapOrdersWithPriceBuying';
 import { MappedOrder } from 'utils/mappers/types';
-import OrdersTable from './components/OrdersTable';
+import OrdersTable from './components/OrdersTable.tsx';
 import Summary from './components/Summary';
 import * as api from './api';
 import * as S from './styles';
 
 const Accountancy = () => {
-  const [orders, setOrders] = useState<MappedOrder[] | []>([]);
-  const [ordersRange, setOrdersRange] = useState<number[]>([0]);
+  const [orders, setOrders] = useState<MappedOrder[]>();
+  const [ordersRange, setOrdersRange] = useState<number[]>();
 
   const { isLoading: isLoadingProducts, getAllProducts } = api.useGetProducts();
   const { isLoading: isLoadingOrders, getAllOrders } = api.useGetOrders();
   const { isLoading: isLoadingOrderedProducts, getAllOrderedProducts } =
     api.useGetOrderedProducts();
 
-  const handleGetData = async () => {
-    let data = {};
-
-    if (localStorage.getItem('data')) {
-      data = JSON.parse(localStorage.getItem('data') || '{}');
-      const mappedData = mapOrdersWithBuyingPrice();
+  useEffect(() => {
+    const localStorageData = localStorage.getItem('data');
+    if (localStorageData) {
+      const data = JSON.parse(localStorageData);
+      const mappedData = mapOrdersWithBuyingPrice(data);
+      const orderRange = mapOrdersRange(mappedData);
       setOrders(mappedData);
-    } else {
-      try {
-        const allProducts = await getAllProducts();
-        const allOrders = await getAllOrders();
-        const allOrderedProducts = await getAllOrderedProducts();
-        if (allProducts && allOrders && allOrderedProducts) {
-          data = {
-            allProducts: allProducts,
-            allOrders: allOrders,
-            allOrderedProducts: allOrderedProducts,
-          };
-          localStorage.setItem('data', JSON.stringify(data));
-        }
-        const mappedData = mapOrdersWithBuyingPrice();
+      setOrdersRange(orderRange);
+    }
+  }, []);
+
+  const handleDownloadData = async () => {
+    try {
+      const allProducts = await getAllProducts();
+      const allOrders = await getAllOrders();
+      const allOrderedProducts = await getAllOrderedProducts();
+
+      if (allProducts && allOrders && allOrderedProducts) {
+        const data = {
+          allProducts: allProducts,
+          allOrders: allOrders,
+          allOrderedProducts: allOrderedProducts,
+        };
+        localStorage.setItem('data', JSON.stringify(data));
+        const mappedData = mapOrdersWithBuyingPrice(data);
+        const orderRange = mapOrdersRange(mappedData);
         setOrders(mappedData);
-      } catch (e) {
-        handleException(e);
+        setOrdersRange(orderRange);
       }
+    } catch (e) {
+      handleException(e);
     }
   };
 
@@ -52,11 +59,13 @@ const Accountancy = () => {
   );
 
   const ordersByRange = useMemo(() => {
-    return orders.filter(
-      (el) =>
-        Number(el.order_id) >= ordersRange[0] &&
-        Number(el.order_id) <= ordersRange[1],
-    );
+    if (orders && ordersRange) {
+      return orders.filter(
+        (el) =>
+          Number(el.order_id) >= ordersRange[0] &&
+          Number(el.order_id) <= ordersRange[1],
+      );
+    }
   }, [orders, ordersRange]);
 
   return (
@@ -76,7 +85,7 @@ const Accountancy = () => {
             isLoading={isLoading}
             ordersRange={ordersRange}
             setOrdersRange={setOrdersRange}
-            handleGetData={handleGetData}
+            handleGetData={handleDownloadData}
           />
         </Grid>
       </Grid>

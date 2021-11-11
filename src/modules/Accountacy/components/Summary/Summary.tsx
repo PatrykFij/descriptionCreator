@@ -8,7 +8,7 @@ import {
 import { MappedOrder } from 'utils/mappers/types';
 
 interface Props {
-  ordersByRange: MappedOrder[];
+  ordersByRange?: MappedOrder[];
 }
 
 interface Summary {
@@ -20,12 +20,14 @@ interface Summary {
 const Summary = ({ ordersByRange }: Props) => {
   const [summaryData, setSummaryData] = useState<Summary>({} as Summary);
   useEffect(() => {
-    const data = {
-      ordersAmount: `${ordersByRange.length}`,
-      sumOfPaidPrice: `${sumOfAllOrdersPricePaid(ordersByRange)}`,
-      sumOfPriceBuying: `${sumOfAllOrdersPriceBuying(ordersByRange)}`,
-    };
-    setSummaryData(data);
+    if (ordersByRange) {
+      const data = {
+        ordersAmount: `${ordersByRange.length}`,
+        sumOfPaidPrice: `${sumOfAllOrdersPricePaid(ordersByRange)}`,
+        sumOfPriceBuying: `${sumOfAllOrdersPriceBuying(ordersByRange)}`,
+      };
+      setSummaryData(data);
+    }
   }, [ordersByRange]);
 
   return (

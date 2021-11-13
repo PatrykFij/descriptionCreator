@@ -3,7 +3,7 @@ import { Column } from 'material-table';
 import Button from 'components/Button';
 import Card from 'components/Card';
 import RangeInput from 'components/RangeInput';
-import FixedTable from 'components/TableFixed/TableFixed';
+import Table from 'components/Table';
 import { sumOfOrderProductsPriceBuying } from 'utils/counters/counters';
 import { numberFormatter } from 'utils/formatters/numberFormatter';
 import { MappedOrder } from 'utils/mappers/types';
@@ -105,7 +105,7 @@ const OrdersTable = ({
         </>
       }
     >
-      {/* <Table
+      <Table
         columns={columns}
         data={ordersByRange}
         options={{
@@ -115,11 +115,6 @@ const OrdersTable = ({
           filtering: true,
           maxBodyHeight: '50rem',
         }}
-        isLoading={isLoading}
-      /> */}
-      <FixedTable
-        columns={columns}
-        data={ordersByRange}
         isLoading={isLoading}
       />
     </Card>

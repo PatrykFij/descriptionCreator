@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import theme, { MARGIN } from 'theme/theme';
 
 export const MainContainer = styled.div`
   display: flex;
@@ -9,6 +8,5 @@ export const MainContainer = styled.div`
   padding: 2rem;
   & > * {
     width: 100%;
-    max-width: ${`${theme.breakpoints.values.xl - 2 * MARGIN}px`};
   }
 `;

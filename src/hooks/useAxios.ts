@@ -12,7 +12,7 @@ axiosInstance.interceptors.request.use(
 
     config.headers = {
       ...config.headers,
-      Authorization: `Bearer ${state?.user?.access_token}`,
+      Authorization: `Bearer ${state?.user?.accessToken}`,
     };
     return config;
   },

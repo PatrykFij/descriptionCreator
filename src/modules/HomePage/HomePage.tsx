@@ -5,7 +5,7 @@ import * as S from './styles';
 
 const modules = [
   { name: 'kreator opisów', path: URL.DESCRIPTION_CREATOR },
-  { name: 'kreator opisów', path: URL.ACCOUNTANCY },
+  { name: 'rozliczenia', path: URL.ACCOUNTANCY },
 ];
 
 const HomePage = () => {

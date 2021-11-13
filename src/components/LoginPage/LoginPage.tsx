@@ -52,7 +52,7 @@ const LoginPage = () => {
           },
         }),
       );
-      history.push(URL.DESCRIPTION_CREATOR);
+      history.push(URL.ROOT);
     } catch (e: any) {
       toast.error(e.response.statusText);
       handleException(e);

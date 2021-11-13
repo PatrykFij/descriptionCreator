@@ -61,7 +61,7 @@ const columns: Column<MappedOrder>[] = [
     field: 'productsInOrder',
     render: (a) =>
       a.productsInOrder.map(({ name, quantity }) => (
-        <S.Product>
+        <S.Product key={name}>
           {quantity}szt. - {name}
         </S.Product>
       )),

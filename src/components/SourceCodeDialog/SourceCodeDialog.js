@@ -40,7 +40,7 @@ const getExistingOfferFields = (existingOffer) => {
       ? [...existingOffer.querySelectorAll('#list-section [data-id="ul_1"] > li')].map((el) => el.innerHTML)
       : [],
   };
-  console.log(existingOffer.querySelector('#banner-section [data-id="img_1"]'));
+
   const bannerSection = {
     imgFileName: existingOffer.querySelector('#banner-section [data-id="img_1"]')
       ? existingOffer

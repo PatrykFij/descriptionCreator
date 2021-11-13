@@ -1,22 +1,25 @@
-import React, { useState } from "react";
-import ToastProvider from "components/ToastProvider";
-import LoginPage from "../LoginPage/LoginPage";
+import React, { Dispatch, SetStateAction, useState } from 'react';
 
-const appCtxDefaultValue = {
-  isAuthenticated: !!sessionStorage.getItem("access_token"),
-  setIsAuthenticated: (val: boolean) => {},
-  accessToken: "",
-  setAccessToken: (val: string) => {},
-};
+interface AuthContextType {
+  isAuthenticated: boolean;
+  setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
+}
 
-export const AuthContext = React.createContext(appCtxDefaultValue);
+export const AuthContext = React.createContext({} as AuthContextType);
 
 export const AuthProvider = ({ children }: any) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(appCtxDefaultValue.isAuthenticated);
-  const [accessToken, setAccessToken] = useState(appCtxDefaultValue.accessToken);
+  const authenticated = JSON.parse(sessionStorage.getItem('state') || '{}')
+    ?.user?.authenticated;
+
+  const [isAuthenticated, setIsAuthenticated] = useState(authenticated);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, accessToken, setAccessToken }}>
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        setIsAuthenticated,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

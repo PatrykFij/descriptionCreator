@@ -8,11 +8,11 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = sessionStorage.getItem('access_token');
+    const state = JSON.parse(sessionStorage.getItem('state') || '{}');
 
     config.headers = {
       ...config.headers,
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${state?.user?.access_token}`,
     };
     return config;
   },

@@ -1,26 +1,25 @@
-import React, { useContext } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
-import { Button } from "@material-ui/core";
-import axios from "axios";
-import { useToggle } from "hooks/useToggle";
-import { AuthContext } from "components/AuthProvider/AuthProvider";
-import Dialog from "components/Dialog";
-import TextInput from "components/Inputs/TextInput";
-import { handleException } from "utils/handleException";
-import * as T from "./types";
-import { Redirect, useHistory } from "react-router-dom";
-import * as URL from "../../routes/url";
+import React, { useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import { Redirect, useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { Button } from '@material-ui/core';
+import axios from 'axios';
+import { useToggle } from 'hooks/useToggle';
+import { AuthContext } from 'components/AuthProvider/AuthProvider';
+import Dialog from 'components/Dialog';
+import TextInput from 'components/Inputs/TextInput';
+import { handleException } from 'utils/handleException';
+import * as URL from '../../routes/url';
+import * as T from './types';
 
 const LoginPage = () => {
-  const { isAuthenticated, setIsAuthenticated, setAccessToken } = useContext(AuthContext);
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   let history = useHistory();
 
   const form = useForm<T.LoginFields>({
-    mode: "onSubmit",
+    mode: 'onSubmit',
   });
   const {
-    trigger,
     getValues,
     handleSubmit,
     control,
@@ -32,20 +31,27 @@ const LoginPage = () => {
     //brillar-sklep.pl/webapi/rest/auth
     try {
       const response = await axios.post(
-        "/.netlify/functions/node-fetch?url=auth",
+        '/.netlify/functions/node-fetch?url=auth',
         {},
         {
           auth: {
             username: username,
             password: password,
           },
-          headers: { accept: "Accept: application/json" },
-        }
+          headers: { accept: 'Accept: application/json' },
+        },
       );
-      toast.success("Pomyślnie zalogowano");
+      toast.success('Pomyślnie zalogowano');
       setIsAuthenticated(true);
-      setAccessToken(response.data.data.access_toke);
-      sessionStorage.setItem("access_token", response.data.data.access_token);
+      sessionStorage.setItem(
+        'state',
+        JSON.stringify({
+          user: {
+            authenticated: true,
+            accessToken: response.data.data.access_token,
+          },
+        }),
+      );
       history.push(URL.DESCRIPTION_CREATOR);
     } catch (e: any) {
       toast.error(e.response.statusText);
@@ -70,8 +76,20 @@ const LoginPage = () => {
             </>
           }
         >
-          <TextInput name="username" label="Login" control={control} errors={errors} required />
-          <TextInput name="password" label="Password" control={control} errors={errors} required />
+          <TextInput
+            name="username"
+            label="Login"
+            control={control}
+            errors={errors}
+            required
+          />
+          <TextInput
+            name="password"
+            label="Password"
+            control={control}
+            errors={errors}
+            required
+          />
         </Dialog>
       )}
     </>

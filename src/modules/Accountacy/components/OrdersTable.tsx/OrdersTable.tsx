@@ -1,9 +1,15 @@
 import { Dispatch, SetStateAction, useMemo } from 'react';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from '@material-ui/core';
 import { Column } from 'material-table';
 import Button from 'components/Button';
 import Card from 'components/Card';
 import RangeInput from 'components/RangeInput';
-import Table from 'components/Table';
 import { sumOfOrderProductsPriceBuying } from 'utils/counters/counters';
 import { numberFormatter } from 'utils/formatters/numberFormatter';
 import { MappedOrder } from 'utils/mappers/types';
@@ -110,7 +116,7 @@ const OrdersTable = ({
         </>
       }
     >
-      <Table
+      {/* <Table
         columns={columns}
         data={orders}
         options={{
@@ -121,7 +127,70 @@ const OrdersTable = ({
           maxBodyHeight: '50rem',
         }}
         isLoading={isLoading}
-      />
+      /> */}
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>ID</TableCell>
+            <TableCell align="right">Data zamówienia</TableCell>
+            <TableCell align="right">Zapłacona kwota</TableCell>
+            <TableCell align="right">Kwota zakupu produktów</TableCell>
+            <TableCell align="right">Kwota przysyłki</TableCell>
+            <TableCell align="right">Typ przesłki</TableCell>
+            <TableCell align="right">Zysk</TableCell>
+            <TableCell align="right">Produkty w zamówieniu</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {ordersByRange?.map(
+            ({
+              order_id,
+              date,
+              paid,
+              productsInOrder,
+              shipping_cost,
+              shipping_name,
+              sum,
+            }) => (
+              <TableRow key={order_id}>
+                <TableCell component="th" scope="row">
+                  {order_id}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {date}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {paid}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {sumOfOrderProductsPriceBuying(productsInOrder)}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {numberFormatter(shipping_cost)}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {shipping_name}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {numberFormatter(
+                    `${
+                      Number(sum) -
+                      Number(sumOfOrderProductsPriceBuying(productsInOrder))
+                    }`,
+                  )}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {productsInOrder.map(({ name, quantity }) => (
+                    <S.Product key={name}>
+                      {quantity}szt. - {name}
+                    </S.Product>
+                  ))}
+                </TableCell>
+              </TableRow>
+            ),
+          )}
+        </TableBody>
+      </Table>
     </Card>
   );
 };

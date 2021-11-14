@@ -3,7 +3,6 @@ import {
   Dispatch,
   SetStateAction,
   useCallback,
-  useEffect,
   useMemo,
   useState,
 } from 'react';
@@ -21,17 +20,12 @@ const RangeInput = ({ width, handleRangeChange, range, disabled }: Props) => {
   console.log(range);
   const [value, setValue] = useState<number[]>(range);
 
-  useEffect(() => {
-    console.log(range);
-  }, [range]);
-
-  const handleChange = (
-    event: ChangeEvent<{}>,
-    newValue: number | number[],
-  ) => {
-    setValue(newValue as number[]);
-  };
-
+  const handleChange = useCallback(
+    (event: ChangeEvent<{}>, newValue: number | number[]) => {
+      setValue(newValue as number[]);
+    },
+    [],
+  );
   const onChangeCommitted = useCallback(
     (event: ChangeEvent<{}>, newValue: number | number[]) => {
       if (typeof newValue === 'number') {

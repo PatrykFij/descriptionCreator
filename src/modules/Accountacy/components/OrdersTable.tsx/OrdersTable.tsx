@@ -3,7 +3,7 @@ import { Column } from 'material-table';
 import Button from 'components/Button';
 import Card from 'components/Card';
 import RangeInput from 'components/RangeInput';
-import Table from 'components/Table';
+import ReactVirtualizedTable from 'components/TableVirtualized/TableVirtualized';
 import { sumOfOrderProductsPriceBuying } from 'utils/counters/counters';
 import { numberFormatter } from 'utils/formatters/numberFormatter';
 import { MappedOrder } from 'utils/mappers/types';
@@ -32,7 +32,7 @@ const OrdersTable = ({
         title: 'ID',
         field: 'order_id',
         type: 'string',
-        width: '4%',
+        width: '5%',
       },
       {
         title: 'Data zamówienia',
@@ -42,7 +42,7 @@ const OrdersTable = ({
       {
         title: 'Zapłacona kwota',
         field: 'sum',
-        width: '7%',
+        width: '10%',
         render: ({ sum }) => numberFormatter(sum),
       },
       {
@@ -50,12 +50,12 @@ const OrdersTable = ({
         field: 'productsInOrder',
         render: ({ productsInOrder }) =>
           sumOfOrderProductsPriceBuying(productsInOrder),
-        width: '7%',
+        width: '10%',
       },
       {
         title: 'Kwota przysyłki',
         field: 'shipping_cost',
-        width: '7%',
+        width: '10%',
         render: ({ shipping_cost }) => numberFormatter(shipping_cost),
       },
       {
@@ -66,7 +66,7 @@ const OrdersTable = ({
       {
         title: 'Zysk',
         field: 'profit',
-        width: '7%',
+        width: '10%',
         render: ({ sum, productsInOrder }) =>
           numberFormatter(
             `${
@@ -109,7 +109,8 @@ const OrdersTable = ({
         </>
       }
     >
-      <Table
+      <ReactVirtualizedTable rows={ordersByRange || []} />
+      {/* <Table
         columns={columns}
         data={ordersByRange}
         options={{
@@ -120,7 +121,7 @@ const OrdersTable = ({
           maxBodyHeight: '50rem',
         }}
         isLoading={isLoading}
-      />
+      /> */}
     </Card>
   );
 };

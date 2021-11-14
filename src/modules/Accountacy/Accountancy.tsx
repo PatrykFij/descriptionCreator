@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Container, Grid } from '@material-ui/core';
 import Card from 'components/Card';
 import { handleException } from 'utils/handleException';
@@ -20,11 +20,7 @@ const Accountancy = () => {
   const { isLoading: isLoadingOrderedProducts, getAllOrderedProducts } =
     api.useGetOrderedProducts();
 
-  useEffect(() => {
-    handleMapData();
-  }, []);
-
-  const handleMapData = () => {
+  const handleMapData = useCallback(() => {
     const localStorageData = localStorage.getItem('data');
     if (localStorageData) {
       const data = JSON.parse(localStorageData);
@@ -33,9 +29,13 @@ const Accountancy = () => {
       setOrders(mappedData);
       setRange(orderRange);
     }
-  };
+  }, []);
 
-  const handleDownloadData = async () => {
+  useEffect(() => {
+    handleMapData();
+  }, [handleMapData]);
+
+  const handleDownloadData = useCallback(async () => {
     try {
       const shippingMethods = await getShippingMethods();
       const allProducts = await getAllProducts();
@@ -58,7 +58,7 @@ const Accountancy = () => {
     } catch (e: any) {
       handleException(e);
     }
-  };
+  }, [getAllOrderedProducts, getAllOrders, getAllProducts, getShippingMethods]);
 
   const isLoading = useMemo(
     () =>
@@ -75,7 +75,6 @@ const Accountancy = () => {
   );
 
   const ordersByRange = useMemo(() => {
-    console.log('adadas');
     if (orders && range) {
       return orders.filter(
         (el) =>

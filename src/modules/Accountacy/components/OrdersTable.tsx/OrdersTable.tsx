@@ -3,7 +3,7 @@ import { Column } from 'material-table';
 import Button from 'components/Button';
 import Card from 'components/Card';
 import RangeInput from 'components/RangeInput';
-import ReactVirtualizedTable from 'components/TableVirtualized/TableVirtualized';
+import Table from 'components/Table';
 import { sumOfOrderProductsPriceBuying } from 'utils/counters/counters';
 import { numberFormatter } from 'utils/formatters/numberFormatter';
 import { MappedOrder } from 'utils/mappers/types';
@@ -89,6 +89,23 @@ const OrdersTable = ({
     [],
   );
 
+  const MemoizedTable = useMemo(
+    () => (
+      <Table
+        columns={columns}
+        data={ordersByRange}
+        options={{
+          pageSize: 5,
+          paging: true,
+          sorting: false,
+          filtering: false,
+          maxBodyHeight: '50rem',
+        }}
+        isLoading={isLoading}
+      />
+    ),
+    [columns, isLoading, ordersByRange],
+  );
   return (
     <Card
       id="ordersTable"
@@ -109,19 +126,8 @@ const OrdersTable = ({
         </>
       }
     >
-      <ReactVirtualizedTable rows={ordersByRange || []} />
-      {/* <Table
-        columns={columns}
-        data={ordersByRange}
-        options={{
-          pageSize: 5,
-          paging: true,
-          sorting: false,
-          filtering: false,
-          maxBodyHeight: '50rem',
-        }}
-        isLoading={isLoading}
-      /> */}
+      {/* <ReactVirtualizedTable rows={ordersByRange || []} /> */}
+      {MemoizedTable}
     </Card>
   );
 };

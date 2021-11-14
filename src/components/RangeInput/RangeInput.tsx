@@ -3,6 +3,7 @@ import {
   Dispatch,
   SetStateAction,
   useCallback,
+  useEffect,
   useMemo,
   useState,
 } from 'react';
@@ -18,6 +19,10 @@ interface Props {
 
 const RangeInput = ({ width, handleRangeChange, range, disabled }: Props) => {
   const [value, setValue] = useState<number[]>(range);
+
+  useEffect(() => {
+    setValue(range);
+  }, [range]);
 
   const handleChange = useCallback(
     (event: ChangeEvent<{}>, newValue: number | number[]) => {

@@ -17,7 +17,6 @@ interface Props {
 }
 
 const RangeInput = ({ width, handleRangeChange, range, disabled }: Props) => {
-  console.log(range);
   const [value, setValue] = useState<number[]>(range);
 
   const handleChange = useCallback(

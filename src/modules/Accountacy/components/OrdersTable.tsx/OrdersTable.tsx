@@ -42,7 +42,7 @@ const OrdersTable = ({
       {
         title: 'Zapłacona kwota',
         field: 'sum',
-        width: '10%',
+        width: '5%',
         render: ({ sum }) => numberFormatter(sum),
       },
       {
@@ -50,12 +50,12 @@ const OrdersTable = ({
         field: 'productsInOrder',
         render: ({ productsInOrder }) =>
           sumOfOrderProductsPriceBuying(productsInOrder),
-        width: '10%',
+        width: '5%',
       },
       {
         title: 'Kwota przysyłki',
         field: 'shipping_cost',
-        width: '10%',
+        width: '5%',
         render: ({ shipping_cost }) => numberFormatter(shipping_cost),
       },
       {
@@ -66,7 +66,7 @@ const OrdersTable = ({
       {
         title: 'Zysk',
         field: 'profit',
-        width: '10%',
+        width: '5%',
         render: ({ sum, productsInOrder }) =>
           numberFormatter(
             `${
@@ -78,6 +78,7 @@ const OrdersTable = ({
       {
         title: 'Produkty w zamówieniu',
         field: 'productsInOrder',
+        width: '50%',
         render: (a) =>
           a.productsInOrder.map(({ name, quantity }) => (
             <S.Product key={name}>
@@ -89,23 +90,6 @@ const OrdersTable = ({
     [],
   );
 
-  const MemoizedTable = useMemo(
-    () => (
-      <Table
-        columns={columns}
-        data={ordersByRange}
-        options={{
-          pageSize: 5,
-          paging: true,
-          sorting: false,
-          filtering: false,
-          maxBodyHeight: '50rem',
-        }}
-        isLoading={isLoading}
-      />
-    ),
-    [columns, isLoading, ordersByRange],
-  );
   return (
     <Card
       id="ordersTable"
@@ -126,8 +110,18 @@ const OrdersTable = ({
         </>
       }
     >
-      {/* <ReactVirtualizedTable rows={ordersByRange || []} /> */}
-      {MemoizedTable}
+      <Table
+        columns={columns}
+        data={orders}
+        options={{
+          pageSize: 5,
+          paging: false,
+          sorting: false,
+          filtering: false,
+          maxBodyHeight: '50rem',
+        }}
+        isLoading={isLoading}
+      />
     </Card>
   );
 };

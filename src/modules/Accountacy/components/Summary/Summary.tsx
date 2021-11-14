@@ -34,9 +34,10 @@ const Summary = ({ ordersByRange }: Props) => {
   useEffect(() => {
     if (ordersByRange) {
       const ordersAmount = ordersByRange.length;
-      const sumOfPaidPrice = sumOfAllOrdersPricePaid(ordersByRange);
-      const sumOfPriceBuying = sumOfAllOrdersPriceBuying(ordersByRange);
       const sumOfShippings = sumOfAllOrdersShippings(ordersByRange);
+      const sumOfPaidPrice =
+        sumOfAllOrdersPricePaid(ordersByRange) - sumOfShippings;
+      const sumOfPriceBuying = sumOfAllOrdersPriceBuying(ordersByRange);
       const profitWithVat = sumOfPaidPrice - sumOfPriceBuying;
       const profitNet = (profitWithVat * 100) / 123;
       const taxDeductible = profitWithVat - profitNet;

@@ -8,6 +8,7 @@ import { mapOrdersRange } from 'utils/mappers/mapOrdersRange';
 import { mapOrdersWithBuyingPrice } from 'utils/mappers/mapOrdersWithPriceBuying';
 import { Data, MappedOrder } from 'utils/mappers/types';
 import OrdersTable from './components/OrdersTable.tsx';
+import Stock from './components/Stock';
 import Summary from './components/Summary';
 import * as api from './api';
 import * as S from './styles';
@@ -90,7 +91,9 @@ const Accountancy = () => {
     <Container maxWidth="xl">
       <Grid container spacing={2}>
         <S.Summary item>
-          <Card title="Stan magazynowy"></Card>
+          <Card title="Stan magazynowy">
+            <Stock />
+          </Card>
         </S.Summary>
         <S.Summary item>
           <Summary ordersByRange={ordersByRange} />

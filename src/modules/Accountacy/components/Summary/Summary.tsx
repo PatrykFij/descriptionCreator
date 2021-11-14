@@ -26,6 +26,7 @@ export interface Summary {
   taxDeductible: number;
   incomingTax: number;
   clearProfit: number;
+  transferAmount: number;
 }
 
 const Summary = ({ ordersByRange }: Props) => {
@@ -43,6 +44,8 @@ const Summary = ({ ordersByRange }: Props) => {
       const taxDeductible = profitWithVat - profitNet;
       const incomingTax = profitNet * 0.17;
       const clearProfit = profitNet - incomingTax;
+      const transferAmount =
+        sumOfPaidPrice - taxDeductible - incomingTax + sumOfShippings;
 
       const data = {
         ordersAmount,
@@ -54,6 +57,7 @@ const Summary = ({ ordersByRange }: Props) => {
         taxDeductible,
         incomingTax,
         clearProfit,
+        transferAmount,
       };
       setSummaryData(data);
     }
@@ -104,6 +108,10 @@ const Summary = ({ ordersByRange }: Props) => {
       <DataRow
         label="Podatek dochodowy"
         value={numberFormatter(summaryData.incomingTax)}
+      />
+      <DataRow
+        label="Kwota przelania na brillar (Sprzedaż z VAT - VAT - podatek dochodowy + transport"
+        value={numberFormatter(summaryData.transferAmount)}
       />
       <DataRow
         label="Czysty zysk"

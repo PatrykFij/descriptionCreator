@@ -7,6 +7,7 @@ export interface Data {
   allOrders: Order[];
   allOrderedProducts: OrderedProduct[];
   shippingMethods: ShippingMethod[];
+  lastUpdate: string;
 }
 
 export interface ShippingMethod {

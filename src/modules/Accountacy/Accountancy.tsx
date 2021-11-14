@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Container, Grid } from '@material-ui/core';
+import moment from 'moment';
 import Card from 'components/Card';
+import { dateAndTimeDisplayFormat } from 'utils/constants';
 import { handleException } from 'utils/handleException';
 import { mapOrdersRange } from 'utils/mappers/mapOrdersRange';
 import { mapOrdersWithBuyingPrice } from 'utils/mappers/mapOrdersWithPriceBuying';
@@ -48,6 +50,7 @@ const Accountancy = () => {
           allProducts: allProducts,
           allOrders: allOrders,
           allOrderedProducts: allOrderedProducts,
+          lastUpdate: moment().format(dateAndTimeDisplayFormat),
         };
         localStorage.setItem('data', JSON.stringify(data));
         const mappedData = mapOrdersWithBuyingPrice(data);

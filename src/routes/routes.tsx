@@ -10,9 +10,9 @@ import * as URL from './url';
 export default (
   <Layout>
     <Switch>
-      <Route exact path={URL.ROOT}>
+      <PrivateRoute exact path={URL.ROOT}>
         <HomePage />
-      </Route>
+      </PrivateRoute>
       <Route path={URL.LOGIN}>
         <LoginPage />
       </Route>

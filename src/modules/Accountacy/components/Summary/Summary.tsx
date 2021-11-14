@@ -72,7 +72,10 @@ const Summary = ({ ordersByRange }: Props) => {
         />
       )}
 
-      <DataRow label="Ilość zamówień" value={`${summaryData.ordersAmount}`} />
+      <DataRow
+        label="Ilość zamówień"
+        value={`${summaryData.ordersAmount || '0'} `}
+      />
       <DataRow
         label="Kwota sprzedaży produktów (Sprzedaż z VAT)"
         value={numberFormatter(summaryData.sumOfPaidPrice)}

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Container, Grid } from '@material-ui/core';
 import moment from 'moment';
+import { Product } from 'types/Product';
 import Card from 'components/Card';
 import { dateAndTimeDisplayFormat } from 'utils/constants';
 import { handleException } from 'utils/handleException';
@@ -16,6 +17,9 @@ import * as S from './styles';
 const Accountancy = () => {
   const [orders, setOrders] = useState<MappedOrder[]>();
   const [range, setRange] = useState<number[]>();
+  const [products, setProducts] = useState<Product[]>(
+    JSON.parse(localStorage.getItem('data') || '{}')?.allProducts,
+  );
 
   const { isLoadingShippings, getShippingMethods } = api.useGetShippingMethod();
   const { isLoading: isLoadingProducts, getAllProducts } = api.useGetProducts();
@@ -57,6 +61,7 @@ const Accountancy = () => {
         const mappedData = mapOrdersWithBuyingPrice(data);
         const orderRange = mapOrdersRange(mappedData);
         setOrders(mappedData);
+        setProducts(allProducts);
         setRange(orderRange);
       }
     } catch (e: any) {
@@ -92,7 +97,7 @@ const Accountancy = () => {
       <Grid container spacing={2}>
         <S.Summary item>
           <Card title="Stan magazynowy">
-            <Stock />
+            <Stock products={products} />
           </Card>
         </S.Summary>
         <S.Summary item>

@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Product } from 'types/Product';
 import {
   sumOfAllProductsPrice,
   sumOfAllProductsPriceBuying,
@@ -6,30 +7,35 @@ import {
 import { numberFormatter } from 'utils/formatters/numberFormatter';
 import * as S from './styles';
 
-const Stock = () => {
-  const products = useMemo(
-    () => JSON.parse(localStorage.getItem('data') || '{}')?.allProducts || [],
-    [],
-  );
-
-  const sumOfPriceBuying = numberFormatter(
-    sumOfAllProductsPriceBuying(products),
-  );
-  const sumOfPlannedSales = numberFormatter(sumOfAllProductsPrice(products));
-  const plannedProfit = numberFormatter(
-    sumOfAllProductsPrice(products) - sumOfAllProductsPriceBuying(products),
-  );
+interface Props {
+  products: Product[];
+}
+const Stock = ({ products }: Props) => {
+  const stockData = useMemo(() => {
+    if (products) {
+      return {
+        sumOfPriceBuying: numberFormatter(
+          sumOfAllProductsPriceBuying(products),
+        ),
+        sumOfPlannedSales: numberFormatter(sumOfAllProductsPrice(products)),
+        plannedProfit: numberFormatter(
+          sumOfAllProductsPrice(products) -
+            sumOfAllProductsPriceBuying(products),
+        ),
+      };
+    }
+  }, [products]);
 
   return (
     <S.StockWrapper>
-      {products ? (
+      {products && stockData ? (
         <>
           <h6>Całkowita kwota zakupu / Kwota sprzedaży</h6>
           <h1>
-            {sumOfPriceBuying} zł / {sumOfPlannedSales} zł
+            {stockData.sumOfPriceBuying} zł / {stockData.sumOfPlannedSales} zł
           </h1>
           <h6>Planowany zysk</h6>
-          <h1>{plannedProfit} zł</h1>
+          <h1>{stockData.plannedProfit} zł</h1>
         </>
       ) : (
         <h6>Brak produktów, pobierz dane...</h6>

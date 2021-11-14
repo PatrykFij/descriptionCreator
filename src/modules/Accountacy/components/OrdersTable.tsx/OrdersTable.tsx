@@ -127,7 +127,7 @@ const OrdersTable = ({
                         {productsInOrder.map(
                           ({ name, quantity, price_buying }) => (
                             <S.Product key={name}>
-                              {quantity}szt. (cena zakupu {price_buying}/szt.) -{' '}
+                              {quantity}szt. (cena zakupu {price_buying}/szt.) -
                               {name}
                             </S.Product>
                           ),

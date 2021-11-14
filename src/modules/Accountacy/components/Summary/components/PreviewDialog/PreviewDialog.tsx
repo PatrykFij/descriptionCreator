@@ -93,9 +93,9 @@ const PreviewDialog = ({ onClose, ordersByRange, summaryData }: Props) => {
                   </td>
                   <td>{shipping_name}</td>
                   <td>
-                    {productsInOrder.map(({ name, quantity }) => (
+                    {productsInOrder.map(({ name, quantity, price_buying }) => (
                       <p>
-                        {quantity}szt. - {name}
+                        {quantity}szt. (cena zakupu {price_buying}/szt.) -{name}
                       </p>
                     ))}
                   </td>

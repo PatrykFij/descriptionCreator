@@ -13,7 +13,7 @@ export default (
       <PrivateRoute exact path={URL.ROOT}>
         <HomePage />
       </PrivateRoute>
-      <Route path={URL.LOGIN}>
+      <Route exact path={URL.LOGIN}>
         <LoginPage />
       </Route>
       <PrivateRoute

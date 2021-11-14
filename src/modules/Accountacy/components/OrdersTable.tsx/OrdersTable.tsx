@@ -75,9 +75,9 @@ const OrdersTable = ({
                 <TableCell align="left">Data zamówienia</TableCell>
                 <TableCell align="center">Zapłacona kwota</TableCell>
                 <TableCell align="center">Kwota zakupu produktów</TableCell>
+                <TableCell align="center">Zysk</TableCell>
                 <TableCell align="center">Kwota przysyłki</TableCell>
                 <TableCell align="left">Typ przesłki</TableCell>
-                <TableCell align="center">Zysk</TableCell>
                 <TableCell align="left">Produkty w zamówieniu</TableCell>
               </TableRow>
             </TableHead>
@@ -107,12 +107,6 @@ const OrdersTable = ({
                         {sumOfOrderProductsPriceBuying(productsInOrder)}
                       </TableCell>
                       <TableCell align="center" scope="row">
-                        {numberFormatter(shipping_cost)}
-                      </TableCell>
-                      <TableCell align="left" scope="row">
-                        {shipping_name}
-                      </TableCell>
-                      <TableCell align="center" scope="row">
                         {numberFormatter(
                           `${
                             Number(sum) -
@@ -122,12 +116,22 @@ const OrdersTable = ({
                           }`,
                         )}
                       </TableCell>
+                      <TableCell align="center" scope="row">
+                        {numberFormatter(shipping_cost)}
+                      </TableCell>
                       <TableCell align="left" scope="row">
-                        {productsInOrder.map(({ name, quantity }) => (
-                          <S.Product key={name}>
-                            {quantity}szt. - {name}
-                          </S.Product>
-                        ))}
+                        {shipping_name}
+                      </TableCell>
+
+                      <TableCell align="left" scope="row">
+                        {productsInOrder.map(
+                          ({ name, quantity, price_buying }) => (
+                            <S.Product key={name}>
+                              {quantity}szt. (cena zakupu {price_buying}/szt.) -{' '}
+                              {name}
+                            </S.Product>
+                          ),
+                        )}
                       </TableCell>
                     </TableRow>
                   ),

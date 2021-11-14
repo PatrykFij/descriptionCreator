@@ -1,6 +1,6 @@
-import { Button, Snackbar } from "@material-ui/core";
-import { mediaQuery } from "constants/MediaQueries";
-import styled from "styled-components";
+import { Button, Snackbar } from '@material-ui/core';
+import { mediaQuery } from 'constants/MediaQueries';
+import styled from 'styled-components';
 
 export const MainWrapper = styled.div`
   display: flex;

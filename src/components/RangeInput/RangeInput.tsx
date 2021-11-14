@@ -35,8 +35,7 @@ const RangeInput = ({ width, handleRangeChange, range, disabled }: Props) => {
     },
     [handleRangeChange],
   );
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const min = useMemo(() => range?.[0], []);
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const max = useMemo(() => range?.[1], []);
 
@@ -50,7 +49,7 @@ const RangeInput = ({ width, handleRangeChange, range, disabled }: Props) => {
         onChangeCommitted={onChangeCommitted}
         valueLabelDisplay={'on'}
         max={max}
-        min={min}
+        min={0}
         disabled={disabled}
       />
     </S.RangeInputWrapper>

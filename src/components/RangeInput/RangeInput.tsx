@@ -2,6 +2,8 @@ import {
   ChangeEvent,
   Dispatch,
   SetStateAction,
+  useCallback,
+  useEffect,
   useMemo,
   useState,
 } from 'react';
@@ -11,17 +13,17 @@ import * as S from './styles';
 interface Props {
   width: number;
   handleRangeChange: Dispatch<SetStateAction<number[] | undefined>>;
-  ordersRange: number[];
+  range: number[];
   disabled: boolean;
 }
 
-const RangeInput = ({
-  width,
-  handleRangeChange,
-  ordersRange,
-  disabled,
-}: Props) => {
-  const [value, setValue] = useState<number[]>(ordersRange);
+const RangeInput = ({ width, handleRangeChange, range, disabled }: Props) => {
+  console.log(range);
+  const [value, setValue] = useState<number[]>(range);
+
+  useEffect(() => {
+    console.log(range);
+  }, [range]);
 
   const handleChange = (
     event: ChangeEvent<{}>,
@@ -30,28 +32,27 @@ const RangeInput = ({
     setValue(newValue as number[]);
   };
 
-  const onChangeCommitted = (
-    event: ChangeEvent<{}>,
-    newValue: number | number[],
-  ) => {
-    if (typeof newValue === 'number') {
-      handleRangeChange([newValue, newValue]);
-    } else {
-      handleRangeChange(newValue);
-    }
-  };
-
+  const onChangeCommitted = useCallback(
+    (event: ChangeEvent<{}>, newValue: number | number[]) => {
+      if (typeof newValue === 'number') {
+        handleRangeChange([newValue, newValue]);
+      } else {
+        handleRangeChange(newValue);
+      }
+    },
+    [handleRangeChange],
+  );
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const min = useMemo(() => ordersRange?.[0], []);
+  const min = useMemo(() => range?.[0], []);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const max = useMemo(() => ordersRange?.[1], []);
+  const max = useMemo(() => range?.[1], []);
 
   return (
     <S.RangeInputWrapper sx={{ width }}>
       <S.Title>Zakres zamówień</S.Title>
       <Slider
         value={value}
-        defaultValue={ordersRange}
+        defaultValue={range}
         onChange={handleChange}
         onChangeCommitted={onChangeCommitted}
         valueLabelDisplay={'on'}

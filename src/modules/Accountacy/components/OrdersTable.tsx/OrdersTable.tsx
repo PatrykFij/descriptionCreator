@@ -72,8 +72,8 @@ interface Props {
   isLoading: boolean;
   orders?: MappedOrder[];
   ordersByRange?: MappedOrder[];
-  ordersRange?: number[];
-  setOrdersRange: Dispatch<SetStateAction<number[] | undefined>>;
+  range?: number[];
+  setRange: Dispatch<SetStateAction<number[] | undefined>>;
   handleGetData: () => Promise<void>;
 }
 
@@ -81,8 +81,8 @@ const OrdersTable = ({
   isLoading,
   orders,
   ordersByRange,
-  setOrdersRange,
-  ordersRange,
+  setRange,
+  range,
   handleGetData,
 }: Props) => {
   return (
@@ -91,11 +91,11 @@ const OrdersTable = ({
       title="Zamówienia"
       customAction={
         <>
-          {ordersRange && (
+          {range && (
             <RangeInput
               width={800}
-              handleRangeChange={setOrdersRange}
-              ordersRange={ordersRange}
+              handleRangeChange={setRange}
+              range={range}
               disabled={isLoading}
             />
           )}
@@ -111,8 +111,8 @@ const OrdersTable = ({
         options={{
           pageSize: 25,
           paging: true,
-          sorting: true,
-          filtering: true,
+          sorting: false,
+          filtering: false,
           maxBodyHeight: '50rem',
         }}
         isLoading={isLoading}

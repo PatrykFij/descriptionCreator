@@ -12,7 +12,7 @@ import * as S from './styles';
 
 const Accountancy = () => {
   const [orders, setOrders] = useState<MappedOrder[]>();
-  const [ordersRange, setOrdersRange] = useState<number[]>();
+  const [range, setRange] = useState<number[]>();
 
   const { isLoadingShippings, getShippingMethods } = api.useGetShippingMethod();
   const { isLoading: isLoadingProducts, getAllProducts } = api.useGetProducts();
@@ -31,7 +31,7 @@ const Accountancy = () => {
       const mappedData = mapOrdersWithBuyingPrice(data);
       const orderRange = mapOrdersRange(mappedData);
       setOrders(mappedData);
-      setOrdersRange(orderRange);
+      setRange(orderRange);
     }
   };
 
@@ -53,7 +53,7 @@ const Accountancy = () => {
         const mappedData = mapOrdersWithBuyingPrice(data);
         const orderRange = mapOrdersRange(mappedData);
         setOrders(mappedData);
-        setOrdersRange(orderRange);
+        setRange(orderRange);
       }
     } catch (e: any) {
       handleException(e);
@@ -75,14 +75,14 @@ const Accountancy = () => {
   );
 
   const ordersByRange = useMemo(() => {
-    if (orders && ordersRange) {
+    console.log('adadas');
+    if (orders && range) {
       return orders.filter(
         (el) =>
-          Number(el.order_id) >= ordersRange[0] &&
-          Number(el.order_id) <= ordersRange[1],
+          Number(el.order_id) >= range[0] && Number(el.order_id) <= range[1],
       );
     }
-  }, [orders, ordersRange]);
+  }, [orders, range]);
 
   return (
     <Container maxWidth="xl">
@@ -100,8 +100,8 @@ const Accountancy = () => {
             ordersByRange={ordersByRange}
             isLoading={isLoading}
             orders={orders}
-            ordersRange={ordersRange}
-            setOrdersRange={setOrdersRange}
+            range={range}
+            setRange={setRange}
             handleGetData={handleDownloadData}
           />
         </Grid>

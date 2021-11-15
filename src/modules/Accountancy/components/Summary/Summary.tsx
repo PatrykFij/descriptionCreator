@@ -8,14 +8,53 @@ import { MappedOrder } from 'utils/mappers/types';
 import PreviewDialog from './components/PreviewDialog';
 import * as T from './types';
 
+const rowsFields = (summaryData: T.Summary): T.SummaryRowData[] => [
+  {
+    label: 'Ilość zamówień',
+    value: summaryData.ordersAmount,
+  },
+  {
+    label: 'Kwota sprzedaży produktów (Sprzedaż z VAT, bez transportu)',
+    value: summaryData.sumOfPaidPrice,
+  },
+  {
+    label: 'Kwota zakupu produktów (Zakup z VAT)',
+    value: summaryData.sumOfPriceBuying,
+  },
+  {
+    label: 'Kwota transport',
+    value: summaryData.sumOfShippings,
+  },
+  {
+    label: 'Zysk (Zysk z VAT)',
+    value: summaryData.profitWithVat,
+  },
+  {
+    label: 'Zysk netto',
+    value: summaryData.profitNet,
+  },
+  {
+    label: 'VAT do odliczenia',
+    value: summaryData.taxDeductible,
+  },
+  {
+    label: 'Podatek dochodowy',
+    value: summaryData.incomingTax,
+  },
+  {
+    label:
+      'Kwota przelania na brillar (Sprzedaż z VAT - VAT - podatek dochodowy + transport',
+    value: summaryData.transferAmount,
+  },
+  {
+    label: 'Czysty zysk',
+    value: summaryData.clearProfit,
+  },
+];
+
 interface Props {
   ordersByRange?: MappedOrder[];
 }
-interface RowData {
-  label: string;
-  value: string;
-}
-
 const Summary = ({ ordersByRange }: Props) => {
   const [summaryData, setSummaryData] = useState<T.Summary>({} as T.Summary);
 
@@ -26,54 +65,9 @@ const Summary = ({ ordersByRange }: Props) => {
     }
   }, [ordersByRange]);
 
-  const summarizeRows: RowData[] = useMemo(
-    () => [
-      {
-        label: 'Ilość zamówień',
-        value: summaryData.ordersAmount,
-      },
-      {
-        label: 'Kwota sprzedaży produktów (Sprzedaż z VAT, bez transportu)',
-        value: summaryData.sumOfPaidPrice,
-      },
-      {
-        label: 'Kwota zakupu produktów (Zakup z VAT)',
-        value: summaryData.sumOfPriceBuying,
-      },
-      {
-        label: 'Kwota transport',
-        value: summaryData.sumOfShippings,
-      },
-      {
-        label: 'Zysk (Zysk z VAT)',
-        value: summaryData.profitWithVat,
-      },
-      {
-        label: 'Zysk netto',
-        value: summaryData.profitNet,
-      },
-      {
-        label: 'VAT do odliczenia',
-        value: summaryData.taxDeductible,
-      },
-      {
-        label: 'Podatek dochodowy',
-        value: summaryData.incomingTax,
-      },
-      {
-        label:
-          'Kwota przelania na brillar (Sprzedaż z VAT - VAT - podatek dochodowy + transport',
-        value: summaryData.transferAmount,
-      },
-      {
-        label: 'Czysty zysk',
-        value: summaryData.clearProfit,
-      },
-    ],
-    [summaryData],
-  );
-
   const [isPreviewOpen, openPreview, closePreview] = useToggle();
+  const summarizeRows = useMemo(() => rowsFields(summaryData), [summaryData]);
+
   return (
     <Card
       title="Podsumowanie"
@@ -86,7 +80,8 @@ const Summary = ({ ordersByRange }: Props) => {
           onClose={closePreview}
         />
       )}
-      {summarizeRows.map(({ label, value }: RowData) => (
+
+      {summarizeRows.map(({ label, value }: T.SummaryRowData) => (
         <DataRow label={label} value={value} />
       ))}
     </Card>

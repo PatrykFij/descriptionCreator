@@ -10,3 +10,7 @@ export interface Summary {
   clearProfit: string;
   transferAmount: string;
 }
+export interface SummaryRowData {
+  label: string;
+  value: string;
+}

@@ -4,12 +4,12 @@ import { Redirect, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Button } from '@material-ui/core';
 import axios from 'axios';
+import { AuthContext } from 'context/AuthProvider/AuthProvider';
 import { useToggle } from 'hooks/useToggle';
-import { AuthContext } from 'components/AuthProvider/AuthProvider';
 import Dialog from 'components/Dialog';
 import TextInput from 'components/Inputs/TextInput';
 import { handleException } from 'utils/handleException';
-import * as URL from '../../routes/url';
+import * as URL from '../../../routes/url';
 import * as T from './types';
 
 const LoginPage = () => {
@@ -28,7 +28,6 @@ const LoginPage = () => {
 
   const onSubmit = handleSubmit(async () => {
     const { username, password } = getValues();
-    //brillar-sklep.pl/webapi/rest/auth
     try {
       const response = await axios.post(
         '/.netlify/functions/node-fetch?url=auth',

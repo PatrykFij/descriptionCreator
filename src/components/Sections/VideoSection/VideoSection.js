@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import { TextField, FormControlLabel, Checkbox } from "@material-ui/core";
-import { useContext } from "react";
-import { AppContext } from "../../AppContext/AppContext";
-import { TextEditor } from "../../ContentEditable/ContentEditable";
+import styled from 'styled-components';
+import { TextField, FormControlLabel, Checkbox } from '@material-ui/core';
+import { useContext } from 'react';
+import { AppContext } from '../../../context/AppContext/AppContext';
+import { TextEditor } from '../../ContentEditable/ContentEditable';
 
 const StyledTextField = styled(TextField)`
   width: 100%;
@@ -14,7 +14,12 @@ const StyledFormControlLabel = styled(FormControlLabel)`
 `;
 
 export const VideoSection = () => {
-  const { videoSection, setVideoSection, enabledVideoSection, setEnabledVideoSection } = useContext(AppContext);
+  const {
+    videoSection,
+    setVideoSection,
+    enabledVideoSection,
+    setEnabledVideoSection,
+  } = useContext(AppContext);
 
   const handleEnableVideoSectionChange = () => {
     setEnabledVideoSection(!enabledVideoSection);
@@ -28,7 +33,10 @@ export const VideoSection = () => {
 
   const handleVideoUrlChange = (e) => {
     setVideoSection((prevState) => {
-      return { ...prevState, videoUrl: e.target.value.replace("watch?v=", "embed/").trim() };
+      return {
+        ...prevState,
+        videoUrl: e.target.value.replace('watch?v=', 'embed/').trim(),
+      };
     });
   };
 
@@ -61,7 +69,10 @@ export const VideoSection = () => {
             variant="outlined"
             onChange={handleSectionTitleChange}
           />
-          <TextEditor value={videoSection.description} handleChange={handleDescriptionChange} />
+          <TextEditor
+            value={videoSection.description}
+            handleChange={handleDescriptionChange}
+          />
           <StyledTextField
             id="outlined-multiline-static"
             label="Podaj link url do filmu"

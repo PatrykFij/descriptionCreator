@@ -1,7 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
 import Layout from 'components/Layout';
-import LoginPage from 'components/LoginPage';
-import Accountacy from 'modules/Accountacy';
+import Accountancy from 'modules/Accountancy';
+import LoginPage from 'modules/Auth/LoginPage';
 import DescriptionCreator from 'modules/DescriptionCreator/DescriptionCreator';
 import HomePage from 'modules/HomePage';
 import PrivateRoute from './PrivateRoute';
@@ -20,7 +20,7 @@ export default (
         path={URL.DESCRIPTION_CREATOR}
         component={DescriptionCreator}
       />
-      <PrivateRoute path={URL.ACCOUNTANCY} component={Accountacy} />
+      <PrivateRoute path={URL.ACCOUNTANCY} component={Accountancy} />
     </Switch>
   </Layout>
 );

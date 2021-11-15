@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { TextField, FormControlLabel, Checkbox } from "@material-ui/core";
-import { useContext } from "react";
-import { AppContext } from "../../AppContext/AppContext";
+import styled from 'styled-components';
+import { TextField, FormControlLabel, Checkbox } from '@material-ui/core';
+import { useContext } from 'react';
+import { AppContext } from '../../../context/AppContext/AppContext';
 
 const StyledTextField = styled(TextField)`
   width: 100%;
@@ -13,7 +13,12 @@ const StyledFormControlLabel = styled(FormControlLabel)`
 `;
 
 export const BannerSection = () => {
-  const { enabledBannerSection, bannerSection, setBannerSection, setEnabledBannerSection } = useContext(AppContext);
+  const {
+    enabledBannerSection,
+    bannerSection,
+    setBannerSection,
+    setEnabledBannerSection,
+  } = useContext(AppContext);
 
   const handleEnableBannerSectionChange = () => {
     setEnabledBannerSection(!enabledBannerSection);

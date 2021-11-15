@@ -1,6 +1,6 @@
-import { useContext } from "react";
-import { AppContext } from "../../AppContext/AppContext";
-import { TextEditor } from "../../ContentEditable/ContentEditable";
+import { useContext } from 'react';
+import { AppContext } from '../../../context/AppContext/AppContext';
+import { TextEditor } from '../../ContentEditable/ContentEditable';
 
 export const DescriptionSection = () => {
   const { setParagraph, paragraph } = useContext(AppContext);

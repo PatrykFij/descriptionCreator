@@ -1,5 +1,5 @@
-import { useState, useContext } from "react";
-import { AppContext } from "../AppContext/AppContext";
+import { useState, useContext } from 'react';
+import { AppContext } from '../../context/AppContext/AppContext';
 import {
   Button,
   Dialog,
@@ -9,80 +9,115 @@ import {
   TextField,
   DialogActions,
   Snackbar,
-} from "@material-ui/core";
+} from '@material-ui/core';
 
 const getExistingOfferFields = (existingOffer) => {
   const producer = existingOffer
     .querySelector('#producer-logo-section [data-id="a_1"]')
-    .href.replace("https://www.brillar-sklep.pl/", "");
+    .href.replace('https://www.brillar-sklep.pl/', '');
 
-  const topHeader = existingOffer.querySelector('#headers-section [data-id="h2_1"]')
+  const topHeader = existingOffer.querySelector(
+    '#headers-section [data-id="h2_1"]',
+  )
     ? existingOffer.querySelector('#headers-section [data-id="h2_1"]').innerHTML
-    : "";
+    : '';
 
-  const middleHeader = existingOffer.querySelector('#headers-section [data-id="h3_1"]')
+  const middleHeader = existingOffer.querySelector(
+    '#headers-section [data-id="h3_1"]',
+  )
     ? existingOffer.querySelector('#headers-section [data-id="h3_1"]').innerHTML
-    : "";
+    : '';
 
-  const bottomHeader = existingOffer.querySelector('#headers-section [data-id="h4_1"]')
+  const bottomHeader = existingOffer.querySelector(
+    '#headers-section [data-id="h4_1"]',
+  )
     ? existingOffer.querySelector('#headers-section [data-id="h4_1"]').innerHTML
-    : "";
+    : '';
 
-  const descriptionSection = existingOffer.querySelector('#description-section [data-id="p_1"]')
-    ? existingOffer.querySelector('#description-section [data-id="p_1"]').innerHTML
-    : "";
+  const descriptionSection = existingOffer.querySelector(
+    '#description-section [data-id="p_1"]',
+  )
+    ? existingOffer.querySelector('#description-section [data-id="p_1"]')
+        .innerHTML
+    : '';
 
   const listSection = {
     title: existingOffer.querySelector('#list-section [data-id="h4_1"]')
       ? existingOffer.querySelector('#list-section [data-id="h4_1"]').innerHTML
-      : "",
+      : '',
     listItems: existingOffer.querySelector('#list-section [data-id="ul_1"]')
-      ? [...existingOffer.querySelectorAll('#list-section [data-id="ul_1"] > li')].map((el) => el.innerHTML)
+      ? [
+          ...existingOffer.querySelectorAll(
+            '#list-section [data-id="ul_1"] > li',
+          ),
+        ].map((el) => el.innerHTML)
       : [],
   };
 
   const bannerSection = {
-    imgFileName: existingOffer.querySelector('#banner-section [data-id="img_1"]')
+    imgFileName: existingOffer.querySelector(
+      '#banner-section [data-id="img_1"]',
+    )
       ? existingOffer
           .querySelector('#banner-section [data-id="img_1"]')
-          .src.replace(`${window.location.origin}/userdata/public/assets/`, "")
-      : "",
+          .src.replace(`${window.location.origin}/userdata/public/assets/`, '')
+      : '',
     imgAltTag: existingOffer.querySelector('#banner-section [data-id="img_1"]')
       ? existingOffer.querySelector('#banner-section [data-id="img_1"]').alt
-      : "",
+      : '',
   };
   debugger;
-  const pictureSectionTitle = existingOffer.querySelector('#pictures-section [data-id="h4_1"]')
-    ? existingOffer.querySelector('#pictures-section [data-id="h4_1"]').innerHTML
-    : "";
+  const pictureSectionTitle = existingOffer.querySelector(
+    '#pictures-section [data-id="h4_1"]',
+  )
+    ? existingOffer.querySelector('#pictures-section [data-id="h4_1"]')
+        .innerHTML
+    : '';
 
-  let pictureSectionItems = [...existingOffer.querySelectorAll("#pictures-section #pictures-wrapper .image-container")];
+  let pictureSectionItems = [
+    ...existingOffer.querySelectorAll(
+      '#pictures-section #pictures-wrapper .image-container',
+    ),
+  ];
 
   pictureSectionItems = pictureSectionItems.length
     ? pictureSectionItems.map((el) => ({
         url: el.querySelector('[data-id="img_1"]')
-          ? el.querySelector('[data-id="img_1"]').src.replace(`${window.location.origin}/userdata/public/assets/`, "")
-          : "",
-        alt: el.querySelector('[data-id="img_1"]') ? el.querySelector('[data-id="img_1"]').alt : "",
+          ? el
+              .querySelector('[data-id="img_1"]')
+              .src.replace(
+                `${window.location.origin}/userdata/public/assets/`,
+                '',
+              )
+          : '',
+        alt: el.querySelector('[data-id="img_1"]')
+          ? el.querySelector('[data-id="img_1"]').alt
+          : '',
         title: el.querySelector('[data-id="h5_1"]')
           ? el.querySelector('[data-id="h5_1"]').innerHTML
           : el.querySelector('[data-id="h5_1"]'),
-        description: el.querySelector('[data-id="p_1"]') ? el.querySelector('[data-id="p_1"]').innerHTML : "",
+        description: el.querySelector('[data-id="p_1"]')
+          ? el.querySelector('[data-id="p_1"]').innerHTML
+          : '',
       }))
     : [];
 
   const videoSection = {
     sectionTitle: existingOffer.querySelector('#video-section [data-id="h4_1"]')
-      ? existingOffer.querySelector('#video-section [data-id="h4_1"]').innerHTML.trim()
-      : "",
+      ? existingOffer
+          .querySelector('#video-section [data-id="h4_1"]')
+          .innerHTML.trim()
+      : '',
     description: existingOffer.querySelector('#video-section [data-id="p_1"]')
       ? existingOffer
           .querySelector('#video-section [data-id="p_1"]')
-          .innerHTML.replace(/(?:^(?:&nbsp;)+)|(?:(?:&nbsp;)+$)/g, "")
-      : "",
+          .innerHTML.replace(/(?:^(?:&nbsp;)+)|(?:(?:&nbsp;)+$)/g, '')
+      : '',
     videoUrl: existingOffer.querySelector('#video-section [data-id="iframe_1"]')
-      ? existingOffer.querySelector('#video-section [data-id="iframe_1"]').src.trim()
-      : "",
+      ? existingOffer
+          .querySelector('#video-section [data-id="iframe_1"]')
+          .src.trim()
+      : '',
   };
 
   return {
@@ -150,35 +185,44 @@ export const SourceCodeDialog = ({ isOpen, setIsOpen }) => {
   };
 
   const setEnabledSections = (existingOffer) => {
-    const isListSectionEnabled = existingOffer.querySelector("#list-section");
+    const isListSectionEnabled = existingOffer.querySelector('#list-section');
     setEnabledListSection(!!isListSectionEnabled);
     if (!isListSectionEnabled) {
-      setListSection({ title: "", listItems: [] });
+      setListSection({ title: '', listItems: [] });
     }
 
-    const isBannerSectionEnabled = existingOffer.querySelector("#banner-section");
+    const isBannerSectionEnabled =
+      existingOffer.querySelector('#banner-section');
     setEnabledBannerSection(!!isBannerSectionEnabled);
     if (!isBannerSectionEnabled) {
-      setBannerSection({ imgAltTag: "", imgFileName: "" });
+      setBannerSection({ imgAltTag: '', imgFileName: '' });
     }
 
-    const isPicturesSectionEnabled = existingOffer.querySelector("#pictures-section");
+    const isPicturesSectionEnabled =
+      existingOffer.querySelector('#pictures-section');
     setEnabledPicturesSection(!!isPicturesSectionEnabled);
     if (!isPicturesSectionEnabled) {
-      setPictureSectionTitle("");
+      setPictureSectionTitle('');
       setPictureItems([]);
     }
 
-    const isVideoSectionEnabled = existingOffer.querySelector("#video-section");
+    const isVideoSectionEnabled = existingOffer.querySelector('#video-section');
     setEnabledVideoSection(!!isVideoSectionEnabled);
     if (!isVideoSectionEnabled) {
-      setVideoSection({ sectionTitle: "", description: "", videoTitle: "", videoUrl: "" });
+      setVideoSection({
+        sectionTitle: '',
+        description: '',
+        videoTitle: '',
+        videoUrl: '',
+      });
     }
   };
 
   const handleApprove = () => {
     var parser = new DOMParser();
-    var existingOffer = parser.parseFromString(sourceCode, "text/html").querySelector(".description-container");
+    var existingOffer = parser
+      .parseFromString(sourceCode, 'text/html')
+      .querySelector('.description-container');
 
     if (existingOffer) {
       const existingFields = getExistingOfferFields(existingOffer);
@@ -196,7 +240,7 @@ export const SourceCodeDialog = ({ isOpen, setIsOpen }) => {
   };
 
   const handleCloseSnackbar = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
 
@@ -205,11 +249,16 @@ export const SourceCodeDialog = ({ isOpen, setIsOpen }) => {
 
   return (
     <>
-      <Dialog open={isOpen} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog
+        open={isOpen}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
         <DialogTitle id="form-dialog-title">Kod źródłowy shoper</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Wprowadź kod źródłowy istniejącej oferty shoper i zawtwierdź, aby rozpocząć edycje.
+            Wprowadź kod źródłowy istniejącej oferty shoper i zawtwierdź, aby
+            rozpocząć edycje.
           </DialogContentText>
           <TextField
             autoFocus
@@ -232,7 +281,7 @@ export const SourceCodeDialog = ({ isOpen, setIsOpen }) => {
         </DialogActions>
       </Dialog>
       <Snackbar
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         open={isSnackbarOpen}
         autoHideDuration={2000}
         onClose={handleCloseSnackbar}

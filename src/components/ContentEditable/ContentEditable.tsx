@@ -1,11 +1,11 @@
-import { useCallback } from "react";
-import styled from "styled-components";
-import { IconButton } from "@material-ui/core";
+import { MouseEvent, useCallback } from "react";
 import ContentEditable from "react-contenteditable";
+import { IconButton } from "@material-ui/core";
 import FormatBoldIcon from "@material-ui/icons/FormatBold";
 import FormatItalicIcon from "@material-ui/icons/FormatItalic";
 import FormatUnderlinedIcon from "@material-ui/icons/FormatUnderlined";
-import _ from "lodash";
+import * as _ from "lodash";
+import styled from "styled-components";
 
 const StyledContentEditable = styled(ContentEditable)`
   font-family: sans-serif;
@@ -33,8 +33,8 @@ const TextTransforms = [
   },
 ];
 
-export const TextEditor = ({ value, handleChange }) => {
-  const handleKeyDown = (e) => {
+export const TextEditor = ({ value, handleChange }: any) => {
+  const handleKeyDown = (e: any) => {
     if (e.keyCode === 13) {
       e.preventDefault();
       document.execCommand("insertHTML", false, "<br><br>");
@@ -47,11 +47,11 @@ export const TextEditor = ({ value, handleChange }) => {
     []
   );
 
-  const handleThrottledChange = (e) => {
+  const handleThrottledChange = (e: any) => {
     debounceFunc(e);
   };
 
-  const handlePaste = (e) => {
+  const handlePaste = (e: any) => {
     e.preventDefault();
     const text = (e.originalEvent || e).clipboardData.getData("text");
     window.document.execCommand("insertText", false, text.replace(/\n/g, ""));
@@ -61,8 +61,8 @@ export const TextEditor = ({ value, handleChange }) => {
     <>
       {TextTransforms.map((el) => (
         <IconButton
-          onMouseDown={(evt) => {
-            evt.preventDefault();
+          onMouseDown={(event: MouseEvent<EventTarget>) => {
+            event.preventDefault();
             document.execCommand(el.command, false);
           }}
           color="inherit"

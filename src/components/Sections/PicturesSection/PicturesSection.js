@@ -68,9 +68,6 @@ export const PicturesSection = () => {
     }
   }, [pictureItems]);
 
-  useEffect(() => {
-    console.log(pictureFields);
-  }, [pictureFields]);
 
   const handleEnablePictureSectionChange = () => {
     setEnabledPicturesSection(!enabledPicturesSection);

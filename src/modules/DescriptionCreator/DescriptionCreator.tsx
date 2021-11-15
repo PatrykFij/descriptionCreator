@@ -1,21 +1,12 @@
-import "./App.scss";
-import { useState } from "react";
-import styled from "styled-components";
-import { Typography, Snackbar } from "@material-ui/core";
-import { MainWrapper, StyledButton } from "./App.css.js";
-import { Form } from "./components/Form/Form";
-import { Preview } from "./components/Preview/Preview";
-import { SourceCodeDialog } from "./components/SourceCodeDialog/SourceCodeDialog";
-import { AppProvider } from "../src/components/AppContext/AppContext";
-import { offerValidator } from "./utils/offerValidator";
+import React, { useState } from "react";
+import { Snackbar, Typography } from "@material-ui/core";
+import { Form } from "components/Form/Form";
+import { Preview } from "components/Preview/Preview";
+import { SourceCodeDialog } from "components/SourceCodeDialog/SourceCodeDialog";
+import { offerValidator } from "utils/offerValidator";
+import * as S from "./styles";
 
-const StyledAlertSnackbar = styled(Snackbar)`
-  .MuiSnackbarContent-root {
-    background-color: #f44336;
-  }
-`;
-
-const App = () => {
+const DescriptionCreator = () => {
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [isSourceCodeDialogOpen, setIsSourceCodeDialogOpen] = useState(false);
   const [isOfferValidatorAlertOpen, setIsOfferValidatorAlertOpen] = useState(false);
@@ -25,8 +16,8 @@ const App = () => {
     if (isValidOffer) {
       var previewCode = document
         .getElementById("preview")
-        .innerHTML.replaceAll('src="https://www.brillar-sklep.pl', 'src="');
-      navigator.clipboard.writeText(previewCode);
+        ?.innerHTML.replaceAll('src="https://www.brillar-sklep.pl', 'src="');
+      navigator.clipboard.writeText(previewCode || "");
       setIsSnackbarOpen(true);
     } else {
       setIsOfferValidatorAlertOpen(true);
@@ -42,7 +33,7 @@ const App = () => {
     setIsSourceCodeDialogOpen(true);
   };
 
-  const handleClose = (event, reason) => {
+  const handleClose = (event: any, reason: string) => {
     if (reason === "clickaway") {
       return;
     }
@@ -52,26 +43,23 @@ const App = () => {
   };
 
   return (
-    <AppProvider>
+    <>
       <div className="App">
-        <Typography align="center" variant="h1" component="h2">
-          Creator opisów Brillar
-        </Typography>
-        <StyledButton onClick={handleCopyDescriptionCode} variant="contained" color="primary">
+        <S.CustomButton onClick={handleCopyDescriptionCode} variant="contained" color="primary">
           Kopiuj kod źródłowy opisu
-        </StyledButton>
-        <StyledButton onClick={handleClearLocalStorage} variant="contained" color="secondary">
+        </S.CustomButton>
+        <S.CustomButton onClick={handleClearLocalStorage} variant="contained" color="secondary">
           Wyczyść pamięć podręczną
-        </StyledButton>
-        <StyledButton onClick={handleOpenSourceCodeDialog} variant="contained" color="default">
+        </S.CustomButton>
+        <S.CustomButton onClick={handleOpenSourceCodeDialog} variant="contained" color="default">
           Wprowadź istniejącą ofertę
-        </StyledButton>
+        </S.CustomButton>
         <SourceCodeDialog isOpen={isSourceCodeDialogOpen} setIsOpen={setIsSourceCodeDialogOpen} />
-        <MainWrapper>
+        <S.MainWrapper>
           <Form />
           <Preview />
-          <StyledAlertSnackbar
-            severity="error"
+          <S.AlertSnackbar
+            // severity="error"
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
             autoHideDuration={2000}
             open={isOfferValidatorAlertOpen}
@@ -85,10 +73,10 @@ const App = () => {
             onClose={handleClose}
             message="Skopiowano"
           />
-        </MainWrapper>
+        </S.MainWrapper>
       </div>
-    </AppProvider>
+    </>
   );
 };
 
-export default App;
+export default DescriptionCreator;

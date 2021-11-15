@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { TextField } from "@material-ui/core";
-import { useContext } from "react";
-import { AppContext } from "../../AppContext/AppContext";
+import styled from 'styled-components';
+import { TextField } from '@material-ui/core';
+import { useContext } from 'react';
+import { AppContext } from '../../../context/AppContext/AppContext';
 
 const StyledTextField = styled(TextField)`
   width: 100%;
@@ -9,8 +9,14 @@ const StyledTextField = styled(TextField)`
 `;
 
 export const TopHeaderSection = () => {
-  const { topHeader, middleHeader, bottomHeader, setTopHeader, setMiddleHeader, setBottomHeader } =
-    useContext(AppContext);
+  const {
+    topHeader,
+    middleHeader,
+    bottomHeader,
+    setTopHeader,
+    setMiddleHeader,
+    setBottomHeader,
+  } = useContext(AppContext);
 
   const handleTopHeaderChange = (e) => {
     setTopHeader(e.target.value);

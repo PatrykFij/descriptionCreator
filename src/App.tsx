@@ -1,7 +1,7 @@
 import { BrowserRouter } from 'react-router-dom';
-import { AuthProvider } from 'components/AuthProvider/AuthProvider';
-import ToastProvider from 'components/ToastProvider';
-import { AppProvider } from './components/AppContext/AppContext';
+import { AuthProvider } from 'context/AuthProvider/AuthProvider';
+import ToastProvider from 'context/ToastProvider';
+import { AppProvider } from './context/AppContext/AppContext';
 import routes from './routes/routes';
 import './App.scss';
 

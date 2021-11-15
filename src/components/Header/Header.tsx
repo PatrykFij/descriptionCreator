@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { AuthContext } from 'components/AuthProvider/AuthProvider';
+import { AuthContext } from 'context/AuthProvider/AuthProvider';
 import * as URL from '../../routes/url';
 import Logo from './Logo';
 import * as S from './styles';

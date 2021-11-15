@@ -1,11 +1,16 @@
-import styled from "styled-components";
-import { TextField, FormControlLabel, Checkbox, Button } from "@material-ui/core";
-import { useContext, useState, useEffect } from "react";
-import { AppContext } from "../../AppContext/AppContext";
-import DeleteIcon from "@material-ui/icons/Delete";
-import AddIcon from "@material-ui/icons/Add";
-import RefreshIcon from "@material-ui/icons/Refresh";
-import uuid from "react-uuid";
+import styled from 'styled-components';
+import {
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Button,
+} from '@material-ui/core';
+import { useContext, useState, useEffect } from 'react';
+import { AppContext } from '../../../context/AppContext/AppContext';
+import DeleteIcon from '@material-ui/icons/Delete';
+import AddIcon from '@material-ui/icons/Add';
+import RefreshIcon from '@material-ui/icons/Refresh';
+import uuid from 'react-uuid';
 
 const StyledTitleTextField = styled(TextField)`
   width: 100%;
@@ -68,7 +73,6 @@ export const PicturesSection = () => {
     }
   }, [pictureItems]);
 
-
   const handleEnablePictureSectionChange = () => {
     setEnabledPicturesSection(!enabledPicturesSection);
   };
@@ -78,7 +82,10 @@ export const PicturesSection = () => {
   };
 
   const handleAdd = (e) => {
-    setPictureItems((prevState) => [...prevState, { url: "", title: "", description: "" }]);
+    setPictureItems((prevState) => [
+      ...prevState,
+      { url: '', title: '', description: '' },
+    ]);
   };
 
   const handleChangePictureUrl = (e, index) => {
@@ -172,10 +179,18 @@ export const PicturesSection = () => {
                   />
                 </FieldsWrapper>
                 <ButtonsWrapper>
-                  <Button onClick={() => handleRefreshItem()} variant="contained" color="primary">
+                  <Button
+                    onClick={() => handleRefreshItem()}
+                    variant="contained"
+                    color="primary"
+                  >
                     <RefreshIcon />
                   </Button>
-                  <Button onClick={() => handleDeleteItem(index)} variant="contained" color="secondary">
+                  <Button
+                    onClick={() => handleDeleteItem(index)}
+                    variant="contained"
+                    color="secondary"
+                  >
                     <DeleteIcon />
                   </Button>
                 </ButtonsWrapper>

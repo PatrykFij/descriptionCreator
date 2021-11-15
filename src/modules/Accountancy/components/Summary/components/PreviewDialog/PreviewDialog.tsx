@@ -5,7 +5,7 @@ import Dialog from 'components/Dialog';
 import { sumOfOrderProductsPriceBuying } from 'utils/counters/counters';
 import { numberFormatter } from 'utils/formatters/numberFormatter';
 import { MappedOrder } from 'utils/mappers/types';
-import { Summary } from '../../Summary';
+import { Summary } from '../../types';
 import * as S from './styles';
 
 interface Props {

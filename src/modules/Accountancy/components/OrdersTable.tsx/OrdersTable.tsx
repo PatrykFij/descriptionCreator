@@ -7,7 +7,9 @@ import {
 } from '@material-ui/core';
 import Button from 'components/Button';
 import Card from 'components/Card';
+import SelectInput from 'components/Inputs/Select';
 import RangeInput from 'components/RangeInput';
+import { monthOptions } from 'utils/constants';
 import { sumOfOrderProductsPriceBuying } from 'utils/counters/counters';
 import { numberFormatter } from 'utils/formatters/numberFormatter';
 import { MappedOrder } from 'utils/mappers/types';
@@ -19,6 +21,8 @@ interface Props {
   ordersByRange?: MappedOrder[];
   range?: number[];
   setRange: Dispatch<SetStateAction<number[] | undefined>>;
+  month?: number;
+  setMonth: Dispatch<SetStateAction<number | undefined>>;
   handleGetData: () => Promise<void>;
   maxOrderId: number;
 }
@@ -27,8 +31,10 @@ const OrdersTable = ({
   isLoading,
   orders,
   ordersByRange,
-  setRange,
   range,
+  setRange,
+  month,
+  setMonth,
   handleGetData,
   maxOrderId,
 }: Props) => {
@@ -39,13 +45,21 @@ const OrdersTable = ({
       customAction={
         <>
           {range && (
-            <RangeInput
-              width={800}
-              handleRangeChange={setRange}
-              range={range}
-              disabled={isLoading}
-              maxOrderId={maxOrderId}
-            />
+            <>
+              <RangeInput
+                width={800}
+                handleRangeChange={setRange}
+                range={range}
+                disabled={isLoading}
+                maxOrderId={maxOrderId}
+              />
+              <SelectInput
+                value={month}
+                setValue={setMonth}
+                width={150}
+                options={monthOptions}
+              />
+            </>
           )}
           {orders ? (
             <S.UpdateButtonWrapper>

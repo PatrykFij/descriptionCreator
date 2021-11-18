@@ -17,6 +17,7 @@ import * as S from './styles';
 const Accountancy = () => {
   const [orders, setOrders] = useState<MappedOrder[]>();
   const [range, setRange] = useState<number[]>();
+  const [month, setMonth] = useState<number>();
   const [maxOrderId, setMaxOrderId] = useState<number>(0);
   const [products, setProducts] = useState<Product[]>(
     JSON.parse(localStorage.getItem('data') || '{}')?.allProducts,
@@ -88,12 +89,20 @@ const Accountancy = () => {
 
   const ordersByRange = useMemo(() => {
     if (orders && range) {
+      if (month) {
+        return orders.filter((el) => {
+          return (
+            moment(el.date) >= moment().month(month).startOf('month') &&
+            moment(el.date) <= moment().month(month).endOf('month')
+          );
+        });
+      }
       return orders.filter(
         (el) =>
           Number(el.order_id) >= range[0] && Number(el.order_id) <= range[1],
       );
     }
-  }, [orders, range]);
+  }, [month, orders, range]);
 
   return (
     <Container maxWidth="xl">
@@ -115,6 +124,8 @@ const Accountancy = () => {
             orders={orders}
             range={range}
             setRange={setRange}
+            month={month}
+            setMonth={setMonth}
             handleGetData={handleDownloadData}
             maxOrderId={maxOrderId}
           />

@@ -35,7 +35,7 @@ export const PrintSummarizeTable = styled.table`
   && {
     margin-top: 20px;
     float: right;
-    width: 40%;
+    width: 60%;
     border-collapse: collapse;
     font-size: 15px !important;
   }

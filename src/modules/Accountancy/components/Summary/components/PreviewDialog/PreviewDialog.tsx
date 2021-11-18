@@ -113,35 +113,42 @@ const PreviewDialog = ({ onClose, ordersByRange, summaryData }: Props) => {
             </tr>
             <tr>
               <td>Kwota sprzedaży produktów (Sprzedaż z VAT)</td>
-              <td>{numberFormatter(summaryData.sumOfPaidPrice)}</td>
+              <td>{summaryData.sumOfPaidPrice}</td>
             </tr>
             <tr>
               <td>Kwota zakupu produktów (Zakup z VAT)</td>
-              <td>{numberFormatter(summaryData.sumOfPriceBuying)}</td>
+              <td>{summaryData.sumOfPriceBuying}</td>
             </tr>
             <tr>
               <td>Kwota transport</td>
-              <td>{numberFormatter(summaryData.sumOfShippings)}</td>
+              <td>{summaryData.sumOfShippings}</td>
             </tr>
             <tr>
               <td>Zysk (Zysk z VAT)</td>
-              <td>{numberFormatter(summaryData.profitWithVat)}</td>
+              <td>{summaryData.profitWithVat}</td>
             </tr>
             <tr>
               <td>Zysk netto</td>
-              <td>{numberFormatter(summaryData.profitNet)}</td>
+              <td>{summaryData.profitNet}</td>
             </tr>
             <tr>
               <td>VAT do odliczenia</td>
-              <td>{numberFormatter(summaryData.taxDeductible)}</td>
+              <td>{summaryData.taxDeductible}</td>
             </tr>
             <tr>
               <td>Podatek dochodowy</td>
-              <td>{numberFormatter(summaryData.incomingTax)}</td>
+              <td>{summaryData.incomingTax}</td>
+            </tr>
+            <tr>
+              <td>
+                Kwota Przelania Na Brillar (Sprzedaż Z VAT - VAT - Podatek
+                Dochodowy + Transport
+              </td>
+              <td>{summaryData.transferAmount}</td>
             </tr>
             <tr>
               <td>Czysty zysk</td>
-              <td>{numberFormatter(summaryData.clearProfit)}</td>
+              <td>{summaryData.clearProfit}</td>
             </tr>
           </tbody>
         </S.PrintSummarizeTable>

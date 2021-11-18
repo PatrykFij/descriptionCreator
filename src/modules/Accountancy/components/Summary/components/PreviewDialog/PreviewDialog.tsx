@@ -3,6 +3,7 @@ import ReactToPrint from 'react-to-print';
 import Button from 'components/Button';
 import DataRow from 'components/DataRow';
 import Dialog from 'components/Dialog';
+import Table from 'components/Table';
 import { sumOfOrderProductsPriceBuying } from 'utils/counters/counters';
 import { numberFormatter } from 'utils/formatters/numberFormatter';
 import { MappedOrder } from 'utils/mappers/types';
@@ -15,6 +16,17 @@ interface Props {
   ordersByRange?: MappedOrder[];
   summaryData: T.Summary;
 }
+
+const columns = [
+  { title: 'ID', field: 'id' },
+  { title: 'Data zamówienia', field: 'orderDate' },
+  { title: 'Wartość zamówienia', field: 'paidAmount' },
+  { title: 'Wartość zakupu', field: 'buyingAmount' },
+  { title: 'Koszt transportu', field: 'shipping' },
+  { title: 'Zysk (z VAT)', field: 'profitWithVat' },
+  { title: 'Rodzaj transportu', field: 'shippingType' },
+  { title: 'Zamówione produkty', field: 'orderedProducts' },
+];
 
 const PreviewDialog = ({ onClose, ordersByRange, summaryData }: Props) => {
   const componentRef = useRef(null);
@@ -38,6 +50,41 @@ const PreviewDialog = ({ onClose, ordersByRange, summaryData }: Props) => {
 
   const summarizeRows = useMemo(() => summaryRows(summaryData), [summaryData]);
 
+  const dataRows = useMemo(
+    () =>
+      ordersByRange?.map(
+        ({
+          order_id,
+          date,
+          sum,
+          shipping_cost,
+          shipping_name,
+          productsInOrder,
+        }) => ({
+          id: order_id,
+          orderDate: date,
+          paidAmount: sum,
+          buyingAmount: sumOfOrderProductsPriceBuying(productsInOrder),
+          shipping: shipping_cost,
+          profitWithVat: numberFormatter(
+            `${
+              Number(sum) -
+              Number(sumOfOrderProductsPriceBuying(productsInOrder))
+            }`,
+          ),
+          shippingType: shipping_name,
+          orderedProducts: productsInOrder.map(
+            ({ name, quantity, price_buying }) => (
+              <p>
+                {quantity}szt. (cena zakupu ${price_buying}/szt.) -{name}
+              </p>
+            ),
+          ),
+        }),
+      ),
+    [ordersByRange],
+  );
+
   return (
     <Dialog
       title="Podgląd"
@@ -57,63 +104,19 @@ const PreviewDialog = ({ onClose, ordersByRange, summaryData }: Props) => {
       }
     >
       <div ref={componentRef} id="test">
-        <h1>Zestawienie zamówień</h1>
-        <S.PrintOrderTable>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Data zamówienia</th>
-              <th>Wartość zamówienia</th>
-              <th>Wartość zakupu</th>
-              <th>Koszt transportu</th>
-              <th>Zysk (z VAT)</th>
-              <th>Rodzaj transportu</th>
-              <th>Zamówione produkty</th>
-            </tr>
-          </thead>
-          <tbody>
-            {ordersByRange?.map(
-              ({
-                order_id,
-                date,
-                sum,
-                shipping_cost,
-                shipping_name,
-                productsInOrder,
-              }) => (
-                <tr>
-                  <td>{order_id}</td>
-                  <td>{date}</td>
-                  <td>{sum}</td>
-                  <td>{sumOfOrderProductsPriceBuying(productsInOrder)}</td>
-                  <td>{shipping_cost}</td>
-                  <td>
-                    {numberFormatter(
-                      `${
-                        Number(sum) -
-                        Number(sumOfOrderProductsPriceBuying(productsInOrder))
-                      }`,
-                    )}
-                  </td>
-                  <td>{shipping_name}</td>
-                  <td>
-                    {productsInOrder.map(({ name, quantity, price_buying }) => (
-                      <p>
-                        {quantity}szt. (cena zakupu {price_buying}/szt.) -{name}
-                      </p>
-                    ))}
-                  </td>
-                </tr>
-              ),
-            )}
-          </tbody>
-        </S.PrintOrderTable>
-        <S.PrintSummarizeTable>
+        <S.OrdersTableWrapper>
+          <Table
+            title="Zestawienie zamówień"
+            columns={columns}
+            data={dataRows}
+          />
+        </S.OrdersTableWrapper>
+        <S.PreviewSummarize>
           <h1>Podsumowanie</h1>
           {summarizeRows.map(({ label, value }: T.SummaryRowData) => (
             <DataRow label={label} value={value} />
           ))}
-        </S.PrintSummarizeTable>
+        </S.PreviewSummarize>
       </div>
     </Dialog>
   );

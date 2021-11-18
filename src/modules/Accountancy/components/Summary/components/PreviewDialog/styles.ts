@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-export const PrintOrderTable = styled.table`
-  && {
+export const OrdersTableWrapper = styled.div`
+  table {
     border-collapse: collapse;
     font-size: 11px !important;
     width: 100%;
@@ -31,7 +31,7 @@ export const PrintOrderTable = styled.table`
   }
 `;
 
-export const PrintSummarizeTable = styled.div`
+export const PreviewSummarize = styled.div`
   && {
     margin-top: 20px;
     float: right;

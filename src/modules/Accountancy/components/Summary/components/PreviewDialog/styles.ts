@@ -31,21 +31,20 @@ export const PrintOrderTable = styled.table`
   }
 `;
 
-export const PrintSummarizeTable = styled.table`
+export const PrintSummarizeTable = styled.div`
   && {
     margin-top: 20px;
     float: right;
     width: 60%;
-    border-collapse: collapse;
     font-size: 15px !important;
-  }
+    white-space: nowrap;
 
-  & th,
-  td {
-    border-bottom: 1px dotted black;
-  }
+    & > div > div {
+      padding: 1px;
+    }
 
-  p {
-    margin: 0;
+    & > div > div:last-child {
+      min-width: unset;
+    }
   }
 `;

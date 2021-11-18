@@ -1,17 +1,19 @@
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import ReactToPrint from 'react-to-print';
 import Button from 'components/Button';
+import DataRow from 'components/DataRow';
 import Dialog from 'components/Dialog';
 import { sumOfOrderProductsPriceBuying } from 'utils/counters/counters';
 import { numberFormatter } from 'utils/formatters/numberFormatter';
 import { MappedOrder } from 'utils/mappers/types';
-import { Summary } from '../../types';
+import { summaryRows } from '../../SummaryFields';
+import * as T from '../../types';
 import * as S from './styles';
 
 interface Props {
   onClose: () => void;
   ordersByRange?: MappedOrder[];
-  summaryData: Summary;
+  summaryData: T.Summary;
 }
 
 const PreviewDialog = ({ onClose, ordersByRange, summaryData }: Props) => {
@@ -33,6 +35,8 @@ const PreviewDialog = ({ onClose, ordersByRange, summaryData }: Props) => {
     }
   }
 `;
+
+  const summarizeRows = useMemo(() => summaryRows(summaryData), [summaryData]);
 
   return (
     <Dialog
@@ -106,51 +110,9 @@ const PreviewDialog = ({ onClose, ordersByRange, summaryData }: Props) => {
         </S.PrintOrderTable>
         <S.PrintSummarizeTable>
           <h1>Podsumowanie</h1>
-          <tbody>
-            <tr>
-              <td>Ilość zamówień</td>
-              <td>{summaryData.ordersAmount}</td>
-            </tr>
-            <tr>
-              <td>Kwota sprzedaży produktów (Sprzedaż z VAT)</td>
-              <td>{summaryData.sumOfPaidPrice}</td>
-            </tr>
-            <tr>
-              <td>Kwota zakupu produktów (Zakup z VAT)</td>
-              <td>{summaryData.sumOfPriceBuying}</td>
-            </tr>
-            <tr>
-              <td>Kwota transport</td>
-              <td>{summaryData.sumOfShippings}</td>
-            </tr>
-            <tr>
-              <td>Zysk (Zysk z VAT)</td>
-              <td>{summaryData.profitWithVat}</td>
-            </tr>
-            <tr>
-              <td>Zysk netto</td>
-              <td>{summaryData.profitNet}</td>
-            </tr>
-            <tr>
-              <td>VAT do odliczenia</td>
-              <td>{summaryData.taxDeductible}</td>
-            </tr>
-            <tr>
-              <td>Podatek dochodowy</td>
-              <td>{summaryData.incomingTax}</td>
-            </tr>
-            <tr>
-              <td>
-                Kwota Przelania Na Brillar (Sprzedaż Z VAT - VAT - Podatek
-                Dochodowy + Transport
-              </td>
-              <td>{summaryData.transferAmount}</td>
-            </tr>
-            <tr>
-              <td>Czysty zysk</td>
-              <td>{summaryData.clearProfit}</td>
-            </tr>
-          </tbody>
+          {summarizeRows.map(({ label, value }: T.SummaryRowData) => (
+            <DataRow label={label} value={value} />
+          ))}
         </S.PrintSummarizeTable>
       </div>
     </Dialog>

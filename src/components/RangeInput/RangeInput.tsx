@@ -4,7 +4,6 @@ import {
   SetStateAction,
   useCallback,
   useEffect,
-  useMemo,
   useState,
 } from 'react';
 import { Slider } from '@material-ui/core';
@@ -15,9 +14,16 @@ interface Props {
   handleRangeChange: Dispatch<SetStateAction<number[] | undefined>>;
   range: number[];
   disabled: boolean;
+  maxOrderId: number;
 }
 
-const RangeInput = ({ width, handleRangeChange, range, disabled }: Props) => {
+const RangeInput = ({
+  width,
+  handleRangeChange,
+  range,
+  disabled,
+  maxOrderId,
+}: Props) => {
   const [value, setValue] = useState<number[]>(range);
 
   useEffect(() => {
@@ -41,8 +47,8 @@ const RangeInput = ({ width, handleRangeChange, range, disabled }: Props) => {
     [handleRangeChange],
   );
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const max = useMemo(() => range?.[1], []);
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // const max = useMemo(() => range?.[1], []);
 
   return (
     <S.RangeInputWrapper sx={{ width }}>
@@ -53,7 +59,7 @@ const RangeInput = ({ width, handleRangeChange, range, disabled }: Props) => {
         onChange={handleChange}
         onChangeCommitted={onChangeCommitted}
         valueLabelDisplay={'on'}
-        max={max}
+        max={maxOrderId}
         min={0}
         disabled={disabled}
       />

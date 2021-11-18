@@ -17,6 +17,7 @@ import * as S from './styles';
 const Accountancy = () => {
   const [orders, setOrders] = useState<MappedOrder[]>();
   const [range, setRange] = useState<number[]>();
+  const [maxOrderId, setMaxOrderId] = useState<number>(0);
   const [products, setProducts] = useState<Product[]>(
     JSON.parse(localStorage.getItem('data') || '{}')?.allProducts,
   );
@@ -33,6 +34,7 @@ const Accountancy = () => {
       const data = JSON.parse(localStorageData);
       const mappedData = mapOrdersWithBuyingPrice(data);
       const orderRange = mapOrdersRange(mappedData);
+      setMaxOrderId(orderRange[1]);
       setOrders(mappedData);
       setRange(orderRange);
     }
@@ -60,6 +62,7 @@ const Accountancy = () => {
         localStorage.setItem('data', JSON.stringify(data));
         const mappedData = mapOrdersWithBuyingPrice(data);
         const orderRange = mapOrdersRange(mappedData);
+        setMaxOrderId(orderRange[1]);
         setOrders(mappedData);
         setProducts(allProducts);
         setRange(orderRange);
@@ -113,6 +116,7 @@ const Accountancy = () => {
             range={range}
             setRange={setRange}
             handleGetData={handleDownloadData}
+            maxOrderId={maxOrderId}
           />
         </Grid>
       </Grid>

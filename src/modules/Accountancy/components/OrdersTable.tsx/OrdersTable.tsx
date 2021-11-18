@@ -20,6 +20,7 @@ interface Props {
   range?: number[];
   setRange: Dispatch<SetStateAction<number[] | undefined>>;
   handleGetData: () => Promise<void>;
+  maxOrderId: number;
 }
 
 const OrdersTable = ({
@@ -29,6 +30,7 @@ const OrdersTable = ({
   setRange,
   range,
   handleGetData,
+  maxOrderId,
 }: Props) => {
   return (
     <Card
@@ -42,6 +44,7 @@ const OrdersTable = ({
               handleRangeChange={setRange}
               range={range}
               disabled={isLoading}
+              maxOrderId={maxOrderId}
             />
           )}
           {orders ? (

@@ -43,7 +43,7 @@ const DateRange = () => {
       />
       <DateTimePicker
         variant="inline"
-        label="Końcowa data"
+        label="Koncowa data"
         format="dd/MM/yyyy HH:mm"
         ampm={false}
         value={selectedDate}

@@ -1,16 +1,16 @@
-import styled from 'styled-components';
-import {
-  TextField,
-  FormControlLabel,
-  Checkbox,
-  Button,
-} from '@material-ui/core';
-import { useContext, useState, useEffect } from 'react';
-import { AppContext } from '../../../context/AppContext/AppContext';
-import DeleteIcon from '@material-ui/icons/Delete';
-import AddIcon from '@material-ui/icons/Add';
-import RefreshIcon from '@material-ui/icons/Refresh';
+import { useContext, useEffect, useState } from 'react';
 import uuid from 'react-uuid';
+import {
+  Button,
+  Checkbox,
+  FormControlLabel,
+  TextField,
+} from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
+import RefreshIcon from '@material-ui/icons/Refresh';
+import styled from 'styled-components';
+import { AppContext } from '../../../context/AppContext/AppContext';
 
 const StyledTitleTextField = styled(TextField)`
   width: 100%;

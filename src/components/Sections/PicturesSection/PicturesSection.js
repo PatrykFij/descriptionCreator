@@ -24,8 +24,10 @@ const FormWrapper = styled.div`
 `;
 
 const StyledTextField = styled(TextField)`
-  margin: 5px 0;
-  width: 100%;
+  && {
+    width: 100%;
+    margin: 5px 0;
+  }
 `;
 
 const FieldsWrapper = styled.div`
@@ -133,16 +135,16 @@ export const PicturesSection = () => {
       />
       {enabledPicturesSection && (
         <>
+          <Button onClick={handleAdd} variant="contained" color="primary">
+            Dodaj kolejną grafikę
+            <AddIcon />
+          </Button>
           <StyledTitleTextField
             label="Nagłówek H4"
             variant="outlined"
             defaultValue={pictureSectionTitle}
             onChange={handlePictureSectionTitleChange}
           />
-          <Button onClick={handleAdd} variant="contained" color="primary">
-            Dodaj kolejną grafikę
-            <AddIcon />
-          </Button>
           {pictureFields &&
             pictureFields.map((el, index) => (
               <FormWrapper key={uuid()}>

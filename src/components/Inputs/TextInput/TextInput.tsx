@@ -1,8 +1,8 @@
-import { Control, Controller, DeepMap, FieldError } from "react-hook-form";
-import { TextField } from "@material-ui/core";
-import { helperText } from "utils/reactHookFormUtils";
-import { registerMaxLength } from "utils/validators/textValidator";
-import { ErrorLabel } from "../styles";
+import { Control, Controller, DeepMap, FieldError } from 'react-hook-form';
+import { TextField } from '@material-ui/core';
+import { helperText } from 'utils/reactHookFormUtils';
+import { registerMaxLength } from 'utils/validators/textValidator';
+import { ErrorLabel } from '../styles';
 
 interface Props {
   required?: boolean;
@@ -13,10 +13,11 @@ interface Props {
   errors: DeepMap<object, FieldError>;
   maxCharactersLength?: number;
   disabled?: boolean;
+  type?: string;
 }
 
 const TextInput = (props: Props) => {
-  const required = props.required ? "*" : "";
+  const required = props.required ? '*' : '';
   return (
     <div>
       <Controller
@@ -31,20 +32,23 @@ const TextInput = (props: Props) => {
               onChange(event.target.value);
             }}
             onBlur={onBlur}
-            value={value || ""}
+            value={value || ''}
             size="small"
-            margin={"dense"}
+            margin={'dense'}
+            type={props?.type}
             fullWidth
             disabled={props.disabled}
           />
         )}
         control={props.control}
         rules={{
-          required: props.required ? "This field is required" : undefined,
+          required: props.required ? 'This field is required' : undefined,
           ...registerMaxLength(props.maxCharactersLength ?? 100),
         }}
       />
-      <ErrorLabel>{props.errors && helperText(props.name, props.errors)}</ErrorLabel>
+      <ErrorLabel>
+        {props.errors && helperText(props.name, props.errors)}
+      </ErrorLabel>
     </div>
   );
 };

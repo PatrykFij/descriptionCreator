@@ -88,6 +88,7 @@ const LoginPage = () => {
             control={control}
             errors={errors}
             required
+            type="password"
           />
         </Dialog>
       )}

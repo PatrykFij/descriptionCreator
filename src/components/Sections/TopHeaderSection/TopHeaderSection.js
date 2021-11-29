@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { AppContext } from '../../../context/AppContext/AppContext';
 
 const StyledTextField = styled(TextField)`
-  & {
+  && {
     width: 100%;
     margin: 10px 0;
   }

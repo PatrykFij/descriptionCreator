@@ -1,11 +1,13 @@
-import styled from 'styled-components';
-import { TextField, FormControlLabel, Checkbox } from '@material-ui/core';
 import { useContext } from 'react';
+import { Checkbox, FormControlLabel, TextField } from '@material-ui/core';
+import styled from 'styled-components';
 import { AppContext } from '../../../context/AppContext/AppContext';
 
 const StyledTextField = styled(TextField)`
-  width: 100%;
-  margin: 10px 0;
+  && {
+    width: 100%;
+    margin: 10px 0;
+  }
 `;
 
 const StyledFormControlLabel = styled(FormControlLabel)`

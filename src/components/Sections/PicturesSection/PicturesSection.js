@@ -14,7 +14,9 @@ import { AppContext } from '../../../context/AppContext/AppContext';
 
 const StyledTitleTextField = styled(TextField)`
   width: 100%;
-  margin: 10px 0;
+  && .MuiFormControl-root {
+    margin: 10px 0;
+  }
 `;
 
 const FormWrapper = styled.div`

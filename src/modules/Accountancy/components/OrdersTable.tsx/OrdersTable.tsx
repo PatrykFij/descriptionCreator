@@ -1,17 +1,17 @@
-import { Dispatch, SetStateAction, useState } from 'react';
-import DateFnsUtils from '@date-io/date-fns';
+import { Dispatch, SetStateAction } from 'react';
 import {
   CircularProgress,
   TableCell,
   TableHead,
   TableRow,
 } from '@material-ui/core';
-import { DateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { Moment } from 'moment';
 import Button from 'components/Button';
 import Card from 'components/Card';
 import { sumOfOrderProductsPriceBuying } from 'utils/counters/counters';
 import { numberFormatter } from 'utils/formatters/numberFormatter';
 import { MappedOrder } from 'utils/mappers/types';
+import OrdersRange from './components';
 import * as S from './styles';
 
 interface Props {
@@ -20,38 +20,11 @@ interface Props {
   ordersByRange?: MappedOrder[];
   range?: number[];
   setRange: Dispatch<SetStateAction<number[] | undefined>>;
+  dateRange: Moment[];
+  setDateRange: Dispatch<SetStateAction<Moment[]>>;
   handleGetData: () => Promise<void>;
   maxOrderId: number;
 }
-
-const DateRange = () => {
-  const [selectedDate, handleDateChange] = useState<any>(new Date());
-
-  const handleClose = () => {
-    console.log('asdasds');
-  };
-  return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <DateTimePicker
-        variant="inline"
-        label="Początkowa data"
-        format="dd/MM/yyyy HH:mm"
-        ampm={false}
-        value={selectedDate}
-        onChange={handleDateChange}
-        onClose={handleClose}
-      />
-      <DateTimePicker
-        variant="inline"
-        label="Koncowa data"
-        format="dd/MM/yyyy HH:mm"
-        ampm={false}
-        value={selectedDate}
-        onChange={handleDateChange}
-      />
-    </MuiPickersUtilsProvider>
-  );
-};
 
 const OrdersTable = ({
   isLoading,
@@ -61,6 +34,8 @@ const OrdersTable = ({
   range,
   handleGetData,
   maxOrderId,
+  dateRange,
+  setDateRange,
 }: Props) => {
   return (
     <>
@@ -69,7 +44,7 @@ const OrdersTable = ({
         title="Zamówienia"
         customAction={
           <>
-            <DateRange />
+            <OrdersRange dateRange={dateRange} setDateRange={setDateRange} />
             {/* {range && (
             <RangeInput
               width={800}

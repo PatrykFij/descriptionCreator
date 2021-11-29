@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Container, Grid } from '@material-ui/core';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import { Product } from 'types/Product';
 import Card from 'components/Card';
 import { dateAndTimeDisplayFormat } from 'utils/constants';
@@ -17,6 +17,10 @@ import * as S from './styles';
 const Accountancy = () => {
   const [orders, setOrders] = useState<MappedOrder[]>();
   const [range, setRange] = useState<number[]>();
+  const [dateRange, setDateRange] = useState<Moment[]>([
+    moment().startOf('month'),
+    moment(),
+  ]);
   const [maxOrderId, setMaxOrderId] = useState<number>(0);
   const [products, setProducts] = useState<Product[]>(
     JSON.parse(localStorage.getItem('data') || '{}')?.allProducts,
@@ -90,10 +94,11 @@ const Accountancy = () => {
     if (orders && range) {
       return orders.filter(
         (el) =>
-          Number(el.order_id) >= range[0] && Number(el.order_id) <= range[1],
+          moment(el.date) >= dateRange[0] && moment(el.date) <= dateRange[1],
+        // Number(el.order_id) >= range[0] && Number(el.order_id) <= range[1],
       );
     }
-  }, [orders, range]);
+  }, [orders, range, dateRange]);
 
   return (
     <Container maxWidth="xl">
@@ -115,6 +120,8 @@ const Accountancy = () => {
             orders={orders}
             range={range}
             setRange={setRange}
+            dateRange={dateRange}
+            setDateRange={setDateRange}
             handleGetData={handleDownloadData}
             maxOrderId={maxOrderId}
           />

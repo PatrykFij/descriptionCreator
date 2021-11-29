@@ -16,7 +16,7 @@ import * as S from './styles';
 
 const Accountancy = () => {
   const [orders, setOrders] = useState<MappedOrder[]>();
-  const [range, setRange] = useState<number[]>();
+  // const [range, setRange] = useState<number[]>();
   const [dateRange, setDateRange] = useState<Moment[]>([
     moment().startOf('month'),
     moment(),
@@ -40,7 +40,7 @@ const Accountancy = () => {
       const orderRange = mapOrdersRange(mappedData);
       setMaxOrderId(orderRange[1]);
       setOrders(mappedData);
-      setRange(orderRange);
+      // setRange(orderRange);
     }
   }, []);
 
@@ -69,7 +69,7 @@ const Accountancy = () => {
         setMaxOrderId(orderRange[1]);
         setOrders(mappedData);
         setProducts(allProducts);
-        setRange(orderRange);
+        // setRange(orderRange);
       }
     } catch (e: any) {
       handleException(e);
@@ -91,14 +91,14 @@ const Accountancy = () => {
   );
 
   const ordersByRange = useMemo(() => {
-    if (orders && range) {
+    if (orders) {
       return orders.filter(
         (el) =>
           moment(el.date) >= dateRange[0] && moment(el.date) <= dateRange[1],
         // Number(el.order_id) >= range[0] && Number(el.order_id) <= range[1],
       );
     }
-  }, [orders, range, dateRange]);
+  }, [orders, dateRange]);
 
   return (
     <Container maxWidth="xl">
@@ -118,8 +118,8 @@ const Accountancy = () => {
             ordersByRange={ordersByRange}
             isLoading={isLoading}
             orders={orders}
-            range={range}
-            setRange={setRange}
+            // range={range}
+            // setRange={setRange}
             dateRange={dateRange}
             setDateRange={setDateRange}
             handleGetData={handleDownloadData}

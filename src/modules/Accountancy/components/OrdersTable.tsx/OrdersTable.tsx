@@ -18,8 +18,8 @@ interface Props {
   isLoading: boolean;
   orders?: MappedOrder[];
   ordersByRange?: MappedOrder[];
-  range?: number[];
-  setRange: Dispatch<SetStateAction<number[] | undefined>>;
+  // range?: number[];
+  // setRange: Dispatch<SetStateAction<number[] | undefined>>;
   dateRange: Moment[];
   setDateRange: Dispatch<SetStateAction<Moment[]>>;
   handleGetData: () => Promise<void>;
@@ -30,8 +30,8 @@ const OrdersTable = ({
   isLoading,
   orders,
   ordersByRange,
-  setRange,
-  range,
+  // setRange,
+  // range,
   handleGetData,
   maxOrderId,
   dateRange,
@@ -44,16 +44,13 @@ const OrdersTable = ({
         title="Zamówienia"
         customAction={
           <>
-            <OrdersRange dateRange={dateRange} setDateRange={setDateRange} />
-            {/* {range && (
-            <RangeInput
-              width={800}
-              handleRangeChange={setRange}
-              range={range}
-              disabled={isLoading}
+            <OrdersRange
+              dateRange={dateRange}
+              setDateRange={setDateRange}
+              ordersByRange={ordersByRange}
               maxOrderId={maxOrderId}
             />
-          )} */}
+
             {orders ? (
               <S.UpdateButtonWrapper>
                 <Button isLoading={isLoading} onClick={handleGetData}>

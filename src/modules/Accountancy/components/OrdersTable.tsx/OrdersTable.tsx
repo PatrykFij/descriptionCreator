@@ -7,7 +7,6 @@ import {
   TableRow,
 } from '@material-ui/core';
 import { DateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import { pl } from 'date-fns/locale';
 import Button from 'components/Button';
 import Card from 'components/Card';
 import { sumOfOrderProductsPriceBuying } from 'utils/counters/counters';
@@ -32,7 +31,7 @@ const DateRange = () => {
     console.log('asdasds');
   };
   return (
-    <MuiPickersUtilsProvider locale={pl} utils={DateFnsUtils}>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <DateTimePicker
         variant="inline"
         label="Początkowa data"

@@ -13,14 +13,14 @@ export default (
       <PrivateRoute exact path={URL.ROOT}>
         <HomePage />
       </PrivateRoute>
-      <Route exact path={URL.LOGIN}>
-        <LoginPage />
-      </Route>
       <PrivateRoute
         path={URL.DESCRIPTION_CREATOR}
         component={DescriptionCreator}
       />
       <PrivateRoute path={URL.ACCOUNTANCY} component={Accountancy} />
+      <Route exact path={URL.LOGIN}>
+        <LoginPage />
+      </Route>
     </Switch>
   </Layout>
 );

@@ -34,28 +34,26 @@ const OrdersRange = ({
   };
 
   return (
-    <>
-      <S.RangeWrapper>
-        <MuiPickersUtilsProvider locale={pl} utils={DateFnsUtils}>
-          <DateTimePicker
-            label="Początkowa data"
-            format="dd/MM/yyyy HH:mm"
-            ampm={false}
-            value={startDate}
-            onChange={handleChangeStartDate}
-          />
-          <S.Title>Zakres zamówień</S.Title>
-          <DateTimePicker
-            label="Koncowa data"
-            format="dd/MM/yyyy HH:mm"
-            ampm={false}
-            value={endDate}
-            onChange={handleChangeEndDate}
-          />
-        </MuiPickersUtilsProvider>
-        <RangeInput ordersByRange={ordersByRange} maxOrderId={maxOrderId} />
-      </S.RangeWrapper>
-    </>
+    <S.RangeWrapper>
+      <MuiPickersUtilsProvider locale={pl} utils={DateFnsUtils}>
+        <DateTimePicker
+          label="Początkowa data"
+          format="dd/MM/yyyy HH:mm"
+          ampm={false}
+          value={startDate}
+          onChange={handleChangeStartDate}
+        />
+        <S.Title>Zakres zamówień</S.Title>
+        <DateTimePicker
+          label="Koncowa data"
+          format="dd/MM/yyyy HH:mm"
+          ampm={false}
+          value={endDate}
+          onChange={handleChangeEndDate}
+        />
+      </MuiPickersUtilsProvider>
+      <RangeInput ordersByRange={ordersByRange} maxOrderId={maxOrderId} />
+    </S.RangeWrapper>
   );
 };
 

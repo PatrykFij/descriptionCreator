@@ -46,7 +46,6 @@ const OrdersTable = ({
               ordersByRange={ordersByRange}
               maxOrderId={maxOrderId}
             />
-
             {orders ? (
               <S.UpdateButtonWrapper>
                 <Button isLoading={isLoading} onClick={handleGetData}>

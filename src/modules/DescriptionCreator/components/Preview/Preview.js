@@ -1,8 +1,8 @@
-import '../../App.scss';
-import styled from 'styled-components';
 import { useContext } from 'react';
-import { AppContext } from '../../context/AppContext/AppContext';
-import { mediaQuery } from '../../constants/MediaQueries';
+import styled from 'styled-components';
+import { mediaQuery } from '../../../../constants/MediaQueries';
+import { AppContext } from '../../../../context/AppContext/AppContext';
+import '../../../../App.scss';
 
 const PreviewWrapper = styled.div`
   border: 1px solid black;

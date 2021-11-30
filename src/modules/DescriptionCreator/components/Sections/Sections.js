@@ -6,13 +6,13 @@ import {
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import styled from 'styled-components';
-import { BannerSection } from '../Sections/BannerSection/BannerSection';
-import { DescriptionSection } from '../Sections/DescriptionSection/DescriptionSection';
-import { ListSection } from '../Sections/ListSection/ListSection';
-import { PicturesSection } from '../Sections/PicturesSection/PicturesSection';
-import { ProducerSection } from '../Sections/ProducerSection/ProducerSection';
-import { TopHeaderSection } from '../Sections/TopHeaderSection/TopHeaderSection';
-import { VideoSection } from '../Sections/VideoSection/VideoSection';
+import { BannerSection } from '../../../../components/Sections/BannerSection/BannerSection';
+import { DescriptionSection } from '../../../../components/Sections/DescriptionSection/DescriptionSection';
+import { ListSection } from '../../../../components/Sections/ListSection/ListSection';
+import { PicturesSection } from '../../../../components/Sections/PicturesSection/PicturesSection';
+import { ProducerSection } from '../../../../components/Sections/ProducerSection/ProducerSection';
+import { TopHeaderSection } from '../../../../components/Sections/TopHeaderSection/TopHeaderSection';
+import { VideoSection } from '../../../../components/Sections/VideoSection/VideoSection';
 
 const FormWrapper = styled.div`
   border: 1px solid black;

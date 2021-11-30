@@ -11,7 +11,7 @@ import Card from 'components/Card';
 import { sumOfOrderProductsPriceBuying } from 'utils/counters/counters';
 import { numberFormatter } from 'utils/formatters/numberFormatter';
 import { MappedOrder } from 'utils/mappers/types';
-import OrdersRange from './components';
+import OrdersRange from './components/OrdersRange';
 import * as S from './styles';
 
 interface Props {

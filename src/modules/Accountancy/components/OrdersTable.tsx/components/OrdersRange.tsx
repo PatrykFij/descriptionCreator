@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import DateFnsUtils from '@date-io/date-fns';
 import { DateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import pl from 'date-fns/locale/pl';
@@ -20,14 +20,18 @@ const OrdersRange = ({
   ordersByRange,
   maxOrderId,
 }: Props) => {
-  const [selectedStartDate, handleStartDateChange] = useState<any>(
-    dateRange[0],
-  );
-  const [selectedEndDate, handleEndDateChange] = useState<any>(dateRange[1]);
+  const [startDate, setStartDateChange] = useState<any>(dateRange[0]);
+  const [endDate, setEndDateChange] = useState<any>(dateRange[1]);
 
-  const handleChangeRange = useCallback(() => {
-    setDateRange([selectedStartDate, selectedEndDate]);
-  }, [selectedEndDate, selectedStartDate, setDateRange]);
+  const handleChangeStartDate = (date: any) => {
+    setStartDateChange(date);
+    setDateRange((prev) => [date, prev[1]]);
+  };
+
+  const handleChangeEndDate = (date: any) => {
+    setEndDateChange(date);
+    setDateRange((prev) => [prev[0], date]);
+  };
 
   return (
     <>
@@ -37,18 +41,16 @@ const OrdersRange = ({
             label="Początkowa data"
             format="dd/MM/yyyy HH:mm"
             ampm={false}
-            value={selectedStartDate}
-            onChange={handleStartDateChange}
-            onClose={handleChangeRange}
+            value={startDate}
+            onChange={handleChangeStartDate}
           />
           <S.Title>Zakres zamówień</S.Title>
           <DateTimePicker
             label="Koncowa data"
             format="dd/MM/yyyy HH:mm"
             ampm={false}
-            value={selectedEndDate}
-            onChange={handleEndDateChange}
-            onClose={handleChangeRange}
+            value={endDate}
+            onChange={handleChangeEndDate}
           />
         </MuiPickersUtilsProvider>
         <RangeInput

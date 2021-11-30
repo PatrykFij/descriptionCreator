@@ -34,7 +34,6 @@ const OrdersRange = ({
       <S.RangeWrapper>
         <MuiPickersUtilsProvider locale={pl} utils={DateFnsUtils}>
           <DateTimePicker
-            variant="inline"
             label="Początkowa data"
             format="dd/MM/yyyy HH:mm"
             ampm={false}
@@ -44,7 +43,6 @@ const OrdersRange = ({
           />
           <S.Title>Zakres zamówień</S.Title>
           <DateTimePicker
-            variant="inline"
             label="Koncowa data"
             format="dd/MM/yyyy HH:mm"
             ampm={false}

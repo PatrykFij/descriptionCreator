@@ -18,8 +18,6 @@ interface Props {
   isLoading: boolean;
   orders?: MappedOrder[];
   ordersByRange?: MappedOrder[];
-  // range?: number[];
-  // setRange: Dispatch<SetStateAction<number[] | undefined>>;
   dateRange: Moment[];
   setDateRange: Dispatch<SetStateAction<Moment[]>>;
   handleGetData: () => Promise<void>;
@@ -30,8 +28,6 @@ const OrdersTable = ({
   isLoading,
   orders,
   ordersByRange,
-  // setRange,
-  // range,
   handleGetData,
   maxOrderId,
   dateRange,

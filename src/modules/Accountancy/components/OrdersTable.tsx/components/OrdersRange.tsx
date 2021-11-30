@@ -53,14 +53,7 @@ const OrdersRange = ({
             onChange={handleChangeEndDate}
           />
         </MuiPickersUtilsProvider>
-        <RangeInput
-          ordersByRange={ordersByRange}
-          // width={800}
-          // handleRangeChange={setRange}
-          // range={range}
-          // disabled={true}
-          maxOrderId={maxOrderId}
-        />
+        <RangeInput ordersByRange={ordersByRange} maxOrderId={maxOrderId} />
       </S.RangeWrapper>
     </>
   );

@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { useContext } from 'react';
+import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import styled from 'styled-components';
 import { AppContext } from '../../../context/AppContext/AppContext';
 
 const StyledFormControl = styled(FormControl)`
@@ -28,6 +28,7 @@ export const ProducerSection = () => {
         <MenuItem value={'alfapar'}>Alfapar</MenuItem>
         <MenuItem value={'grazette'}>Grazette</MenuItem>
         <MenuItem value={'davines'}>Davines</MenuItem>
+        <MenuItem value={'maroccanoil'}>Maroccanoil</MenuItem>
       </Select>
     </StyledFormControl>
   );

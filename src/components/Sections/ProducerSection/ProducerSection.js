@@ -28,7 +28,7 @@ export const ProducerSection = () => {
         <MenuItem value={'alfapar'}>Alfapar</MenuItem>
         <MenuItem value={'grazette'}>Grazette</MenuItem>
         <MenuItem value={'davines'}>Davines</MenuItem>
-        <MenuItem value={'maroccanoil'}>Maroccanoil</MenuItem>
+        <MenuItem value={'moroccanoil'}>Moroccanoil</MenuItem>
       </Select>
     </StyledFormControl>
   );

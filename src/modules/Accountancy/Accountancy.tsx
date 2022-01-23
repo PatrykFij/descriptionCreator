@@ -63,7 +63,7 @@ const Accountancy = () => {
           lastUpdate: moment().format(dateAndTimeDisplayFormat),
         };
         console.log('ustawianie danych');
-        localStorage.setItem('data', JSON.stringify(data));
+        // localStorage.setItem('data', JSON.stringify(data));
         console.log('ustawiono !!!! danych');
         const mappedData = mapOrdersWithBuyingPrice(data);
         const orderRange = mapOrdersRange(mappedData);

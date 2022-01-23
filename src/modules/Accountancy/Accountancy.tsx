@@ -72,7 +72,7 @@ const Accountancy = () => {
         setProducts(allProducts);
       }
     } catch (e: any) {
-      console.log(error);
+      console.log('error', e);
       handleException(e);
     }
   }, [getAllOrderedProducts, getAllOrders, getAllProducts, getShippingMethods]);

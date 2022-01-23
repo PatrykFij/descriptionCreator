@@ -53,6 +53,7 @@ const Accountancy = () => {
       const allOrders = await getAllOrders();
       const allOrderedProducts = await getAllOrderedProducts();
 
+      console.log(shippingMethods, allProducts, allOrders, allOrderedProducts);
       if (allProducts && allOrders && allOrderedProducts && shippingMethods) {
         const data: Data = {
           shippingMethods: shippingMethods,
@@ -61,7 +62,9 @@ const Accountancy = () => {
           allOrderedProducts: allOrderedProducts,
           lastUpdate: moment().format(dateAndTimeDisplayFormat),
         };
+        console.log('ustawianie danych');
         localStorage.setItem('data', JSON.stringify(data));
+        console.log('ustawiono !!!! danych');
         const mappedData = mapOrdersWithBuyingPrice(data);
         const orderRange = mapOrdersRange(mappedData);
         setMaxOrderId(orderRange[1]);
@@ -69,6 +72,7 @@ const Accountancy = () => {
         setProducts(allProducts);
       }
     } catch (e: any) {
+      console.log(error);
       handleException(e);
     }
   }, [getAllOrderedProducts, getAllOrders, getAllProducts, getShippingMethods]);

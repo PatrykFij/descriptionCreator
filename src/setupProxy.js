@@ -1,5 +1,5 @@
 const compression = require('compression');
-const proxy = require('http-proxy-middleware');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const morgan = require('morgan');
 require('dotenv-flow').config();
 
@@ -22,7 +22,7 @@ module.exports = function (app) {
 
   app.use(
     '/api',
-    proxy({
+    createProxyMiddleware({
       target: backendUrl,
       changeOrigin: true,
       logLevel: 'debug',

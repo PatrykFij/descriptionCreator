@@ -6,7 +6,7 @@ const app = express();
 const setupProxy = require('../src/setupProxy.js');
 
 const host = process.env.HOST || '0.0.0.0';
-const port = process.env.PORT || '8080';
+const port = process.env.PORT || '3000';
 const contextPath =
   process.env.CONTEXT_PATH === '/' ? '' : process.env.CONTEXT_PATH || '';
 

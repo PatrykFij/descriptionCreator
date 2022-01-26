@@ -3,13 +3,13 @@ import { useForm } from 'react-hook-form';
 import { Redirect, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Button } from '@material-ui/core';
-import axios from 'axios';
 import { AuthContext } from 'context/AuthProvider/AuthProvider';
 import { useToggle } from 'hooks/useToggle';
 import Dialog from 'components/Dialog';
 import TextInput from 'components/Inputs/TextInput';
 import { handleException } from 'utils/handleException';
 import * as URL from '../../../routes/url';
+import { useAuth } from './api';
 import * as T from './types';
 
 const LoginPage = () => {
@@ -26,20 +26,13 @@ const LoginPage = () => {
     formState: { errors },
   } = form;
 
+  const { authenticate } = useAuth();
+
   const onSubmit = handleSubmit(async () => {
-    const { username, password } = getValues();
+    const { login, password } = getValues();
+
     try {
-      const response = await axios.post(
-        '/.netlify/functions/node-fetch?url=auth',
-        {},
-        {
-          auth: {
-            username: username,
-            password: password,
-          },
-          headers: { accept: 'Accept: application/json' },
-        },
-      );
+      const { data } = await authenticate(login, password);
       toast.success('Pomyślnie zalogowano');
       setIsAuthenticated(true);
       sessionStorage.setItem(
@@ -47,13 +40,12 @@ const LoginPage = () => {
         JSON.stringify({
           user: {
             authenticated: true,
-            accessToken: response.data.data.access_token,
+            accessToken: data.accessToken,
           },
         }),
       );
       history.push(URL.ROOT);
     } catch (e: any) {
-      toast.error(e.response.statusText);
       handleException(e);
     }
   });
@@ -76,7 +68,7 @@ const LoginPage = () => {
           }
         >
           <TextInput
-            name="username"
+            name="login"
             label="Login"
             control={control}
             errors={errors}

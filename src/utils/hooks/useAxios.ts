@@ -28,13 +28,8 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     let serverMessage = error?.response?.data?.message;
-    let serverDetails = error?.response?.data?.details;
 
-    debugger;
-    const message =
-      serverMessage ||
-      `Unknown error has occurred. 
-      Please contact Soprano team.`;
+    const message = serverMessage || `Nieznany błąd zapraszam do Patryka`;
 
     if (error?.response?.status === 401) {
       sessionStorage.removeItem('state');
@@ -47,9 +42,7 @@ axiosInstance.interceptors.response.use(
         autoClose: false,
       });
     }
-    if (serverDetails) {
-      console.error(`API response error serverDetails: ${serverDetails}`);
-    }
+
     return Promise.reject(error);
   },
 );

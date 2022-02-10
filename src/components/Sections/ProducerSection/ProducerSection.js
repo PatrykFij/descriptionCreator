@@ -1,7 +1,8 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import styled from 'styled-components';
 import { AppContext } from '../../../context/AppContext/AppContext';
+import * as api from '../api';
 
 const StyledFormControl = styled(FormControl)`
   display: block;
@@ -17,18 +18,20 @@ export const ProducerSection = () => {
   const handleChange = (event) => {
     setProducer(event.target.value);
   };
+  const { producers, getProducers } = api.useGetProducers();
+
+  useEffect(() => getProducers(), [getProducers]);
 
   return (
     <StyledFormControl>
       <InputLabel>Producent</InputLabel>
       <Select value={producer} onChange={handleChange}>
-        <MenuItem value={'kemon'}>Kemon</MenuItem>
-        <MenuItem value={'yonelle'}>Yonelle</MenuItem>
-        <MenuItem value={'shangpree'}>Shangpree</MenuItem>
-        <MenuItem value={'alfapar'}>Alfapar</MenuItem>
-        <MenuItem value={'grazette'}>Grazette</MenuItem>
-        <MenuItem value={'davines'}>Davines</MenuItem>
-        <MenuItem value={'moroccanoil'}>Moroccanoil</MenuItem>
+        {producers &&
+          producers.map(({ producer_id, name }) => (
+            <MenuItem key={producer_id} value={name.toLocaleLowerCase()}>
+              {name}
+            </MenuItem>
+          ))}
       </Select>
     </StyledFormControl>
   );

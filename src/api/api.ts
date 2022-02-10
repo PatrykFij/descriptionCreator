@@ -1,19 +1,55 @@
-import { Order } from 'types/Order';
 import { useAxios } from 'utils/hooks/useAxios';
-import { OrderedProduct } from './../../types/OrderedProduct';
-import { Product } from './../../types/Product';
-import { ShippingMethod } from './../../utils/mappers/types';
+import {
+  Order,
+  OrderedProduct,
+  Producers,
+  Product,
+  ShippingMethod,
+} from './types';
+
+export const useGetProducers = () => {
+  const [{ data: producers, loading: isLoadingProducers }, getProducers] =
+    useAxios<Producers[]>(
+      {
+        url: `/producers`,
+      },
+      { manual: true },
+    );
+  return {
+    producers,
+    getProducers,
+    isLoadingProducers,
+  };
+};
 
 export const useGetProducts = () => {
-  const [{ loading: isLoadingProducts }, getProducts] = useAxios<Product[]>(
+  const [{ data: products, loading: isLoadingProducts }, getProducts] =
+    useAxios<Product[]>(
+      {
+        url: `/products`,
+      },
+      { manual: true },
+    );
+  return {
+    products,
+    isLoadingProducts,
+    getProducts,
+  };
+};
+
+export const useUpdateOffer = (productId: string) => {
+  const [, updateOffer] = useAxios(
     {
-      url: `/products`,
+      url: `/products/${productId}`,
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     },
     { manual: true },
   );
   return {
-    isLoadingProducts,
-    getProducts,
+    updateOffer,
   };
 };
 

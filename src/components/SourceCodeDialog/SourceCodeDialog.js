@@ -1,17 +1,17 @@
-import { useState, useContext } from 'react';
-import { AppContext } from '../../context/AppContext/AppContext';
+import { useContext, useState } from 'react';
 import {
   Button,
   Dialog,
-  DialogTitle,
+  DialogActions,
   DialogContent,
   DialogContentText,
-  TextField,
-  DialogActions,
+  DialogTitle,
   Snackbar,
+  TextField,
 } from '@material-ui/core';
+import { AppContext } from '../../context/AppContext/AppContext';
 
-const getExistingOfferFields = (existingOffer) => {
+export const getExistingOfferFields = (existingOffer) => {
   const producer = existingOffer
     .querySelector('#producer-logo-section [data-id="a_1"]')
     .href.replace('https://www.brillar-sklep.pl/', '');
@@ -66,7 +66,7 @@ const getExistingOfferFields = (existingOffer) => {
       ? existingOffer.querySelector('#banner-section [data-id="img_1"]').alt
       : '',
   };
-  debugger;
+
   const pictureSectionTitle = existingOffer.querySelector(
     '#pictures-section [data-id="h4_1"]',
   )

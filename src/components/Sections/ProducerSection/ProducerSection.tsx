@@ -1,8 +1,8 @@
 import { ChangeEvent, useContext, useEffect } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import styled from 'styled-components';
+import * as api from '../../../api/api';
 import { AppContext } from '../../../context/AppContext/AppContext';
-import * as api from '../api';
 
 const StyledFormControl = styled(FormControl)`
   display: block;

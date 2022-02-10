@@ -25,19 +25,18 @@ const Summary = ({ ordersByRange }: Props) => {
   const [isPreviewOpen, openPreview, closePreview] = useToggle();
   const summarizeRows = useMemo(() => summaryRows(summaryData), [summaryData]);
 
+  console.log(isPreviewOpen);
   return (
     <Card
       title="Podsumowanie"
       customAction={<Button onClick={openPreview}>Podgląd</Button>}
     >
-      {isPreviewOpen && (
-        <PreviewDialog
-          ordersByRange={ordersByRange}
-          summaryData={summaryData}
-          onClose={closePreview}
-        />
-      )}
-
+      <PreviewDialog
+        ordersByRange={ordersByRange}
+        summaryData={summaryData}
+        onClose={closePreview}
+        open={isPreviewOpen}
+      />
       {summarizeRows.map(({ label, value }: T.SummaryRowData) => (
         <DataRow label={label} value={value} />
       ))}

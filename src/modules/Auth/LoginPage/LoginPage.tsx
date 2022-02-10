@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Redirect, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -26,7 +26,14 @@ const LoginPage = () => {
     formState: { errors },
   } = form;
 
+  const [loginFormOpen, openLoginForm, closeLoginForm] = useToggle();
   const { authenticate } = useAuth();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      openLoginForm();
+    }
+  }, [isAuthenticated, openLoginForm]);
 
   const onSubmit = handleSubmit(async () => {
     const { login, password } = getValues();
@@ -50,8 +57,6 @@ const LoginPage = () => {
     }
   });
 
-  const [loginFormOpen, openLoginForm, closeLoginForm] = useToggle();
-
   return (
     <>
       {isAuthenticated ? (
@@ -60,6 +65,7 @@ const LoginPage = () => {
         <Dialog
           maxWidth="sm"
           title="Zaloguj"
+          open={loginFormOpen}
           onClose={closeLoginForm}
           dialogActions={
             <>

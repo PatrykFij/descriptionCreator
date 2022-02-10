@@ -1,7 +1,12 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { CircularProgress, Snackbar, TextField } from '@material-ui/core';
+import Search from '@material-ui/icons/Search';
 import { PLTranslation } from 'api/types';
+import { useToggle } from 'hooks/useToggle';
+import ContainedButton from 'components/Button/ContainedButton';
+import OutlinedButton from 'components/Button/OutlinedButton';
+import Dialog from 'components/Dialog';
 import { Form } from 'components/Form/Form';
 import { Preview } from 'components/Preview/Preview';
 import {
@@ -38,11 +43,19 @@ const DescriptionCreator = () => {
 
   const [currentOffer, setCurrentOffer] = useState<PLTranslation | null>(null);
   const { products, getProducts } = api.useGetProducts();
-  const { updateOffer } = api.useUpdateOffer(currentOffer?.product_id || '');
+  const { updateOffer, isUpdateLoading } = api.useUpdateOffer(
+    currentOffer?.product_id || '',
+  );
 
   useEffect(() => {
     getProducts();
   }, [getProducts]);
+
+  useEffect(() => {
+    if (products) {
+      setCurrentOffer(products[0].translations.pl_PL);
+    }
+  }, [products]);
 
   const setExistingOffer = useCallback(
     ({
@@ -130,6 +143,9 @@ const DescriptionCreator = () => {
     ],
   );
 
+  const [isOpenConfirmation, handleOpenConfirmation, handleCloseConfirmation] =
+    useToggle();
+
   useEffect(() => {
     if (currentOffer) {
       var parser = new DOMParser();
@@ -152,7 +168,7 @@ const DescriptionCreator = () => {
 
         await updateOffer({ data: { description: previewCode } });
         toast.success(`Pomyślnie zaktualizowano ofertę: ${currentOffer.name}`);
-        setIsSnackbarOpen(true);
+        handleCloseConfirmation();
       }
     } else {
       setIsOfferValidatorAlertOpen(true);
@@ -180,44 +196,49 @@ const DescriptionCreator = () => {
   return (
     <>
       <div className="App">
-        <S.CustomButton
-          onClick={handleCopyDescriptionCode}
-          variant="contained"
-          color="primary"
-        >
-          Aktualizuj ofertę
-        </S.CustomButton>
-        <S.CustomButton
-          onClick={handleClearLocalStorage}
-          variant="contained"
-          color="secondary"
-        >
-          Wyczyść pamięć podręczną
-        </S.CustomButton>
-        <S.CustomButton
-          onClick={handleOpenSourceCodeDialog}
-          variant="contained"
-          color="default"
-        >
-          Wprowadź istniejącą ofertę
-        </S.CustomButton>
+        <S.ToolBar>
+          {products ? (
+            <S.StyledOfferSelect
+              options={products?.map(({ translations: { pl_PL } }) => pl_PL)}
+              defaultValue={products[0].translations.pl_PL}
+              renderInput={(params: any) => (
+                <TextField {...params} label="Wybierz ofertę" />
+              )}
+              getOptionLabel={(option: any) => option.name}
+              onChange={(e: any, offer: any) => setCurrentOffer(offer)}
+            />
+          ) : (
+            <CircularProgress />
+          )}
+          <S.CustomButton
+            // onClick={handleCopyDescriptionCode}
+            onClick={handleOpenConfirmation}
+            variant="contained"
+            color="primary"
+          >
+            Aktualizuj ofertę
+          </S.CustomButton>
+          <S.GoToOfferIcon
+            onClick={() =>
+              window.open(
+                `${currentOffer?.permalink.replace(
+                  'https://www.brillar-sklep.pl',
+                  'https://sklep992539.shoparena.pl',
+                )}?preview=true`,
+                '_blank',
+                'noopener,noreferrer',
+              )
+            }
+            aria-label="delete"
+          >
+            <Search />
+          </S.GoToOfferIcon>
+        </S.ToolBar>
+
         <SourceCodeDialog
           isOpen={isSourceCodeDialogOpen}
           setIsOpen={setIsSourceCodeDialogOpen}
         />
-        {products ? (
-          <S.StyledOfferSelect
-            options={products?.map(({ translations: { pl_PL } }) => pl_PL)}
-            renderInput={(params: any) => (
-              <TextField {...params} label="Wybierz ofertę" />
-            )}
-            getOptionLabel={(option: any) => option.name}
-            onChange={(e: any, offer: any) => setCurrentOffer(offer)}
-          />
-        ) : (
-          <CircularProgress />
-        )}
-
         <S.MainWrapper>
           <Form />
           <Preview />
@@ -238,6 +259,29 @@ const DescriptionCreator = () => {
           />
         </S.MainWrapper>
       </div>
+      <>
+        <Dialog
+          open={isOpenConfirmation}
+          onClose={handleCloseConfirmation}
+          maxWidth="xs"
+          title={'Potwierdzenie'}
+          dialogActions={
+            <>
+              <OutlinedButton onClick={handleCloseConfirmation}>
+                Anuluj
+              </OutlinedButton>
+              <ContainedButton
+                loading={isUpdateLoading}
+                onClick={handleCopyDescriptionCode}
+              >
+                Aktualizuj
+              </ContainedButton>
+            </>
+          }
+        >
+          <p>Czy na pewno chcesz zaktualizować ofertę {currentOffer?.name}</p>
+        </Dialog>
+      </>
     </>
   );
 };

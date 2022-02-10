@@ -38,7 +38,7 @@ export const useGetProducts = () => {
 };
 
 export const useUpdateOffer = (productId: string) => {
-  const [, updateOffer] = useAxios(
+  const [{ loading: isUpdateLoading }, updateOffer] = useAxios(
     {
       url: `/products/${productId}`,
       method: 'PUT',
@@ -49,6 +49,7 @@ export const useUpdateOffer = (productId: string) => {
     { manual: true },
   );
   return {
+    isUpdateLoading,
     updateOffer,
   };
 };

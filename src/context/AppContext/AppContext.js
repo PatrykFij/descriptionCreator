@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Mock } from "../../constants/Mock";
+import React, { useEffect, useState } from 'react';
+import { Mock } from '../../constants/Mock';
 
 const appCtxDefaultValue = {
   producer: Mock.producer,
@@ -16,7 +16,7 @@ const appCtxDefaultValue = {
   pictureItems: Mock.pictureItems,
   enabledVideoSection: true,
   videoSection: Mock.videoSection,
-  setProducer: () => {},
+  setProducer: (producer) => {},
   setTopHeader: () => {},
   setMiddleHeader: () => {},
   setBottomHeader: () => {},
@@ -35,40 +35,63 @@ const appCtxDefaultValue = {
 export const AppContext = React.createContext(appCtxDefaultValue);
 
 export const AppProvider = ({ children }) => {
-  const localStorageValues = JSON.parse(localStorage.getItem("descriptionValues"));
+  const localStorageValues = JSON.parse(
+    localStorage.getItem('descriptionValues'),
+  );
 
-  const [producer, setProducer] = useState(localStorageValues?.producer || appCtxDefaultValue.producer);
+  const [producer, setProducer] = useState(
+    localStorageValues?.producer || appCtxDefaultValue.producer,
+  );
 
-  const [topHeader, setTopHeader] = useState(localStorageValues?.topHeader || appCtxDefaultValue.topHeader);
-  const [middleHeader, setMiddleHeader] = useState(localStorageValues?.middleHeader || appCtxDefaultValue.middleHeader);
-  const [bottomHeader, setBottomHeader] = useState(localStorageValues?.bottomHeader || appCtxDefaultValue.bottomHeader);
+  const [topHeader, setTopHeader] = useState(
+    localStorageValues?.topHeader || appCtxDefaultValue.topHeader,
+  );
+  const [middleHeader, setMiddleHeader] = useState(
+    localStorageValues?.middleHeader || appCtxDefaultValue.middleHeader,
+  );
+  const [bottomHeader, setBottomHeader] = useState(
+    localStorageValues?.bottomHeader || appCtxDefaultValue.bottomHeader,
+  );
 
-  const [paragraph, setParagraph] = useState(localStorageValues?.paragraph || appCtxDefaultValue.paragraph);
+  const [paragraph, setParagraph] = useState(
+    localStorageValues?.paragraph || appCtxDefaultValue.paragraph,
+  );
 
   const [enabledListSection, setEnabledListSection] = useState(
-    localStorageValues?.enabledListSection || appCtxDefaultValue.enabledListSection
+    localStorageValues?.enabledListSection ||
+      appCtxDefaultValue.enabledListSection,
   );
-  const [listSection, setListSection] = useState(localStorageValues?.listSection || appCtxDefaultValue.listSection);
+  const [listSection, setListSection] = useState(
+    localStorageValues?.listSection || appCtxDefaultValue.listSection,
+  );
 
   const [enabledBannerSection, setEnabledBannerSection] = useState(
-    localStorageValues?.enabledBannerSection || appCtxDefaultValue.enabledBannerSection
+    localStorageValues?.enabledBannerSection ||
+      appCtxDefaultValue.enabledBannerSection,
   );
   const [bannerSection, setBannerSection] = useState(
-    localStorageValues?.bannerSection || appCtxDefaultValue.bannerSection
+    localStorageValues?.bannerSection || appCtxDefaultValue.bannerSection,
   );
 
   const [enabledPicturesSection, setEnabledPicturesSection] = useState(
-    localStorageValues?.enabledPicturesSection || appCtxDefaultValue.enabledPicturesSection
+    localStorageValues?.enabledPicturesSection ||
+      appCtxDefaultValue.enabledPicturesSection,
   );
   const [pictureSectionTitle, setPictureSectionTitle] = useState(
-    localStorageValues?.pictureSectionTitle || appCtxDefaultValue.pictureSectionTitle
+    localStorageValues?.pictureSectionTitle ||
+      appCtxDefaultValue.pictureSectionTitle,
   );
-  const [pictureItems, setPictureItems] = useState(localStorageValues?.pictureItems || appCtxDefaultValue.pictureItems);
+  const [pictureItems, setPictureItems] = useState(
+    localStorageValues?.pictureItems || appCtxDefaultValue.pictureItems,
+  );
 
   const [enabledVideoSection, setEnabledVideoSection] = useState(
-    localStorageValues?.enabledVideoSection || appCtxDefaultValue.enabledVideoSection
+    localStorageValues?.enabledVideoSection ||
+      appCtxDefaultValue.enabledVideoSection,
   );
-  const [videoSection, setVideoSection] = useState(localStorageValues?.videoSection || appCtxDefaultValue.videoSection);
+  const [videoSection, setVideoSection] = useState(
+    localStorageValues?.videoSection || appCtxDefaultValue.videoSection,
+  );
 
   useEffect(() => {
     const descriptionValues = {
@@ -87,7 +110,10 @@ export const AppProvider = ({ children }) => {
       enabledVideoSection,
       videoSection,
     };
-    localStorage.setItem("descriptionValues", JSON.stringify(descriptionValues));
+    localStorage.setItem(
+      'descriptionValues',
+      JSON.stringify(descriptionValues),
+    );
   }, [
     producer,
     topHeader,

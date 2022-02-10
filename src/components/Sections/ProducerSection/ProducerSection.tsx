@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { ChangeEvent, useContext, useEffect } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import styled from 'styled-components';
 import { AppContext } from '../../../context/AppContext/AppContext';
@@ -15,12 +15,14 @@ const StyledFormControl = styled(FormControl)`
 export const ProducerSection = () => {
   const { producer, setProducer } = useContext(AppContext);
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<{ value: string | unknown }>) => {
     setProducer(event.target.value);
   };
   const { producers, getProducers } = api.useGetProducers();
 
-  useEffect(() => getProducers(), [getProducers]);
+  useEffect(() => {
+    getProducers();
+  }, [getProducers]);
 
   return (
     <StyledFormControl>

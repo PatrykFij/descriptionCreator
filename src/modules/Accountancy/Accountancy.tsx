@@ -25,10 +25,11 @@ const Accountancy = () => {
     JSON.parse(localStorage.getItem('data') || '{}')?.allProducts,
   );
 
-  const { isLoadingShippings, getShippingMethods } = api.useGetShippingMethod();
-  const { isLoading: isLoadingProducts, getAllProducts } = api.useGetProducts();
-  const { isLoading: isLoadingOrders, getAllOrders } = api.useGetOrders();
-  const { isLoading: isLoadingOrderedProducts, getAllOrderedProducts } =
+  const { isLoadingShippingMethods, getShippingMethods } =
+    api.useGetShippingMethod();
+  const { isLoadingProducts, getProducts } = api.useGetProducts();
+  const { isLoadingOrders, getOrders } = api.useGetOrders();
+  const { isLoadingOrderedProducts, getOrderedProducts } =
     api.useGetOrderedProducts();
 
   const handleMapData = useCallback(() => {
@@ -49,45 +50,41 @@ const Accountancy = () => {
   const handleDownloadData = useCallback(async () => {
     try {
       const shippingMethods = await getShippingMethods();
-      const allProducts = await getAllProducts();
-      const allOrders = await getAllOrders();
-      const allOrderedProducts = await getAllOrderedProducts();
+      const allProducts = await getProducts();
+      const allOrders = await getOrders();
+      const allOrderedProducts = await getOrderedProducts();
 
-      console.log(shippingMethods, allProducts, allOrders, allOrderedProducts);
       if (allProducts && allOrders && allOrderedProducts && shippingMethods) {
         const data: Data = {
-          shippingMethods: shippingMethods,
-          allProducts: allProducts,
-          allOrders: allOrders,
-          allOrderedProducts: allOrderedProducts,
+          shippingMethods: shippingMethods.data,
+          allProducts: allProducts.data,
+          allOrders: allOrders.data,
+          allOrderedProducts: allOrderedProducts.data,
           lastUpdate: moment().format(dateAndTimeDisplayFormat),
         };
-        console.log('ustawianie danych');
-        // localStorage.setItem('data', JSON.stringify(data));
-        console.log('ustawiono !!!! danych');
         const mappedData = mapOrdersWithBuyingPrice(data);
         const orderRange = mapOrdersRange(mappedData);
         setMaxOrderId(orderRange[1]);
         setOrders(mappedData);
-        setProducts(allProducts);
+        setProducts(allProducts.data);
       }
     } catch (e: any) {
       console.log('error', e);
       handleException(e);
     }
-  }, [getAllOrderedProducts, getAllOrders, getAllProducts, getShippingMethods]);
+  }, [getOrderedProducts, getOrders, getProducts, getShippingMethods]);
 
   const isLoading = useMemo(
     () =>
       isLoadingProducts ||
       isLoadingOrders ||
       isLoadingOrderedProducts ||
-      isLoadingShippings,
+      isLoadingShippingMethods,
     [
       isLoadingOrderedProducts,
       isLoadingOrders,
       isLoadingProducts,
-      isLoadingShippings,
+      isLoadingShippingMethods,
     ],
   );
 

@@ -1,116 +1,60 @@
-import { useCallback, useState } from 'react';
-import { useAxios } from 'hooks/useAxios';
+import { Order } from 'types/Order';
+import { useAxios } from 'utils/hooks/useAxios';
+import { OrderedProduct } from './../../types/OrderedProduct';
+import { Product } from './../../types/Product';
+import { ShippingMethod } from './../../utils/mappers/types';
 
 export const useGetProducts = () => {
-  const [, getProducts] = useAxios({}, { manual: true });
-
-  const [isLoading, setIsLoading] = useState(false);
-  const getAllProducts = useCallback(async () => {
-    setIsLoading(true);
-    let list = [];
-    const url = `node-fetch?url=products&limit=50`;
-    const {
-      data: { data },
-    } = await getProducts({ url });
-    list.push(...data.list);
-
-    if (data.pages > 1) {
-      for (let i = 2; i <= data.pages; i++) {
-        const url = `node-fetch?url=products&limit=50&page=${i}`;
-        const {
-          data: { data },
-        } = await getProducts({ url });
-        list.push(...data.list);
-      }
-      setIsLoading(false);
-      return list;
-    }
-  }, [getProducts]);
-
+  const [{ loading: isLoadingProducts }, getProducts] = useAxios<Product[]>(
+    {
+      url: `/products`,
+    },
+    { manual: true },
+  );
   return {
-    isLoading,
-    getAllProducts,
-  };
-};
-
-export const useGetOrders = () => {
-  const [, getOrders] = useAxios({}, { manual: true });
-
-  const [isLoading, setIsLoading] = useState(false);
-  const getAllOrders = useCallback(async () => {
-    setIsLoading(true);
-    let list = [];
-    const url = `node-fetch?url=orders&limit=50`;
-    const {
-      data: { data },
-    } = await getOrders({ url });
-    list.push(...data.list);
-
-    if (data.pages > 1) {
-      for (let i = 2; i <= data.pages; i++) {
-        const url = `node-fetch?url=orders&limit=50&page=${i}`;
-        const {
-          data: { data },
-        } = await getOrders({ url });
-        list.push(...data.list);
-      }
-      setIsLoading(false);
-      return list;
-    }
-  }, [getOrders]);
-
-  return {
-    isLoading,
-    getAllOrders,
+    isLoadingProducts,
+    getProducts,
   };
 };
 
 export const useGetOrderedProducts = () => {
-  const [, getOrderedProducts] = useAxios({}, { manual: true });
-
-  const [isLoading, setIsLoading] = useState(false);
-
-  const getAllOrderedProducts = useCallback(async () => {
-    setIsLoading(true);
-    let list = [];
-    const url = `node-fetch?url=order-products&limit=50`;
-    const {
-      data: { data },
-    } = await getOrderedProducts({ url });
-    list.push(...data.list);
-
-    if (data.pages > 1) {
-      for (let i = 2; i <= data.pages; i++) {
-        const url = `node-fetch?url=order-products&limit=50&page=${i}`;
-        const {
-          data: { data },
-        } = await getOrderedProducts({ url });
-        list.push(...data.list);
-      }
-    }
-    setIsLoading(false);
-    return list;
-  }, [getOrderedProducts]);
-
+  const [{ loading: isLoadingOrderedProducts }, getOrderedProducts] = useAxios<
+    OrderedProduct[]
+  >(
+    {
+      url: `/ordered-products`,
+    },
+    { manual: true },
+  );
   return {
-    isLoading,
-    getAllOrderedProducts,
+    isLoadingOrderedProducts,
+    getOrderedProducts,
   };
 };
 
-export const useGetShippingMethod = () => {
-  const [{ loading: isLoadingShippings }, getShippings] = useAxios(
-    { url: 'node-fetch?url=shippings&limit=50' },
+export const useGetOrders = () => {
+  const [{ loading: isLoadingOrders }, getOrders] = useAxios<Order[]>(
+    {
+      url: `/orders`,
+    },
     { manual: true },
   );
-
-  const getShippingMethods = useCallback(async () => {
-    const response = await getShippings();
-    return response.data.data.list;
-  }, [getShippings]);
-
   return {
-    isLoadingShippings,
+    isLoadingOrders,
+    getOrders,
+  };
+};
+export const useGetShippingMethod = () => {
+  const [{ loading: isLoadingShippingMethods }, getShippingMethods] = useAxios<
+    ShippingMethod[]
+  >(
+    {
+      url: `/shippings-method`,
+    },
+    { manual: true },
+  );
+  return {
+    isLoadingShippingMethods,
     getShippingMethods,
   };
 };

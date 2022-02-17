@@ -9,35 +9,19 @@ import OutlinedButton from 'components/Button/OutlinedButton';
 import Dialog from 'components/Dialog';
 import { Form } from 'components/Form/Form';
 import { Preview } from 'components/Preview/Preview';
-import {
-  getExistingOfferFields,
-  SourceCodeDialog,
-} from 'components/SourceCodeDialog/SourceCodeDialog';
+import { getExistingOfferFields } from 'components/SourceCodeDialog/SourceCodeDialog';
 import { offerValidator } from 'utils/offerValidator';
 import * as api from '../../api/api';
-import { AppContext } from '../../context/AppContext/AppContext';
+import {
+  AppContext,
+  ProductOfferDescription,
+} from '../../context/AppContext/AppContext';
 import * as S from './styles';
 
 const DescriptionCreator = () => {
-  const {
-    setProducer,
-    setTopHeader,
-    setMiddleHeader,
-    setBottomHeader,
-    setParagraph,
-    setListSection,
-    setEnabledListSection,
-    setBannerSection,
-    setEnabledBannerSection,
-    setPictureSectionTitle,
-    setPictureItems,
-    setEnabledPicturesSection,
-    setVideoSection,
-    setEnabledVideoSection,
-  } = useContext(AppContext);
+  const { setProductOfferDescription } = useContext(AppContext);
 
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
-  const [isSourceCodeDialogOpen, setIsSourceCodeDialogOpen] = useState(false);
   const [isOfferValidatorAlertOpen, setIsOfferValidatorAlertOpen] =
     useState(false);
 
@@ -58,105 +42,30 @@ const DescriptionCreator = () => {
   }, [products]);
 
   const setExistingOffer = useCallback(
-    ({
-      producer,
-      topHeader,
-      middleHeader,
-      bottomHeader,
-      descriptionSection,
-      listSection,
-      bannerSection,
-      pictureSectionTitle,
-      pictureSectionItems,
-      videoSection,
-    }: any) => {
-      setProducer(producer);
-      setTopHeader(topHeader);
-      setMiddleHeader(middleHeader);
-      setBottomHeader(bottomHeader);
-      setParagraph(descriptionSection);
-      setListSection(listSection);
-      setBannerSection(bannerSection);
-      setPictureSectionTitle(pictureSectionTitle);
-      setPictureItems(pictureSectionItems);
-      setVideoSection(videoSection);
-    },
-    [
-      setBannerSection,
-      setBottomHeader,
-      setListSection,
-      setMiddleHeader,
-      setParagraph,
-      setPictureItems,
-      setPictureSectionTitle,
-      setProducer,
-      setTopHeader,
-      setVideoSection,
-    ],
-  );
-
-  const setEnabledSections = useCallback(
     (existingOffer: any) => {
-      const isListSectionEnabled = existingOffer.querySelector('#list-section');
-      setEnabledListSection(!!isListSectionEnabled);
-      if (!isListSectionEnabled) {
-        setListSection({ title: '', listItems: [] });
-      }
-
-      const isBannerSectionEnabled =
-        existingOffer.querySelector('#banner-section');
-      setEnabledBannerSection(!!isBannerSectionEnabled);
-      if (!isBannerSectionEnabled) {
-        setBannerSection({ imgAltTag: '', imgFileName: '' });
-      }
-
-      const isPicturesSectionEnabled =
-        existingOffer.querySelector('#pictures-section');
-      setEnabledPicturesSection(!!isPicturesSectionEnabled);
-      if (!isPicturesSectionEnabled) {
-        setPictureSectionTitle('');
-        setPictureItems([]);
-      }
-
-      const isVideoSectionEnabled =
-        existingOffer.querySelector('#video-section');
-      setEnabledVideoSection(!!isVideoSectionEnabled);
-      if (!isVideoSectionEnabled) {
-        setVideoSection({
-          sectionTitle: '',
-          description: '',
-          videoTitle: '',
-          videoUrl: '',
-        });
-      }
+      setProductOfferDescription((prev: ProductOfferDescription) => ({
+        ...prev,
+        ...existingOffer,
+      }));
     },
-    [
-      setBannerSection,
-      setEnabledBannerSection,
-      setEnabledListSection,
-      setEnabledPicturesSection,
-      setEnabledVideoSection,
-      setListSection,
-      setPictureItems,
-      setPictureSectionTitle,
-      setVideoSection,
-    ],
+    [setProductOfferDescription],
   );
 
   const [isOpenConfirmation, handleOpenConfirmation, handleCloseConfirmation] =
     useToggle();
 
   useEffect(() => {
-    if (currentOffer) {
+    if (currentOffer && currentOffer.description) {
       var parser = new DOMParser();
       var existingOffer = parser
         .parseFromString(currentOffer.description, 'text/html')
         .querySelector('.description-container');
       const existingFields = getExistingOfferFields(existingOffer);
       setExistingOffer(existingFields);
-      setEnabledSections(existingOffer);
+    } else {
+      //TODO assign description to empty offer
     }
-  }, [currentOffer, setEnabledSections, setExistingOffer]);
+  }, [currentOffer, setExistingOffer]);
 
   const handleCopyDescriptionCode = async () => {
     if (currentOffer?.product_id) {
@@ -173,15 +82,6 @@ const DescriptionCreator = () => {
     } else {
       setIsOfferValidatorAlertOpen(true);
     }
-  };
-
-  const handleClearLocalStorage = () => {
-    localStorage.removeItem('descriptionValues');
-    window.location.reload();
-  };
-
-  const handleOpenSourceCodeDialog = () => {
-    setIsSourceCodeDialogOpen(true);
   };
 
   const handleClose = (event: any, reason: string) => {
@@ -235,10 +135,10 @@ const DescriptionCreator = () => {
           </S.GoToOfferIcon>
         </S.ToolBar>
 
-        <SourceCodeDialog
+        {/* <SourceCodeDialog
           isOpen={isSourceCodeDialogOpen}
           setIsOpen={setIsSourceCodeDialogOpen}
-        />
+        /> */}
         <S.MainWrapper>
           <Form />
           <Preview />

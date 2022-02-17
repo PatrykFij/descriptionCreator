@@ -18,21 +18,15 @@ export const getExistingOfferFields = (existingOffer) => {
 
   const topHeader = existingOffer.querySelector(
     '#headers-section [data-id="h2_1"]',
-  )
-    ? existingOffer.querySelector('#headers-section [data-id="h2_1"]').innerHTML
-    : '';
+  )?.innerHTML;
 
   const middleHeader = existingOffer.querySelector(
     '#headers-section [data-id="h3_1"]',
-  )
-    ? existingOffer.querySelector('#headers-section [data-id="h3_1"]').innerHTML
-    : '';
+  )?.innerHTML;
 
   const bottomHeader = existingOffer.querySelector(
     '#headers-section [data-id="h4_1"]',
-  )
-    ? existingOffer.querySelector('#headers-section [data-id="h4_1"]').innerHTML
-    : '';
+  )?.innerHTML;
 
   const descriptionSection = existingOffer.querySelector(
     '#description-section [data-id="p_1"]',
@@ -42,6 +36,7 @@ export const getExistingOfferFields = (existingOffer) => {
     : '';
 
   const listSection = {
+    disabled: !existingOffer.querySelector('#list-section'),
     title: existingOffer.querySelector('#list-section [data-id="h4_1"]')
       ? existingOffer.querySelector('#list-section [data-id="h4_1"]').innerHTML
       : '',
@@ -55,6 +50,7 @@ export const getExistingOfferFields = (existingOffer) => {
   };
 
   const bannerSection = {
+    disable: !existingOffer.querySelector('#banner-section'),
     imgFileName: existingOffer.querySelector(
       '#banner-section [data-id="img_1"]',
     )
@@ -66,13 +62,6 @@ export const getExistingOfferFields = (existingOffer) => {
       ? existingOffer.querySelector('#banner-section [data-id="img_1"]').alt
       : '',
   };
-
-  const pictureSectionTitle = existingOffer.querySelector(
-    '#pictures-section [data-id="h4_1"]',
-  )
-    ? existingOffer.querySelector('#pictures-section [data-id="h4_1"]')
-        .innerHTML
-    : '';
 
   let pictureSectionItems = [
     ...existingOffer.querySelectorAll(
@@ -102,8 +91,16 @@ export const getExistingOfferFields = (existingOffer) => {
       }))
     : [];
 
+  const pictureSection = {
+    disabled: !existingOffer.querySelector('#pictures-section'),
+    title: existingOffer.querySelector('#pictures-section [data-id="h4_1"]')
+      .innerHTML,
+    pictureItems: pictureSectionItems,
+  };
+
   const videoSection = {
-    sectionTitle: existingOffer.querySelector('#video-section [data-id="h4_1"]')
+    disabled: !existingOffer.querySelector('#video-section'),
+    title: existingOffer.querySelector('#video-section [data-id="h4_1"]')
       ? existingOffer
           .querySelector('#video-section [data-id="h4_1"]')
           .innerHTML.trim()
@@ -128,11 +125,43 @@ export const getExistingOfferFields = (existingOffer) => {
     descriptionSection,
     listSection,
     bannerSection,
-    pictureSectionTitle,
-    pictureSectionItems,
+    pictureSection,
     videoSection,
   };
 };
+
+// const setEnabledSections = useCallback((existingOffer: any) => {
+//   const isListSectionEnabled = existingOffer.querySelector('#list-section');
+//   setEnabledListSection(!!isListSectionEnabled);
+//   if (!isListSectionEnabled) {
+//     setListSection({ title: '', listItems: [] });
+//   }
+
+//   const isBannerSectionEnabled = existingOffer.querySelector('#banner-section');
+//   setEnabledBannerSection(!!isBannerSectionEnabled);
+//   if (!isBannerSectionEnabled) {
+//     setBannerSection({ imgAltTag: '', imgFileName: '' });
+//   }
+
+//   const isPicturesSectionEnabled =
+//     existingOffer.querySelector('#pictures-section');
+//   setEnabledPicturesSection(!!isPicturesSectionEnabled);
+//   if (!isPicturesSectionEnabled) {
+//     setPictureSectionTitle('');
+//     setPictureItems([]);
+//   }
+
+//   const isVideoSectionEnabled = existingOffer.querySelector('#video-section');
+//   setEnabledVideoSection(!!isVideoSectionEnabled);
+//   if (!isVideoSectionEnabled) {
+//     setVideoSection({
+//       sectionTitle: '',
+//       description: '',
+//       videoTitle: '',
+//       videoUrl: '',
+//     });
+//   }
+// }, []);
 
 export const SourceCodeDialog = ({ isOpen, setIsOpen }) => {
   const [sourceCode, setSourceCode] = useState();

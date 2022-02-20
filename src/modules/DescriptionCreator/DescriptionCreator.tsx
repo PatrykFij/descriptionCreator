@@ -9,7 +9,7 @@ import OutlinedButton from 'components/Button/OutlinedButton';
 import Dialog from 'components/Dialog';
 import { Form } from 'components/Form/Form';
 import { Preview } from 'components/Preview/Preview';
-import { getExistingOfferFields } from 'components/SourceCodeDialog/SourceCodeDialog';
+import { mapExistingOffer } from 'utils/mappers/mapExistingOffer';
 import { offerValidator } from 'utils/offerValidator';
 import * as api from '../../api/api';
 import {
@@ -60,8 +60,10 @@ const DescriptionCreator = () => {
       var existingOffer = parser
         .parseFromString(currentOffer.description, 'text/html')
         .querySelector('.description-container');
-      const existingFields = getExistingOfferFields(existingOffer);
-      setExistingOffer(existingFields);
+      if (existingOffer) {
+        const existingFields = mapExistingOffer(existingOffer);
+        setExistingOffer(existingFields);
+      }
     } else {
       //TODO assign description to empty offer
     }

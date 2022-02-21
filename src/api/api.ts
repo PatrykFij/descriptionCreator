@@ -1,3 +1,4 @@
+import { useCallback, useMemo } from 'react';
 import { useAxios } from 'utils/hooks/useAxios';
 import {
   Order,
@@ -30,17 +31,32 @@ export const useGetProducts = () => {
       },
       { manual: true },
     );
+
+  const mappedOffers = useMemo(
+    () =>
+      products?.map((el) => ({
+        id: el.product_id,
+        name: el.translations.pl_PL.name,
+        description: el.translations.pl_PL.description,
+        url: `${el.translations.pl_PL.permalink}?preview=true`,
+      })),
+    [products],
+  );
+
   return {
     products,
+    mappedOffers,
     isLoadingProducts,
     getProducts,
   };
 };
 
-export const useUpdateOffer = (productId: string) => {
-  const [{ loading: isUpdateLoading }, updateOffer] = useAxios(
+interface PutDescriptionData {
+  description: string;
+}
+export const useUpdateOffer = () => {
+  const [{ loading: isUpdateLoading }, updateDescription] = useAxios(
     {
-      url: `/products/${productId}`,
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -48,6 +64,16 @@ export const useUpdateOffer = (productId: string) => {
     },
     { manual: true },
   );
+
+  const updateOffer = useCallback(
+    async (productId, data: PutDescriptionData) => {
+      const url = `/products/${productId}`;
+      debugger;
+      await updateDescription({ url, data });
+    },
+    [updateDescription],
+  );
+
   return {
     isUpdateLoading,
     updateOffer,

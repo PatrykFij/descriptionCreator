@@ -1,8 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { CircularProgress, Snackbar, TextField } from '@material-ui/core';
+import { CircularProgress, TextField } from '@material-ui/core';
 import Search from '@material-ui/icons/Search';
-import { PLTranslation } from 'api/types';
 import { useToggle } from 'hooks/useToggle';
 import ContainedButton from 'components/Button/ContainedButton';
 import OutlinedButton from 'components/Button/OutlinedButton';
@@ -18,28 +17,30 @@ import {
 } from '../../context/AppContext/AppContext';
 import * as S from './styles';
 
+interface MappedOffer {
+  id: string;
+  name: string;
+  description: string;
+  url: string;
+}
+
 const DescriptionCreator = () => {
   const { setProductOfferDescription } = useContext(AppContext);
 
-  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
-  const [isOfferValidatorAlertOpen, setIsOfferValidatorAlertOpen] =
-    useState(false);
+  const [currentOffer, setCurrentOffer] = useState<MappedOffer>();
 
-  const [currentOffer, setCurrentOffer] = useState<PLTranslation | null>(null);
-  const { products, getProducts } = api.useGetProducts();
-  const { updateOffer, isUpdateLoading } = api.useUpdateOffer(
-    currentOffer?.product_id || '',
-  );
+  const { mappedOffers, getProducts } = api.useGetProducts();
+  const { updateOffer, isUpdateLoading } = api.useUpdateOffer();
 
   useEffect(() => {
     getProducts();
   }, [getProducts]);
 
   useEffect(() => {
-    if (products) {
-      setCurrentOffer(products[0].translations.pl_PL);
+    if (mappedOffers) {
+      setCurrentOffer(mappedOffers[0]);
     }
-  }, [products]);
+  }, [mappedOffers]);
 
   const setExistingOffer = useCallback(
     (existingOffer: any) => {
@@ -69,40 +70,32 @@ const DescriptionCreator = () => {
     }
   }, [currentOffer, setExistingOffer]);
 
-  const handleCopyDescriptionCode = async () => {
-    if (currentOffer?.product_id) {
+  const handleSubmit = async () => {
+    if (currentOffer?.id) {
       const isValidOffer = offerValidator.validAltTags();
-      if (isValidOffer) {
-        var previewCode = document
-          .getElementById('preview')
-          ?.innerHTML.replaceAll('src="https://www.brillar-sklep.pl', 'src="');
-
-        await updateOffer({ data: { description: previewCode } });
+      var previewCode = document
+        .getElementById('preview')
+        ?.innerHTML.replaceAll('src="https://www.brillar-sklep.pl', 'src="');
+      if (isValidOffer && previewCode) {
+        const data = {
+          description: previewCode,
+        };
+        await updateOffer(currentOffer.id, data);
         toast.success(`Pomyślnie zaktualizowano ofertę: ${currentOffer.name}`);
         handleCloseConfirmation();
       }
     } else {
-      setIsOfferValidatorAlertOpen(true);
     }
-  };
-
-  const handleClose = (event: any, reason: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setIsSnackbarOpen(false);
-    setIsOfferValidatorAlertOpen(false);
   };
 
   return (
     <>
       <div className="App">
         <S.ToolBar>
-          {products ? (
+          {mappedOffers ? (
             <S.StyledOfferSelect
-              options={products?.map(({ translations: { pl_PL } }) => pl_PL)}
-              defaultValue={products[0].translations.pl_PL}
+              options={mappedOffers}
+              defaultValue={mappedOffers[0]}
               renderInput={(params: any) => (
                 <TextField {...params} label="Wybierz ofertę" />
               )}
@@ -122,43 +115,16 @@ const DescriptionCreator = () => {
           </S.CustomButton>
           <S.GoToOfferIcon
             onClick={() =>
-              window.open(
-                `${currentOffer?.permalink.replace(
-                  'https://www.brillar-sklep.pl',
-                  'https://sklep992539.shoparena.pl',
-                )}?preview=true`,
-                '_blank',
-                'noopener,noreferrer',
-              )
+              window.open(currentOffer?.url, '_blank', 'noopener,noreferrer')
             }
             aria-label="delete"
           >
             <Search />
           </S.GoToOfferIcon>
         </S.ToolBar>
-
-        {/* <SourceCodeDialog
-          isOpen={isSourceCodeDialogOpen}
-          setIsOpen={setIsSourceCodeDialogOpen}
-        /> */}
         <S.MainWrapper>
           <Form />
           <Preview />
-          <S.AlertSnackbar
-            // severity="error"
-            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-            autoHideDuration={2000}
-            open={isOfferValidatorAlertOpen}
-            onClose={handleClose}
-            message="Nie wprowadzono ALT tagów dla wszystkich zdjęć!"
-          />
-          <Snackbar
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-            open={isSnackbarOpen}
-            autoHideDuration={2000}
-            onClose={handleClose}
-            message="Skopiowano"
-          />
         </S.MainWrapper>
       </div>
       <>
@@ -172,10 +138,7 @@ const DescriptionCreator = () => {
               <OutlinedButton onClick={handleCloseConfirmation}>
                 Anuluj
               </OutlinedButton>
-              <ContainedButton
-                loading={isUpdateLoading}
-                onClick={handleCopyDescriptionCode}
-              >
+              <ContainedButton loading={isUpdateLoading} onClick={handleSubmit}>
                 Aktualizuj
               </ContainedButton>
             </>

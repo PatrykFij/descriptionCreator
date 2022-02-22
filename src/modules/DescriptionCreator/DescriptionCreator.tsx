@@ -105,7 +105,14 @@ const DescriptionCreator = () => {
           </S.CustomButton>
           <S.GoToOfferIcon
             onClick={() =>
-              window.open(currentOffer?.url, '_blank', 'noopener,noreferrer')
+              window.open(
+                currentOffer?.url.replace(
+                  'www.brillar-sklep.pl/',
+                  'sklep992539.shoparena.pl/',
+                ),
+                '_blank',
+                'noopener,noreferrer',
+              )
             }
             aria-label="delete"
           >

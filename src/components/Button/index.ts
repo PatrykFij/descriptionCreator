@@ -1,3 +1,5 @@
 import Button from './Button';
+import ContainedButton from './ContainedButton';
+import OutlinedButton from './OutlinedButton';
 
-export default Button;
+export { Button, ContainedButton, OutlinedButton };

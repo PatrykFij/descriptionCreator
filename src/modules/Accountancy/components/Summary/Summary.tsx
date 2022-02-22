@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useToggle } from 'hooks/useToggle';
-import Button from 'components/Button';
+import { Button } from 'components';
 import Card from 'components/Card';
 import DataRow from 'components/DataRow';
 import { countSummarize } from 'utils/counters/counters';
@@ -25,7 +25,6 @@ const Summary = ({ ordersByRange }: Props) => {
   const [isPreviewOpen, openPreview, closePreview] = useToggle();
   const summarizeRows = useMemo(() => summaryRows(summaryData), [summaryData]);
 
-  console.log(isPreviewOpen);
   return (
     <Card
       title="Podsumowanie"

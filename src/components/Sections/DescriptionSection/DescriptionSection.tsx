@@ -9,12 +9,12 @@ export const DescriptionSection = () => {
   const handleChange = (event: any) => {
     setProductOfferDescription((prev) => ({
       ...prev,
-      topHeader: event.target.value.trim(),
+      descriptionSection: event.target.value.trim(),
     }));
   };
   return (
     <TextEditor
-      value={productOfferDescription.paragraph}
+      value={productOfferDescription.descriptionSection}
       handleChange={handleChange}
     />
   );

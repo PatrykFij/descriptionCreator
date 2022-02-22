@@ -42,7 +42,7 @@ export const Preview = () => {
       topHeader,
       middleHeader,
       bottomHeader,
-      paragraph,
+      descriptionSection,
       bannerSection,
       listSection,
       pictureSection,
@@ -77,10 +77,10 @@ export const Preview = () => {
           </div>
         )}
         <div id="description-section" className="section">
-          {paragraph && (
+          {descriptionSection && (
             <p
               data-id="p_1"
-              dangerouslySetInnerHTML={{ __html: paragraph }}
+              dangerouslySetInnerHTML={{ __html: descriptionSection }}
             ></p>
           )}
         </div>

@@ -44,7 +44,7 @@ export interface ProductOfferDescription {
   topHeader: string;
   middleHeader: string;
   bottomHeader: string;
-  paragraph: string;
+  descriptionSection: string;
   listSection: ListSection;
   bannerSection: BannerSection;
   pictureSection: PictureSection;

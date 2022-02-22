@@ -6,7 +6,7 @@ import {
   TableRow,
 } from '@material-ui/core';
 import { Moment } from 'moment';
-import Button from 'components/Button';
+import { Button } from 'components';
 import Card from 'components/Card';
 import { sumOfOrderProductsPriceBuying } from 'utils/counters/counters';
 import { numberFormatter } from 'utils/formatters/numberFormatter';

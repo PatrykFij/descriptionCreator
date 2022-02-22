@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react';
 import ReactToPrint from 'react-to-print';
-import Button from 'components/Button';
+import { Button } from 'components';
 import DataRow from 'components/DataRow';
 import Dialog from 'components/Dialog';
 import Table from 'components/Table';

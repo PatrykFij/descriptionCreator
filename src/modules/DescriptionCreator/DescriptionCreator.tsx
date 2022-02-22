@@ -1,11 +1,9 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { CircularProgress, TextField } from '@material-ui/core';
 import Search from '@material-ui/icons/Search';
 import { useToggle } from 'hooks/useToggle';
-import ContainedButton from 'components/Button/ContainedButton';
-import OutlinedButton from 'components/Button/OutlinedButton';
-import Dialog from 'components/Dialog';
+import { Autocomplete } from 'components';
+import ConfirmDialog from 'components/ConfirmDialog';
 import { Form } from 'components/Form/Form';
 import { Preview } from 'components/Preview/Preview';
 import { mapExistingOffer } from 'utils/mappers/mapExistingOffer';
@@ -17,7 +15,7 @@ import {
 } from '../../context/AppContext/AppContext';
 import * as S from './styles';
 
-interface MappedOffer {
+export interface MappedOffer {
   id: string;
   name: string;
   description: string;
@@ -28,19 +26,14 @@ const DescriptionCreator = () => {
   const { setProductOfferDescription } = useContext(AppContext);
 
   const [currentOffer, setCurrentOffer] = useState<MappedOffer>();
+  const [currentDescription, setCurrentDescription] = useState<string>();
 
-  const { mappedOffers, getProducts } = api.useGetProducts();
+  const { mappedOffers, isLoadingProducts, getProducts } = api.useGetProducts();
   const { updateOffer, isUpdateLoading } = api.useUpdateOffer();
 
   useEffect(() => {
     getProducts();
   }, [getProducts]);
-
-  useEffect(() => {
-    if (mappedOffers) {
-      setCurrentOffer(mappedOffers[0]);
-    }
-  }, [mappedOffers]);
 
   const setExistingOffer = useCallback(
     (existingOffer: any) => {
@@ -55,20 +48,44 @@ const DescriptionCreator = () => {
   const [isOpenConfirmation, handleOpenConfirmation, handleCloseConfirmation] =
     useToggle();
 
+  const [isOpenAssignDialog, handleOpenAssignDialog, handleCloseAssignDialog] =
+    useToggle();
+
+  const parseExistingOffer = useCallback((description: string) => {
+    var parser = new DOMParser();
+    return parser
+      .parseFromString(description, 'text/html')
+      .querySelector('.description-container');
+  }, []);
+
   useEffect(() => {
-    if (currentOffer && currentOffer.description) {
+    if (currentOffer) {
+      setCurrentOffer(currentOffer);
+      currentOffer.description
+        ? setCurrentDescription(currentOffer.description)
+        : handleOpenAssignDialog();
+    } else {
+      setCurrentDescription(undefined);
+    }
+  }, [
+    currentOffer,
+    handleOpenAssignDialog,
+    parseExistingOffer,
+    setExistingOffer,
+  ]);
+
+  useEffect(() => {
+    if (currentDescription) {
       var parser = new DOMParser();
-      var existingOffer = parser
-        .parseFromString(currentOffer.description, 'text/html')
+      const existingOffer = parser
+        .parseFromString(currentDescription, 'text/html')
         .querySelector('.description-container');
       if (existingOffer) {
         const existingFields = mapExistingOffer(existingOffer);
         setExistingOffer(existingFields);
       }
-    } else {
-      //TODO assign description to empty offer
     }
-  }, [currentOffer, setExistingOffer]);
+  }, [currentDescription, setExistingOffer]);
 
   const handleSubmit = async () => {
     if (currentOffer?.id) {
@@ -92,21 +109,12 @@ const DescriptionCreator = () => {
     <>
       <div className="App">
         <S.ToolBar>
-          {mappedOffers ? (
-            <S.StyledOfferSelect
-              options={mappedOffers}
-              defaultValue={mappedOffers[0]}
-              renderInput={(params: any) => (
-                <TextField {...params} label="Wybierz ofertę" />
-              )}
-              getOptionLabel={(option: any) => option.name}
-              onChange={(e: any, offer: any) => setCurrentOffer(offer)}
-            />
-          ) : (
-            <CircularProgress />
-          )}
+          <Autocomplete
+            isLoading={isLoadingProducts}
+            options={mappedOffers || []}
+            onChange={setCurrentOffer}
+          />
           <S.CustomButton
-            // onClick={handleCopyDescriptionCode}
             onClick={handleOpenConfirmation}
             variant="contained"
             color="primary"
@@ -127,26 +135,38 @@ const DescriptionCreator = () => {
           <Preview />
         </S.MainWrapper>
       </div>
-      <>
-        <Dialog
-          open={isOpenConfirmation}
-          onClose={handleCloseConfirmation}
-          maxWidth="xs"
-          title={'Potwierdzenie'}
-          dialogActions={
-            <>
-              <OutlinedButton onClick={handleCloseConfirmation}>
-                Anuluj
-              </OutlinedButton>
-              <ContainedButton loading={isUpdateLoading} onClick={handleSubmit}>
-                Aktualizuj
-              </ContainedButton>
-            </>
-          }
-        >
-          <p>Czy na pewno chcesz zaktualizować ofertę {currentOffer?.name}</p>
-        </Dialog>
-      </>
+      <ConfirmDialog
+        open={isOpenConfirmation}
+        title="Potwierdzenie"
+        message={`Czy na pewno chcesz zaktualizować ofertę ${currentOffer?.name}`}
+        submitText="Aktualizuj"
+        onCancel={handleCloseConfirmation}
+        cancelText="Anuluj"
+        onSubmit={handleSubmit}
+        isSubmitDisabled={isUpdateLoading}
+      />
+      <ConfirmDialog
+        open={isOpenAssignDialog}
+        title={`Przypisz opis do oferty: ${currentOffer?.name}`}
+        message={`Wybierz ofertę którą chciałbyś przypisać`}
+        content={
+          <Autocomplete
+            isLoading={isLoadingProducts}
+            options={mappedOffers || []}
+            onChange={(offer: MappedOffer) =>
+              setCurrentDescription(offer.description)
+            }
+          />
+        }
+        submitText="Przypisz"
+        onCancel={() => {
+          setCurrentDescription('');
+          handleCloseAssignDialog();
+        }}
+        cancelText="Anuluj"
+        onSubmit={handleCloseAssignDialog}
+        isSubmitDisabled={isUpdateLoading}
+      />
     </>
   );
 };

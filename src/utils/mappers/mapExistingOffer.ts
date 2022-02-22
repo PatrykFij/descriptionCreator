@@ -41,7 +41,7 @@ export const mapExistingOffer = (existingOffer: any) => {
   };
 
   const bannerSection = {
-    disable: !existingOffer.querySelector(SectionsID.BannerSection),
+    disabled: !existingOffer.querySelector(SectionsID.BannerSection),
     imgFileName: existingOffer
       .querySelector(SectionsQuerySelectors.BannerSectionImg)
       ?.src.replace(`${window.location.origin}/userdata/public/assets/`, ''),

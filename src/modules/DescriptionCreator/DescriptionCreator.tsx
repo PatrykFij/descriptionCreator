@@ -9,10 +9,7 @@ import { Preview } from 'components/Preview/Preview';
 import { mapExistingOffer } from 'utils/mappers/mapExistingOffer';
 import { offerValidator } from 'utils/offerValidator';
 import * as api from '../../api/api';
-import {
-  AppContext,
-  ProductOfferDescription,
-} from '../../context/AppContext/AppContext';
+import { AppContext } from '../../context/AppContext/AppContext';
 import * as S from './styles';
 
 export interface MappedOffer {
@@ -34,16 +31,6 @@ const DescriptionCreator = () => {
   useEffect(() => {
     getProducts();
   }, [getProducts]);
-
-  const setExistingOffer = useCallback(
-    (existingOffer: any) => {
-      setProductOfferDescription((prev: ProductOfferDescription) => ({
-        ...prev,
-        ...existingOffer,
-      }));
-    },
-    [setProductOfferDescription],
-  );
 
   const [isOpenConfirmation, handleOpenConfirmation, handleCloseConfirmation] =
     useToggle();
@@ -67,12 +54,7 @@ const DescriptionCreator = () => {
     } else {
       setCurrentDescription(undefined);
     }
-  }, [
-    currentOffer,
-    handleOpenAssignDialog,
-    parseExistingOffer,
-    setExistingOffer,
-  ]);
+  }, [currentOffer, handleOpenAssignDialog, parseExistingOffer]);
 
   useEffect(() => {
     if (currentDescription) {
@@ -82,10 +64,10 @@ const DescriptionCreator = () => {
         .querySelector('.description-container');
       if (existingOffer) {
         const existingFields = mapExistingOffer(existingOffer);
-        setExistingOffer(existingFields);
+        setProductOfferDescription(existingFields);
       }
     }
-  }, [currentDescription, setExistingOffer]);
+  }, [currentDescription, setProductOfferDescription]);
 
   const handleSubmit = async () => {
     if (currentOffer?.id) {
@@ -147,8 +129,8 @@ const DescriptionCreator = () => {
       />
       <ConfirmDialog
         open={isOpenAssignDialog}
-        title={`Przypisz opis do oferty: ${currentOffer?.name}`}
-        message={`Wybierz ofertę którą chciałbyś przypisać`}
+        title={`Ta oferta nie posiada opisu!`}
+        message={`Wybierz ofertę którą chciałbyś przypisać do oferty: ${currentOffer?.name}`}
         content={
           <Autocomplete
             isLoading={isLoadingProducts}

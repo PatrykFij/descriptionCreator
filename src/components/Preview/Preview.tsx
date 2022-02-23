@@ -38,7 +38,6 @@ interface Props {
   productOfferDescription?: ProductOfferDescription;
 }
 export const Preview = ({ productOfferDescription }: Props) => {
-  console.log('asdasddas', productOfferDescription);
   if (productOfferDescription) {
     const {
       producer,
@@ -192,6 +191,11 @@ export const Preview = ({ productOfferDescription }: Props) => {
       </PreviewWrapper>
     );
   } else {
-    return <h1>Brak opisu</h1>;
+    return (
+      <PreviewWrapper id="preview">
+        <h1>Brak opisu</h1>
+        <h3>Wybierz ofertę aby załadować istniejący opis</h3>
+      </PreviewWrapper>
+    );
   }
 };

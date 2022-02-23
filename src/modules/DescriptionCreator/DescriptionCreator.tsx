@@ -46,8 +46,6 @@ const DescriptionCreator = () => {
       .querySelector('.description-container');
   }, []);
 
-  const setParsedProductDescription = useCallback(() => {}, []);
-
   useEffect(() => {
     if (editedOffer) {
       editedOffer.description
@@ -127,7 +125,7 @@ const DescriptionCreator = () => {
           </S.GoToOfferIcon>
         </S.ToolBar>
         <S.MainWrapper>
-          <Form />
+          <Form productOfferDescription={productOfferDescription} />
           <Preview productOfferDescription={productOfferDescription} />
         </S.MainWrapper>
       </div>

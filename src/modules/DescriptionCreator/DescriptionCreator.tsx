@@ -20,7 +20,8 @@ export interface MappedOffer {
 }
 
 const DescriptionCreator = () => {
-  const { setProductOfferDescription } = useContext(AppContext);
+  const { productOfferDescription, setProductOfferDescription } =
+    useContext(AppContext);
 
   const [currentOffer, setCurrentOffer] = useState<MappedOffer>();
   const [currentDescription, setCurrentDescription] = useState<string>();
@@ -121,7 +122,7 @@ const DescriptionCreator = () => {
         </S.ToolBar>
         <S.MainWrapper>
           <Form />
-          <Preview />
+          <Preview productOfferDescription={productOfferDescription} />
         </S.MainWrapper>
       </div>
       <ConfirmDialog

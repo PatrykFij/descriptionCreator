@@ -5,7 +5,6 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { Mock } from '../../constants/Mock';
 
 interface ListSection {
   disabled: boolean;
@@ -14,9 +13,9 @@ interface ListSection {
 }
 
 interface BannerSection {
-  disabled: boolean;
-  imgFileName: string;
-  imgAltTag: string;
+  disabled?: boolean;
+  imgFileName?: string;
+  imgAltTag?: string;
 }
 
 export interface PictureItem {
@@ -33,33 +32,33 @@ interface PictureSection {
 }
 
 interface VideoSection {
-  disabled: boolean;
-  title: string;
-  description: string;
-  videoUrl: string;
+  disabled?: boolean;
+  title?: string;
+  description?: string;
+  videoUrl?: string;
 }
 
 export interface ProductOfferDescription {
-  producer: string;
-  topHeader: string;
-  middleHeader: string;
-  bottomHeader: string;
-  descriptionSection: string;
-  listSection: ListSection;
-  bannerSection: BannerSection;
-  pictureSection: PictureSection;
-  videoSection: VideoSection;
+  producer?: string;
+  topHeader?: string;
+  middleHeader?: string;
+  bottomHeader?: string;
+  descriptionSection?: string;
+  listSection?: ListSection;
+  bannerSection?: BannerSection;
+  pictureSection?: PictureSection;
+  videoSection?: VideoSection;
 }
 
 const appCtxDefaultValue = {
-  productOfferDescription: Mock,
+  productOfferDescription: undefined,
   setProductOfferDescription: () => {},
 };
 
 interface ProductOfferDescriptionContext {
-  productOfferDescription: ProductOfferDescription;
+  productOfferDescription?: ProductOfferDescription;
   setProductOfferDescription: React.Dispatch<
-    SetStateAction<ProductOfferDescription>
+    SetStateAction<ProductOfferDescription | undefined>
   >;
 }
 
@@ -71,10 +70,9 @@ interface Props {
 }
 
 export const AppProvider = ({ children }: Props) => {
-  const [productOfferDescription, setProductOfferDescription] =
-    useState<ProductOfferDescription>(
-      appCtxDefaultValue.productOfferDescription,
-    );
+  const [productOfferDescription, setProductOfferDescription] = useState<
+    ProductOfferDescription | undefined
+  >();
 
   useEffect(() => {
     localStorage.setItem(

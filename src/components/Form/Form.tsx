@@ -31,11 +31,12 @@ const StyledAccordionDetails = styled(AccordionDetails)`
 `;
 
 export const Form = () => {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState<string>();
 
-  const handleExpandedChange = (section) => (event, isExpanded) => {
-    setExpanded(isExpanded ? section : false);
-  };
+  const handleExpandedChange =
+    (section: any) => (event: any, isExpanded: boolean) => {
+      setExpanded(isExpanded ? section : '');
+    };
 
   return (
     <FormWrapper>

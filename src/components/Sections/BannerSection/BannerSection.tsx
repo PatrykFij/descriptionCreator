@@ -1,7 +1,10 @@
 import { useContext } from 'react';
 import { Checkbox, FormControlLabel, TextField } from '@material-ui/core';
 import styled from 'styled-components';
-import { AppContext } from '../../../context/AppContext/AppContext';
+import {
+  AppContext,
+  ProductOfferDescription,
+} from '../../../context/AppContext/AppContext';
 
 const StyledTextField = styled(TextField)`
   width: 100%;
@@ -17,23 +20,43 @@ export const BannerSection = () => {
     useContext(AppContext);
 
   const handleEnableBannerSectionChange = (event: any) => {
-    setProductOfferDescription((prev) => ({
-      ...prev,
-      bannerSection: { ...prev.bannerSection, disabled: !event.target.checked },
-    }));
+    if (productOfferDescription) {
+      setProductOfferDescription(
+        (prev: ProductOfferDescription | undefined) =>
+          prev && {
+            ...prev,
+            bannerSection: {
+              ...prev.bannerSection,
+              disabled: !event.target.checked,
+            },
+          },
+      );
+    }
   };
 
   const handleFileNameChange = (event: any) => {
-    setProductOfferDescription((prev) => ({
-      ...prev,
-      bannerSection: { ...prev.bannerSection, imgFileName: event.target.value },
-    }));
+    setProductOfferDescription(
+      (prev: ProductOfferDescription | undefined) =>
+        prev && {
+          ...prev,
+          bannerSection: {
+            ...prev.bannerSection,
+            imgFileName: event.target.value,
+          },
+        },
+    );
   };
   const handleAltTagChange = (event: any) => {
-    setProductOfferDescription((prev) => ({
-      ...prev,
-      bannerSection: { ...prev.bannerSection, imgAltTag: event.target.value },
-    }));
+    setProductOfferDescription(
+      (prev: ProductOfferDescription | undefined) =>
+        prev && {
+          ...prev,
+          bannerSection: {
+            ...prev.bannerSection,
+            imgAltTag: event.target.value,
+          },
+        },
+    );
   };
 
   return (
@@ -41,7 +64,7 @@ export const BannerSection = () => {
       <StyledFormControlLabel
         control={
           <Checkbox
-            checked={!productOfferDescription.bannerSection.disabled}
+            checked={!productOfferDescription?.bannerSection?.disabled}
             onChange={handleEnableBannerSectionChange}
             name="checkedB"
             color="primary"
@@ -49,23 +72,23 @@ export const BannerSection = () => {
         }
         label="Sekcja z banerem"
       />
-      {!productOfferDescription.bannerSection.disabled && (
+      {!productOfferDescription?.bannerSection?.disabled && (
         <>
           <StyledTextField
             id="outlined-multiline-static"
             label="Nazwe pliku z banerem"
             variant="outlined"
             helperText="* Maxymalna szerokość grafiki nie powinna być większa niż 1000px "
-            defaultValue={productOfferDescription.bannerSection.imgFileName}
-            value={productOfferDescription.bannerSection.imgFileName}
+            defaultValue={productOfferDescription?.bannerSection?.imgFileName}
+            value={productOfferDescription?.bannerSection?.imgFileName}
             onChange={handleFileNameChange}
           />
           <StyledTextField
             id="outlined-multiline-static"
             label="Podaj ALT TAG opisujący zdjęcie"
             variant="outlined"
-            defaultValue={productOfferDescription.bannerSection.imgAltTag}
-            value={productOfferDescription.bannerSection.imgAltTag}
+            defaultValue={productOfferDescription?.bannerSection?.imgAltTag}
+            value={productOfferDescription?.bannerSection?.imgAltTag}
             onChange={handleAltTagChange}
           />
         </>

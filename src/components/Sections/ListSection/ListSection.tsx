@@ -17,14 +17,14 @@ export const ListSection = () => {
     useContext(AppContext);
 
   const handleEnableListSectionChange = (event: any) => {
-    setProductOfferDescription((prev) => ({
+    setProductOfferDescription((prev: any) => ({
       ...prev,
       listSection: { ...prev.listSection, disabled: !event.target.checked },
     }));
   };
 
   const handleTitleChange = (event: any) => {
-    setProductOfferDescription((prev) => ({
+    setProductOfferDescription((prev: any) => ({
       ...prev,
       listSection: { ...prev.listSection, title: event.target.value },
     }));
@@ -32,7 +32,7 @@ export const ListSection = () => {
 
   const handleListItemsChange = (event: any) => {
     let items = event.target.value.split('\n');
-    setProductOfferDescription((prev) => {
+    setProductOfferDescription((prev: any) => {
       return {
         ...prev,
         listSection: {
@@ -50,7 +50,7 @@ export const ListSection = () => {
       <StyledFormControlLabel
         control={
           <Checkbox
-            checked={!productOfferDescription.listSection.disabled}
+            checked={!productOfferDescription?.listSection?.disabled}
             onChange={handleEnableListSectionChange}
             name="checkedB"
             color="primary"
@@ -58,13 +58,13 @@ export const ListSection = () => {
         }
         label="Sekcja z listą"
       />
-      {!productOfferDescription.listSection.disabled && (
+      {!productOfferDescription?.listSection?.disabled && (
         <>
           <StyledTextField
             id="outlined-multiline-static"
             label="Nagłówek H4"
-            defaultValue={productOfferDescription.listSection.title}
-            value={productOfferDescription.listSection.title}
+            defaultValue={productOfferDescription?.listSection?.title}
+            value={productOfferDescription?.listSection?.title}
             variant="outlined"
             onChange={handleTitleChange}
           />
@@ -73,7 +73,7 @@ export const ListSection = () => {
             label="Podaj elementy listy"
             multiline
             rows={10}
-            defaultValue={productOfferDescription.listSection.listItems.map(
+            defaultValue={productOfferDescription?.listSection?.listItems.map(
               (el) => el + '\n',
             )}
             variant="outlined"

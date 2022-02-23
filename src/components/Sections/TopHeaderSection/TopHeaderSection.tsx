@@ -15,21 +15,21 @@ export const TopHeaderSection = () => {
     useContext(AppContext);
 
   const handleTopHeaderChange = (event: any) => {
-    setProductOfferDescription((prev) => ({
+    setProductOfferDescription((prev: any) => ({
       ...prev,
       topHeader: event.target.value,
     }));
   };
 
   const handleMiddleHeaderChange = (event: any) => {
-    setProductOfferDescription((prev) => ({
+    setProductOfferDescription((prev: any) => ({
       ...prev,
       middleHeader: event.target.value,
     }));
   };
 
   const handleBottomHeaderChange = (event: any) => {
-    setProductOfferDescription((prev) => ({
+    setProductOfferDescription((prev: any) => ({
       ...prev,
       bottomHeader: event.target.value,
     }));
@@ -39,22 +39,22 @@ export const TopHeaderSection = () => {
     <>
       <StyledTextField
         onChange={handleTopHeaderChange}
-        defaultValue={productOfferDescription.topHeader}
-        value={productOfferDescription.topHeader}
+        defaultValue={productOfferDescription?.topHeader}
+        value={productOfferDescription?.topHeader}
         label="Nagłówek H2"
         variant="outlined"
       />
       <StyledTextField
         onChange={handleMiddleHeaderChange}
-        defaultValue={productOfferDescription.middleHeader}
-        value={productOfferDescription.middleHeader}
+        defaultValue={productOfferDescription?.middleHeader}
+        value={productOfferDescription?.middleHeader}
         label="Nagłówek H3"
         variant="outlined"
       />
       <StyledTextField
         onChange={handleBottomHeaderChange}
-        defaultValue={productOfferDescription.bottomHeader}
-        value={productOfferDescription.bottomHeader}
+        defaultValue={productOfferDescription?.bottomHeader}
+        value={productOfferDescription?.bottomHeader}
         label="Nagłówek H4"
         variant="outlined"
       />

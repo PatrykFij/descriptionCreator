@@ -63,16 +63,16 @@ export const PicturesSection = () => {
   const { productOfferDescription, setProductOfferDescription } =
     useContext(AppContext);
 
-  const [pictureItems, setPictureItems] = useState<PictureItem[]>(
-    productOfferDescription.pictureSection.pictureItems,
+  const [pictureItems, setPictureItems] = useState<PictureItem[] | undefined>(
+    productOfferDescription?.pictureSection?.pictureItems,
   );
 
   useEffect(() => {
     if (pictureItems) {
-      setProductOfferDescription((prev) => ({
+      setProductOfferDescription((prev: any) => ({
         ...prev,
         pictureSection: {
-          ...prev.pictureSection,
+          ...prev?.pictureSection,
           pictureItems: pictureItems,
         },
       }));
@@ -81,20 +81,20 @@ export const PicturesSection = () => {
   }, [pictureItems, setProductOfferDescription]);
 
   const handleEnablePictureSectionChange = (event: any) => {
-    setProductOfferDescription((prev) => ({
+    setProductOfferDescription((prev: any) => ({
       ...prev,
       pictureSection: {
-        ...prev.pictureSection,
+        ...prev?.pictureSection,
         disabled: !event.target.checked,
       },
     }));
   };
 
   const handlePictureSectionTitleChange = (event: any) => {
-    setProductOfferDescription((prev) => ({
+    setProductOfferDescription((prev: any) => ({
       ...prev,
       pictureSection: {
-        ...prev.pictureSection,
+        ...prev?.pictureSection,
         title: event.target.value.trim(),
       },
     }));
@@ -153,7 +153,7 @@ export const PicturesSection = () => {
       <StyledFormControlLabel
         control={
           <Checkbox
-            checked={!productOfferDescription.pictureSection.disabled}
+            checked={!productOfferDescription?.pictureSection?.disabled}
             onChange={handleEnablePictureSectionChange}
             name="checkedB"
             color="primary"
@@ -161,7 +161,7 @@ export const PicturesSection = () => {
         }
         label="Sekcja ze zdjęciami"
       />
-      {!productOfferDescription.pictureSection.disabled && (
+      {!productOfferDescription?.pictureSection?.disabled && (
         <>
           <Button onClick={handleAdd} variant="contained" color="primary">
             Dodaj kolejną grafikę
@@ -170,11 +170,11 @@ export const PicturesSection = () => {
           <StyledTitleTextField
             label="Nagłówek H4"
             variant="outlined"
-            defaultValue={productOfferDescription.pictureSection.title}
+            defaultValue={productOfferDescription?.pictureSection?.title}
             onChange={handlePictureSectionTitleChange}
           />
-          {productOfferDescription.pictureSection.pictureItems &&
-            productOfferDescription.pictureSection.pictureItems.map(
+          {productOfferDescription?.pictureSection?.pictureItems &&
+            productOfferDescription?.pictureSection.pictureItems.map(
               (el: any, index: any) => (
                 <FormWrapper key={uuid()}>
                   <FieldsWrapper>

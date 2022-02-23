@@ -1,5 +1,10 @@
 import Autocomplete from 'components/Autocomplete';
-import { Button, ContainedButton, OutlinedButton } from 'components/Button';
+import {
+  Button,
+  ContainedButton,
+  IconButton,
+  OutlinedButton,
+} from 'components/Button';
 import ConfirmDialog from 'components/ConfirmDialog';
 import Dialog from 'components/Dialog';
 
@@ -10,4 +15,5 @@ export {
   ContainedButton,
   OutlinedButton,
   Autocomplete,
+  IconButton,
 };

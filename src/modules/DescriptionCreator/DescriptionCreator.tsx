@@ -1,8 +1,11 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import Delete from '@material-ui/icons/Delete';
 import Search from '@material-ui/icons/Search';
+import SyncAlt from '@material-ui/icons/SyncAlt';
+import { Grid } from '@mui/material';
 import { useToggle } from 'hooks/useToggle';
-import { Autocomplete } from 'components';
+import { Autocomplete, Button, IconButton } from 'components';
 import ConfirmDialog from 'components/ConfirmDialog';
 import { Form } from 'components/Form/Form';
 import { Preview } from 'components/Preview/Preview';
@@ -93,37 +96,69 @@ const DescriptionCreator = () => {
     }
   };
 
+  const clearDescription = useCallback(() => {
+    setCurrentDescription('');
+    setProductOfferDescription(undefined);
+  }, [setProductOfferDescription]);
+
   return (
     <>
       <div className="App">
-        <S.ToolBar>
-          <Autocomplete
-            isLoading={isLoadingProducts}
-            options={mappedOffers || []}
-            onChange={setEditedOffer}
-          />
-          <S.CustomButton
-            onClick={handleOpenConfirmation}
-            variant="contained"
-            color="primary"
-          >
-            Aktualizuj ofertę
-          </S.CustomButton>
-          <S.GoToOfferIcon
-            onClick={() =>
-              window.open(
-                editedOffer?.url.replace(
-                  'www.brillar-sklep.pl/',
-                  'sklep992539.shoparena.pl/',
-                ),
-                '_blank',
-                'noopener,noreferrer',
-              )
-            }
-            aria-label="delete"
-          >
-            <Search />
-          </S.GoToOfferIcon>
+        <S.ToolBar container spacing={2}>
+          <Grid item xs={6} md={8}>
+            <Autocomplete
+              isLoading={isLoadingProducts}
+              options={mappedOffers || []}
+              onChange={setEditedOffer}
+            />
+          </Grid>
+          <Grid item xs={6} md={4}>
+            <Grid container spacing={2} rowSpacing={2}>
+              <Grid item xs={6}>
+                <Button
+                  disabled={!currentDescription || !editedOffer}
+                  onClick={handleOpenConfirmation}
+                  variant="contained"
+                  color="primary"
+                >
+                  Aktualizuj ofertę
+                </Button>
+              </Grid>
+              <Grid item xs={6}>
+                <IconButton
+                  icon={<Search />}
+                  disabled={!editedOffer}
+                  onClick={() =>
+                    window.open(
+                      editedOffer?.url.replace(
+                        'www.brillar-sklep.pl/',
+                        'sklep992539.shoparena.pl/',
+                      ),
+                      '_blank',
+                      'noopener,noreferrer',
+                    )
+                  }
+                  text="Otwórz podgląd oferty"
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <IconButton
+                  icon={<SyncAlt />}
+                  disabled={!editedOffer}
+                  text="Przypisz istniejącą ofertę"
+                  onClick={handleOpenAssignDialog}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <IconButton
+                  icon={<Delete />}
+                  disabled={!editedOffer && !currentDescription}
+                  text="Wyczyść istniejącu opis"
+                  onClick={clearDescription}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
         </S.ToolBar>
         <S.MainWrapper>
           <Form editedOffer={editedOffer} />
@@ -159,8 +194,7 @@ const DescriptionCreator = () => {
         }
         submitText="Przypisz"
         onCancel={() => {
-          setCurrentDescription('');
-          setProductOfferDescription(undefined);
+          clearDescription();
           handleCloseAssignDialog();
         }}
         cancelText="Anuluj"

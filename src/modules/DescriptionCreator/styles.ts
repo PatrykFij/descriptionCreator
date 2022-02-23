@@ -1,5 +1,5 @@
 import { Button, IconButton, Snackbar } from '@material-ui/core';
-import { Autocomplete } from '@mui/material';
+import { Autocomplete, Grid } from '@mui/material';
 import { mediaQuery } from 'constants/MediaQueries';
 import styled from 'styled-components';
 
@@ -16,11 +16,17 @@ export const MainWrapper = styled.div`
   }
 `;
 
-export const ToolBar = styled.div`
-  display: flex;
-  margin: 30px;
-  width: 80%;
-  justify-content: space-between;
+export const ToolBar = styled(Grid)`
+  padding: 35px 30px 0 30px;
+
+  & div.MuiGrid-root button {
+    height: 100%;
+    font-size: 20px;
+  }
+  & div:last-child .MuiGrid-root svg {
+    width: 3em;
+    height: 3em;
+  }
 `;
 
 export const CustomButton = styled(Button)`
@@ -35,11 +41,6 @@ export const CustomButton = styled(Button)`
 `;
 export const GoToOfferIcon = styled(IconButton)`
   margin-left: 40px;
-
-  & svg {
-    width: 3em;
-    height: 3em;
-  }
 `;
 
 export const StyledOfferSelect = styled(Autocomplete)`

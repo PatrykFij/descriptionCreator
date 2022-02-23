@@ -13,6 +13,7 @@ import { mapExistingOffer } from 'utils/mappers/mapExistingOffer';
 import { offerValidator } from 'utils/offerValidator';
 import * as api from '../../api/api';
 import { AppContext } from '../../context/AppContext/AppContext';
+import AssignOfferDialog from './components';
 import * as S from './styles';
 
 export interface MappedOffer {
@@ -49,16 +50,22 @@ const DescriptionCreator = () => {
       .querySelector('.description-container');
   }, []);
 
+  const clearDescription = useCallback(() => {
+    setCurrentDescription('');
+    setProductOfferDescription(undefined);
+  }, [setProductOfferDescription]);
+
   useEffect(() => {
+    clearDescription();
     if (editedOffer) {
       editedOffer.description
         ? setCurrentDescription(editedOffer.description)
         : handleOpenAssignDialog();
     } else {
       setEditedOffer(undefined);
-      setProductOfferDescription(undefined);
     }
   }, [
+    clearDescription,
     editedOffer,
     handleOpenAssignDialog,
     parseExistingOffer,
@@ -96,11 +103,6 @@ const DescriptionCreator = () => {
     }
   };
 
-  const clearDescription = useCallback(() => {
-    setCurrentDescription('');
-    setProductOfferDescription(undefined);
-  }, [setProductOfferDescription]);
-
   return (
     <>
       <div className="App">
@@ -116,7 +118,7 @@ const DescriptionCreator = () => {
             <Grid container spacing={2} rowSpacing={2}>
               <Grid item xs={6}>
                 <Button
-                  disabled={!currentDescription || !editedOffer}
+                  disabled={!productOfferDescription || !editedOffer}
                   onClick={handleOpenConfirmation}
                   variant="contained"
                   color="primary"
@@ -131,8 +133,8 @@ const DescriptionCreator = () => {
                   onClick={() =>
                     window.open(
                       editedOffer?.url.replace(
-                        'www.brillar-sklep.pl/',
-                        'sklep992539.shoparena.pl/',
+                        'https://www.brillar-sklep.pl/',
+                        'https://sklep992539.shoparena.pl/',
                       ),
                       '_blank',
                       'noopener,noreferrer',
@@ -178,27 +180,14 @@ const DescriptionCreator = () => {
         onSubmit={handleSubmit}
         isSubmitDisabled={isUpdateLoading}
       />
-      <ConfirmDialog
+      <AssignOfferDialog
         open={isOpenAssignDialog}
-        title={`Ta oferta nie posiada opisu!`}
+        title="Ta oferta nie posiada opisu!"
         message={`Wybierz ofertę którą chciałbyś przypisać do oferty: ${editedOffer?.name}`}
-        content={
-          <Autocomplete
-            isLoading={isLoadingProducts}
-            options={mappedOffers || []}
-            disableClearable
-            onChange={(offer: MappedOffer) =>
-              setCurrentDescription(offer.description)
-            }
-          />
-        }
-        submitText="Przypisz"
-        onCancel={() => {
-          clearDescription();
-          handleCloseAssignDialog();
-        }}
-        cancelText="Anuluj"
-        onSubmit={handleCloseAssignDialog}
+        isLoading={isLoadingProducts}
+        options={mappedOffers}
+        onSubmit={setCurrentDescription}
+        onCancel={handleCloseAssignDialog}
         isSubmitDisabled={isUpdateLoading}
       />
     </>

@@ -21,7 +21,7 @@ const Autocomplete = ({
       loading={isLoading}
       disableClearable={disableClearable}
       renderInput={(params: any) => (
-        <TextField {...params} label="Wybierz ofertę" />
+        <TextField {...params} label="Wybierz ofertę" variant="outlined" />
       )}
       getOptionLabel={(option: any) => option.name}
       onChange={(e: any, offer: any) => onChange(offer)}

@@ -52,6 +52,7 @@ const DescriptionCreator = () => {
         ? setCurrentDescription(editedOffer.description)
         : handleOpenAssignDialog();
     } else {
+      setEditedOffer(undefined);
       setProductOfferDescription(undefined);
     }
   }, [
@@ -125,8 +126,11 @@ const DescriptionCreator = () => {
           </S.GoToOfferIcon>
         </S.ToolBar>
         <S.MainWrapper>
-          <Form productOfferDescription={productOfferDescription} />
-          <Preview productOfferDescription={productOfferDescription} />
+          <Form editedOffer={editedOffer} />
+          <Preview
+            productOfferDescription={productOfferDescription}
+            editedOffer={editedOffer}
+          />
         </S.MainWrapper>
       </div>
       <ConfirmDialog

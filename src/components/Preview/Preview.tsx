@@ -1,5 +1,6 @@
 import { ProductOfferDescription } from 'context/AppContext/AppContext';
 import styled from 'styled-components';
+import { MappedOffer } from 'modules/DescriptionCreator/DescriptionCreator';
 import { mediaQuery } from '../../constants/MediaQueries';
 import '../../App.scss';
 
@@ -36,8 +37,10 @@ const PreviewWrapper = styled.div`
 
 interface Props {
   productOfferDescription?: ProductOfferDescription;
+  editedOffer?: MappedOffer;
 }
-export const Preview = ({ productOfferDescription }: Props) => {
+
+export const Preview = ({ productOfferDescription, editedOffer }: Props) => {
   if (productOfferDescription) {
     const {
       producer,
@@ -194,7 +197,14 @@ export const Preview = ({ productOfferDescription }: Props) => {
     return (
       <PreviewWrapper id="preview">
         <h1>Brak opisu</h1>
-        <h3>Wybierz ofertę aby załadować istniejący opis</h3>
+        {!editedOffer ? (
+          <h3>Wybierz ofertę aby załadować istniejący opis</h3>
+        ) : (
+          <h3>
+            Zacznij tworzyć od zera ofertę produktu lub przypisz istniejący opis
+            do oferty: <u>{editedOffer.name}</u>
+          </h3>
+        )}
       </PreviewWrapper>
     );
   }

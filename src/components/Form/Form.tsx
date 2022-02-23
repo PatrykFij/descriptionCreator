@@ -5,8 +5,8 @@ import {
   AccordionSummary,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { ProductOfferDescription } from 'context/AppContext/AppContext';
 import styled from 'styled-components';
+import { MappedOffer } from 'modules/DescriptionCreator/DescriptionCreator';
 import { BannerSection } from '../Sections/BannerSection/BannerSection';
 import { DescriptionSection } from '../Sections/DescriptionSection/DescriptionSection';
 import { ListSection } from '../Sections/ListSection/ListSection';
@@ -31,9 +31,10 @@ const StyledAccordionDetails = styled(AccordionDetails)`
   flex-wrap: wrap;
 `;
 interface Props {
-  productOfferDescription?: ProductOfferDescription;
+  editedOffer?: MappedOffer;
 }
-export const Form = ({ productOfferDescription }: Props) => {
+
+export const Form = ({ editedOffer }: Props) => {
   const [expanded, setExpanded] = useState<string>();
 
   const handleExpandedChange =
@@ -42,15 +43,15 @@ export const Form = ({ productOfferDescription }: Props) => {
     };
 
   useEffect(() => {
-    if (!productOfferDescription) {
+    if (!editedOffer) {
       setExpanded('');
     }
-  }, [productOfferDescription]);
+  }, [editedOffer]);
 
   return (
     <FormWrapper>
       <Accordion
-        disabled={!productOfferDescription}
+        disabled={!editedOffer}
         expanded={expanded === 'section_1'}
         onChange={handleExpandedChange('section_1')}
       >
@@ -66,7 +67,7 @@ export const Form = ({ productOfferDescription }: Props) => {
         </StyledAccordionDetails>
       </Accordion>
       <Accordion
-        disabled={!productOfferDescription}
+        disabled={!editedOffer}
         expanded={expanded === 'section_2'}
         onChange={handleExpandedChange('section_2')}
       >
@@ -82,7 +83,7 @@ export const Form = ({ productOfferDescription }: Props) => {
         </StyledAccordionDetails>
       </Accordion>
       <Accordion
-        disabled={!productOfferDescription}
+        disabled={!editedOffer}
         expanded={expanded === 'section_3'}
         onChange={handleExpandedChange('section_3')}
       >
@@ -99,7 +100,7 @@ export const Form = ({ productOfferDescription }: Props) => {
       </Accordion>
 
       <Accordion
-        disabled={!productOfferDescription}
+        disabled={!editedOffer}
         expanded={expanded === 'section_4'}
         onChange={handleExpandedChange('section_4')}
       >
@@ -115,7 +116,7 @@ export const Form = ({ productOfferDescription }: Props) => {
         </StyledAccordionDetails>
       </Accordion>
       <Accordion
-        disabled={!productOfferDescription}
+        disabled={!editedOffer}
         expanded={expanded === 'section_5'}
         onChange={handleExpandedChange('section_5')}
       >
@@ -131,7 +132,7 @@ export const Form = ({ productOfferDescription }: Props) => {
         </StyledAccordionDetails>
       </Accordion>
       <Accordion
-        disabled={!productOfferDescription}
+        disabled={!editedOffer}
         expanded={expanded === 'section_6'}
         onChange={handleExpandedChange('section_6')}
       >
@@ -147,7 +148,7 @@ export const Form = ({ productOfferDescription }: Props) => {
         </StyledAccordionDetails>
       </Accordion>
       <Accordion
-        disabled={!productOfferDescription}
+        disabled={!editedOffer}
         expanded={expanded === 'section_7'}
         onChange={handleExpandedChange('section_7')}
       >

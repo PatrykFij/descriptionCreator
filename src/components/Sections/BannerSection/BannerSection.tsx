@@ -79,16 +79,14 @@ export const BannerSection = () => {
             label="Nazwe pliku z banerem"
             variant="outlined"
             helperText="* Maxymalna szerokość grafiki nie powinna być większa niż 1000px "
-            defaultValue={productOfferDescription?.bannerSection?.imgFileName}
-            value={productOfferDescription?.bannerSection?.imgFileName}
+            value={productOfferDescription?.bannerSection?.imgFileName || ''}
             onChange={handleFileNameChange}
           />
           <StyledTextField
             id="outlined-multiline-static"
             label="Podaj ALT TAG opisujący zdjęcie"
             variant="outlined"
-            defaultValue={productOfferDescription?.bannerSection?.imgAltTag}
-            value={productOfferDescription?.bannerSection?.imgAltTag}
+            value={productOfferDescription?.bannerSection?.imgAltTag || ''}
             onChange={handleAltTagChange}
           />
         </>

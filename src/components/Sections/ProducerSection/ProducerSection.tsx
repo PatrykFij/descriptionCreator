@@ -32,7 +32,10 @@ export const ProducerSection = () => {
   return (
     <StyledFormControl>
       <InputLabel>Producent</InputLabel>
-      <Select value={productOfferDescription?.producer} onChange={handleChange}>
+      <Select
+        value={productOfferDescription?.producer || ''}
+        onChange={handleChange}
+      >
         {producers &&
           producers.map(({ producer_id, name }) => (
             <MenuItem key={producer_id} value={name.toLocaleLowerCase()}>

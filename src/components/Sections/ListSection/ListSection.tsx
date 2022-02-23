@@ -63,8 +63,7 @@ export const ListSection = () => {
           <StyledTextField
             id="outlined-multiline-static"
             label="Nagłówek H4"
-            defaultValue={productOfferDescription?.listSection?.title}
-            value={productOfferDescription?.listSection?.title}
+            value={productOfferDescription?.listSection?.title || ''}
             variant="outlined"
             onChange={handleTitleChange}
           />
@@ -73,9 +72,11 @@ export const ListSection = () => {
             label="Podaj elementy listy"
             multiline
             rows={10}
-            defaultValue={productOfferDescription?.listSection?.listItems.map(
-              (el) => el + '\n',
-            )}
+            value={
+              productOfferDescription?.listSection?.listItems.map(
+                (el) => el + '\n',
+              ) || ''
+            }
             variant="outlined"
             onChange={handleListItemsChange}
           />

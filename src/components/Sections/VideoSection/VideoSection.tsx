@@ -87,8 +87,7 @@ export const VideoSection = () => {
           <StyledTextField
             id="outlined-multiline-static"
             label="Nagłówek H4"
-            defaultValue={productOfferDescription?.videoSection?.title}
-            value={productOfferDescription?.videoSection?.title}
+            value={productOfferDescription?.videoSection?.title || ''}
             variant="outlined"
             onChange={handleSectionTitleChange}
           />
@@ -99,8 +98,7 @@ export const VideoSection = () => {
           <StyledTextField
             id="outlined-multiline-static"
             label="Podaj link url do filmu"
-            defaultValue={productOfferDescription?.videoSection?.videoUrl}
-            value={productOfferDescription?.videoSection?.videoUrl}
+            value={productOfferDescription?.videoSection?.videoUrl || ''}
             variant="outlined"
             onChange={handleVideoUrlChange}
           />

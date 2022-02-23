@@ -39,22 +39,19 @@ export const TopHeaderSection = () => {
     <>
       <StyledTextField
         onChange={handleTopHeaderChange}
-        defaultValue={productOfferDescription?.topHeader}
-        value={productOfferDescription?.topHeader}
+        value={productOfferDescription?.topHeader || ''}
         label="Nagłówek H2"
         variant="outlined"
       />
       <StyledTextField
         onChange={handleMiddleHeaderChange}
-        defaultValue={productOfferDescription?.middleHeader}
-        value={productOfferDescription?.middleHeader}
+        value={productOfferDescription?.middleHeader || ''}
         label="Nagłówek H3"
         variant="outlined"
       />
       <StyledTextField
         onChange={handleBottomHeaderChange}
-        defaultValue={productOfferDescription?.bottomHeader}
-        value={productOfferDescription?.bottomHeader}
+        value={productOfferDescription?.bottomHeader || ''}
         label="Nagłówek H4"
         variant="outlined"
       />

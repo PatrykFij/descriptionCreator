@@ -23,7 +23,7 @@ const DescriptionCreator = () => {
   const { productOfferDescription, setProductOfferDescription } =
     useContext(AppContext);
 
-  const [currentOffer, setCurrentOffer] = useState<MappedOffer>();
+  const [editedOffer, setEditedOffer] = useState<MappedOffer>();
   const [currentDescription, setCurrentDescription] = useState<string>();
 
   const { mappedOffers, isLoadingProducts, getProducts } = api.useGetProducts();
@@ -46,16 +46,22 @@ const DescriptionCreator = () => {
       .querySelector('.description-container');
   }, []);
 
+  const setParsedProductDescription = useCallback(() => {}, []);
+
   useEffect(() => {
-    if (currentOffer) {
-      setCurrentOffer(currentOffer);
-      currentOffer.description
-        ? setCurrentDescription(currentOffer.description)
+    if (editedOffer) {
+      editedOffer.description
+        ? setCurrentDescription(editedOffer.description)
         : handleOpenAssignDialog();
     } else {
-      setCurrentDescription(undefined);
+      setProductOfferDescription(undefined);
     }
-  }, [currentOffer, handleOpenAssignDialog, parseExistingOffer]);
+  }, [
+    editedOffer,
+    handleOpenAssignDialog,
+    parseExistingOffer,
+    setProductOfferDescription,
+  ]);
 
   useEffect(() => {
     if (currentDescription) {
@@ -71,7 +77,7 @@ const DescriptionCreator = () => {
   }, [currentDescription, setProductOfferDescription]);
 
   const handleSubmit = async () => {
-    if (currentOffer?.id) {
+    if (editedOffer?.id) {
       const isValidOffer = offerValidator.validAltTags();
       var previewCode = document
         .getElementById('preview')
@@ -80,8 +86,8 @@ const DescriptionCreator = () => {
         const data = {
           description: previewCode,
         };
-        await updateOffer(currentOffer.id, data);
-        toast.success(`Pomyślnie zaktualizowano ofertę: ${currentOffer.name}`);
+        await updateOffer(editedOffer.id, data);
+        toast.success(`Pomyślnie zaktualizowano ofertę: ${editedOffer.name}`);
         handleCloseConfirmation();
       }
     } else {
@@ -95,7 +101,7 @@ const DescriptionCreator = () => {
           <Autocomplete
             isLoading={isLoadingProducts}
             options={mappedOffers || []}
-            onChange={setCurrentOffer}
+            onChange={setEditedOffer}
           />
           <S.CustomButton
             onClick={handleOpenConfirmation}
@@ -107,7 +113,7 @@ const DescriptionCreator = () => {
           <S.GoToOfferIcon
             onClick={() =>
               window.open(
-                currentOffer?.url.replace(
+                editedOffer?.url.replace(
                   'www.brillar-sklep.pl/',
                   'sklep992539.shoparena.pl/',
                 ),
@@ -128,7 +134,7 @@ const DescriptionCreator = () => {
       <ConfirmDialog
         open={isOpenConfirmation}
         title="Potwierdzenie"
-        message={`Czy na pewno chcesz zaktualizować ofertę ${currentOffer?.name}`}
+        message={`Czy na pewno chcesz zaktualizować ofertę ${editedOffer?.name}`}
         submitText="Aktualizuj"
         onCancel={handleCloseConfirmation}
         cancelText="Anuluj"
@@ -138,11 +144,12 @@ const DescriptionCreator = () => {
       <ConfirmDialog
         open={isOpenAssignDialog}
         title={`Ta oferta nie posiada opisu!`}
-        message={`Wybierz ofertę którą chciałbyś przypisać do oferty: ${currentOffer?.name}`}
+        message={`Wybierz ofertę którą chciałbyś przypisać do oferty: ${editedOffer?.name}`}
         content={
           <Autocomplete
             isLoading={isLoadingProducts}
             options={mappedOffers || []}
+            disableClearable
             onChange={(offer: MappedOffer) =>
               setCurrentDescription(offer.description)
             }
@@ -151,6 +158,7 @@ const DescriptionCreator = () => {
         submitText="Przypisz"
         onCancel={() => {
           setCurrentDescription('');
+          setProductOfferDescription(undefined);
           handleCloseAssignDialog();
         }}
         cancelText="Anuluj"

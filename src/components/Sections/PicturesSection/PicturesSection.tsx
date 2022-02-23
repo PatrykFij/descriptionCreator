@@ -76,7 +76,6 @@ export const PicturesSection = () => {
           pictureItems: pictureItems,
         },
       }));
-      // setPictureItems(newValue);
     }
   }, [pictureItems, setProductOfferDescription]);
 
@@ -170,7 +169,7 @@ export const PicturesSection = () => {
           <StyledTitleTextField
             label="Nagłówek H4"
             variant="outlined"
-            defaultValue={productOfferDescription?.pictureSection?.title}
+            defaultValue={productOfferDescription?.pictureSection?.title || ''}
             onChange={handlePictureSectionTitleChange}
           />
           {productOfferDescription?.pictureSection?.pictureItems &&

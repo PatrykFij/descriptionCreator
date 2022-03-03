@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useToggle } from 'hooks/useToggle';
-import Button from 'components/Button';
+import { Button } from 'components';
 import Card from 'components/Card';
 import DataRow from 'components/DataRow';
 import { countSummarize } from 'utils/counters/counters';
@@ -30,14 +30,12 @@ const Summary = ({ ordersByRange }: Props) => {
       title="Podsumowanie"
       customAction={<Button onClick={openPreview}>Podgląd</Button>}
     >
-      {isPreviewOpen && (
-        <PreviewDialog
-          ordersByRange={ordersByRange}
-          summaryData={summaryData}
-          onClose={closePreview}
-        />
-      )}
-
+      <PreviewDialog
+        ordersByRange={ordersByRange}
+        summaryData={summaryData}
+        onClose={closePreview}
+        open={isPreviewOpen}
+      />
       {summarizeRows.map(({ label, value }: T.SummaryRowData) => (
         <DataRow label={label} value={value} />
       ))}

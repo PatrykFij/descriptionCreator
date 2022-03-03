@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router';
-import Button from 'components/Button';
+import { Button } from 'components';
 import * as URL from '../../routes/url';
 import * as S from './styles';
 

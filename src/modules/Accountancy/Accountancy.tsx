@@ -8,10 +8,10 @@ import { handleException } from 'utils/handleException';
 import { mapOrdersRange } from 'utils/mappers/mapOrdersRange';
 import { mapOrdersWithBuyingPrice } from 'utils/mappers/mapOrdersWithPriceBuying';
 import { Data, MappedOrder } from 'utils/mappers/types';
+import * as api from '../../api/api';
 import OrdersTable from './components/OrdersTable.tsx';
 import Stock from './components/Stock';
 import Summary from './components/Summary';
-import * as api from './api';
 import * as S from './styles';
 
 const Accountancy = () => {

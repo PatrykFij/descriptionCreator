@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react';
 import ReactToPrint from 'react-to-print';
-import Button from 'components/Button';
+import { Button } from 'components';
 import DataRow from 'components/DataRow';
 import Dialog from 'components/Dialog';
 import Table from 'components/Table';
@@ -12,6 +12,7 @@ import * as T from '../../types';
 import * as S from './styles';
 
 interface Props {
+  open: boolean;
   onClose: () => void;
   ordersByRange?: MappedOrder[];
   summaryData: T.Summary;
@@ -28,7 +29,12 @@ const columns = [
   { title: 'Zamówione produkty', field: 'orderedProducts' },
 ];
 
-const PreviewDialog = ({ onClose, ordersByRange, summaryData }: Props) => {
+const PreviewDialog = ({
+  open,
+  onClose,
+  ordersByRange,
+  summaryData,
+}: Props) => {
   const componentRef = useRef(null);
   const pageStyle = `
   @page {
@@ -88,6 +94,7 @@ const PreviewDialog = ({ onClose, ordersByRange, summaryData }: Props) => {
   return (
     <Dialog
       title="Podgląd"
+      open={open}
       onClose={onClose}
       maxWidth="lg"
       dialogActions={

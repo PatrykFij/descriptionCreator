@@ -34,7 +34,7 @@ const TextTransforms = [
   },
 ];
 
-export const TextEditor = ({ value, handleChange }: any) => {
+export const TextEditor = ({ value = '', handleChange }: any) => {
   const handleKeyDown = (e: any) => {
     if (e.keyCode === 13) {
       e.preventDefault();

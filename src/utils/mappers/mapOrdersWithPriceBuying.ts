@@ -2,8 +2,8 @@ import { Data, MappedOrder } from './types';
 
 export const mapOrdersWithBuyingPrice = (data: Data): MappedOrder[] => {
   const ordersWithBuyingPrice: any = [];
-  if (data.hasOwnProperty('allOrders')) {
-    data.allOrders
+  if (data.hasOwnProperty('orders')) {
+    data.orders
       .filter(({ is_paid }) => is_paid)
       .map(
         ({
@@ -30,10 +30,10 @@ export const mapOrdersWithBuyingPrice = (data: Data): MappedOrder[] => {
 
           obj.productsInOrder = [];
 
-          data.allOrderedProducts
+          data.orderedProducts
             .filter(({ order_id: id }) => id === order_id)
             .map(({ product_id, name, quantity, price, stock_id }) => {
-              const productStock = data.allProducts.filter(
+              const productStock = data.products.filter(
                 (el) => el.product_id === product_id,
               );
               let price_buying = null;

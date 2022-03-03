@@ -1,36 +1,35 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import DateFnsUtils from '@date-io/date-fns';
 import { DateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import pl from 'date-fns/locale/pl';
-import { Moment } from 'moment';
+import moment, { Moment } from 'moment';
 import RangeInput from 'components/RangeInput';
 import { MappedOrder } from 'utils/mappers/types';
 import * as S from './styles';
 
 interface Props {
-  dateRange: Moment[];
-  setDateRange: Dispatch<SetStateAction<Moment[]>>;
+  startDate: Moment;
+  setStartDate: Dispatch<SetStateAction<Moment>>;
+  endDate: Moment;
+  setEndDate: Dispatch<SetStateAction<Moment>>;
   ordersByRange?: MappedOrder[];
   maxOrderId: number;
 }
 
 const OrdersRange = ({
-  dateRange,
-  setDateRange,
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate,
   ordersByRange,
   maxOrderId,
 }: Props) => {
-  const [startDate, setStartDateChange] = useState<any>(dateRange[0]);
-  const [endDate, setEndDateChange] = useState<any>(dateRange[1]);
-
   const handleChangeStartDate = (date: any) => {
-    setStartDateChange(date);
-    setDateRange((prev) => [date, prev[1]]);
+    setStartDate(moment(date));
   };
 
   const handleChangeEndDate = (date: any) => {
-    setEndDateChange(date);
-    setDateRange((prev) => [prev[0], date]);
+    setEndDate(moment(date));
   };
 
   return (
@@ -38,7 +37,7 @@ const OrdersRange = ({
       <MuiPickersUtilsProvider locale={pl} utils={DateFnsUtils}>
         <DateTimePicker
           label="Początkowa data"
-          format="dd/MM/yyyy HH:mm"
+          format="yyyy-MM-dd HH:mm"
           ampm={false}
           value={startDate}
           onChange={handleChangeStartDate}
@@ -46,7 +45,7 @@ const OrdersRange = ({
         <S.Title>Zakres zamówień</S.Title>
         <DateTimePicker
           label="Koncowa data"
-          format="dd/MM/yyyy HH:mm"
+          format="yyyy-MM-dd HH:mm"
           ampm={false}
           value={endDate}
           onChange={handleChangeEndDate}

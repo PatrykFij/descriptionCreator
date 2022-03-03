@@ -8,7 +8,7 @@ import { numberFormatter } from 'utils/formatters/numberFormatter';
 import * as S from './styles';
 
 interface Props {
-  products: Product[];
+  products?: Product[];
 }
 const Stock = ({ products }: Props) => {
   const stockData = useMemo(() => {

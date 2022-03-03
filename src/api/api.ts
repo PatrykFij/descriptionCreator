@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { Moment } from 'moment';
 import { useAxios } from 'utils/hooks/useAxios';
 import {
   Order,
@@ -68,7 +69,6 @@ export const useUpdateOffer = () => {
   const updateOffer = useCallback(
     async (productId, data: PutDescriptionData) => {
       const url = `/products/${productId}`;
-      debugger;
       await updateDescription({ url, data });
     },
     [updateDescription],
@@ -81,9 +81,10 @@ export const useUpdateOffer = () => {
 };
 
 export const useGetOrderedProducts = () => {
-  const [{ loading: isLoadingOrderedProducts }, getOrderedProducts] = useAxios<
-    OrderedProduct[]
-  >(
+  const [
+    { data: orderedProducts, loading: isLoadingOrderedProducts },
+    getOrderedProducts,
+  ] = useAxios<OrderedProduct[]>(
     {
       url: `/ordered-products`,
     },
@@ -92,25 +93,32 @@ export const useGetOrderedProducts = () => {
   return {
     isLoadingOrderedProducts,
     getOrderedProducts,
+    orderedProducts,
   };
 };
 
-export const useGetOrders = () => {
-  const [{ loading: isLoadingOrders }, getOrders] = useAxios<Order[]>(
+export const useGetOrders = (startDate: Moment, endDate: Moment) => {
+  const [{ data: orders, loading: isLoadingOrders }, getOrders] = useAxios<
+    Order[]
+  >(
     {
-      url: `/orders`,
+      url: `/orders?dateFrom=${startDate.format(
+        'YYYY-MM-DD HH:mm:ss',
+      )}&dateTo=${endDate.format('YYYY-MM-DD HH:mm:ss')}`,
     },
     { manual: true },
   );
   return {
     isLoadingOrders,
     getOrders,
+    orders,
   };
 };
 export const useGetShippingMethod = () => {
-  const [{ loading: isLoadingShippingMethods }, getShippingMethods] = useAxios<
-    ShippingMethod[]
-  >(
+  const [
+    { data: shippingMethods, loading: isLoadingShippingMethods },
+    getShippingMethods,
+  ] = useAxios<ShippingMethod[]>(
     {
       url: `/shippings-method`,
     },
@@ -119,5 +127,6 @@ export const useGetShippingMethod = () => {
   return {
     isLoadingShippingMethods,
     getShippingMethods,
+    shippingMethods,
   };
 };

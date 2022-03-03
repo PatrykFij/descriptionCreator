@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const RangeWrapper = styled.div`
-  width: 50%;
+  width: 80%;
+  margin: 0 100px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

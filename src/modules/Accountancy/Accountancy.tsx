@@ -1,10 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Container, Grid } from '@material-ui/core';
 import moment, { Moment } from 'moment';
-import { Product } from 'types/Product';
 import Card from 'components/Card';
 import { dateAndTimeDisplayFormat } from 'utils/constants';
-import { handleException } from 'utils/handleException';
 import { mapOrdersRange } from 'utils/mappers/mapOrdersRange';
 import { mapOrdersWithBuyingPrice } from 'utils/mappers/mapOrdersWithPriceBuying';
 import { Data, MappedOrder } from 'utils/mappers/types';
@@ -15,21 +13,22 @@ import Summary from './components/Summary';
 import * as S from './styles';
 
 const Accountancy = () => {
-  const [orders, setOrders] = useState<MappedOrder[]>();
-  const [dateRange, setDateRange] = useState<Moment[]>([
-    moment().startOf('month'),
-    moment(),
-  ]);
-  const [maxOrderId, setMaxOrderId] = useState<number>(0);
-  const [products, setProducts] = useState<Product[]>(
-    JSON.parse(localStorage.getItem('data') || '{}')?.allProducts,
-  );
+  const [mappedOrders, setMappedOrders] = useState<MappedOrder[]>();
 
-  const { isLoadingShippingMethods, getShippingMethods } =
+  const [startDate, setStartDate] = useState<Moment>(moment().startOf('month'));
+  const [endDate, setEndDate] = useState<Moment>(moment());
+
+  const [maxOrderId, setMaxOrderId] = useState<number>(0);
+
+  const { shippingMethods, isLoadingShippingMethods, getShippingMethods } =
     api.useGetShippingMethod();
-  const { isLoadingProducts, getProducts } = api.useGetProducts();
-  const { isLoadingOrders, getOrders } = api.useGetOrders();
-  const { isLoadingOrderedProducts, getOrderedProducts } =
+
+  const { products, isLoadingProducts, getProducts } = api.useGetProducts();
+  const { orders, isLoadingOrders, getOrders } = api.useGetOrders(
+    startDate,
+    endDate,
+  );
+  const { orderedProducts, isLoadingOrderedProducts, getOrderedProducts } =
     api.useGetOrderedProducts();
 
   const handleMapData = useCallback(() => {
@@ -39,40 +38,39 @@ const Accountancy = () => {
       const mappedData = mapOrdersWithBuyingPrice(data);
       const orderRange = mapOrdersRange(mappedData);
       setMaxOrderId(orderRange[1]);
-      setOrders(mappedData);
+      setMappedOrders(mappedData);
     }
   }, []);
+
+  useEffect(() => {
+    getShippingMethods();
+    getProducts();
+    getOrderedProducts();
+  }, [getOrderedProducts, getProducts, getShippingMethods]);
+
+  useEffect(() => {
+    getOrders();
+  }, [getOrders]);
 
   useEffect(() => {
     handleMapData();
   }, [handleMapData]);
 
-  const handleDownloadData = useCallback(async () => {
-    try {
-      const shippingMethods = await getShippingMethods();
-      const allProducts = await getProducts();
-      const allOrders = await getOrders();
-      const allOrderedProducts = await getOrderedProducts();
-
-      if (allProducts && allOrders && allOrderedProducts && shippingMethods) {
-        const data: Data = {
-          shippingMethods: shippingMethods.data,
-          allProducts: allProducts.data,
-          allOrders: allOrders.data,
-          allOrderedProducts: allOrderedProducts.data,
-          lastUpdate: moment().format(dateAndTimeDisplayFormat),
-        };
-        const mappedData = mapOrdersWithBuyingPrice(data);
-        const orderRange = mapOrdersRange(mappedData);
-        setMaxOrderId(orderRange[1]);
-        setOrders(mappedData);
-        setProducts(allProducts.data);
-      }
-    } catch (e: any) {
-      console.log('error', e);
-      handleException(e);
+  useEffect(() => {
+    if (shippingMethods && products && orders && orderedProducts) {
+      const data: Data = {
+        shippingMethods,
+        products,
+        orders,
+        orderedProducts,
+        lastUpdate: moment().format(dateAndTimeDisplayFormat),
+      };
+      const mappedData = mapOrdersWithBuyingPrice(data);
+      const orderRange = mapOrdersRange(mappedData);
+      setMaxOrderId(orderRange[1]);
+      setMappedOrders(mappedData);
     }
-  }, [getOrderedProducts, getOrders, getProducts, getShippingMethods]);
+  }, [getOrders, orderedProducts, orders, products, shippingMethods]);
 
   const isLoading = useMemo(
     () =>
@@ -89,13 +87,14 @@ const Accountancy = () => {
   );
 
   const ordersByRange = useMemo(() => {
-    if (orders) {
-      return orders.filter(
+    if (mappedOrders) {
+      return mappedOrders.filter(
         (el) =>
-          moment(el.date) >= dateRange[0] && moment(el.date) <= dateRange[1],
+          moment(el.date).isSameOrAfter(startDate) &&
+          moment(el.date).isSameOrBefore(endDate),
       );
     }
-  }, [orders, dateRange]);
+  }, [mappedOrders, startDate, endDate]);
 
   return (
     <Container maxWidth="xl">
@@ -114,10 +113,10 @@ const Accountancy = () => {
           <OrdersTable
             ordersByRange={ordersByRange}
             isLoading={isLoading}
-            orders={orders}
-            dateRange={dateRange}
-            setDateRange={setDateRange}
-            handleGetData={handleDownloadData}
+            startDate={startDate}
+            setStartDate={setStartDate}
+            endDate={endDate}
+            setEndDate={setEndDate}
             maxOrderId={maxOrderId}
           />
         </Grid>

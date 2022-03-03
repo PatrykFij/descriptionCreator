@@ -3,9 +3,9 @@ import { OrderedProduct } from 'types/OrderedProduct';
 import { Product } from 'types/Product';
 
 export interface Data {
-  allProducts: Product[];
-  allOrders: Order[];
-  allOrderedProducts: OrderedProduct[];
+  products: Product[];
+  orders: Order[];
+  orderedProducts: OrderedProduct[];
   shippingMethods: ShippingMethod[];
   lastUpdate: string;
 }

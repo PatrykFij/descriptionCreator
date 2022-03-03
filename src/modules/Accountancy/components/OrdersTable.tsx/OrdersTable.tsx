@@ -6,7 +6,6 @@ import {
   TableRow,
 } from '@material-ui/core';
 import { Moment } from 'moment';
-import { Button } from 'components';
 import Card from 'components/Card';
 import { sumOfOrderProductsPriceBuying } from 'utils/counters/counters';
 import { numberFormatter } from 'utils/formatters/numberFormatter';
@@ -16,22 +15,22 @@ import * as S from './styles';
 
 interface Props {
   isLoading: boolean;
-  orders?: MappedOrder[];
   ordersByRange?: MappedOrder[];
-  dateRange: Moment[];
-  setDateRange: Dispatch<SetStateAction<Moment[]>>;
-  handleGetData: () => Promise<void>;
+  startDate: Moment;
+  setStartDate: Dispatch<SetStateAction<Moment>>;
+  endDate: Moment;
+  setEndDate: Dispatch<SetStateAction<Moment>>;
   maxOrderId: number;
 }
 
 const OrdersTable = ({
   isLoading,
-  orders,
   ordersByRange,
-  handleGetData,
   maxOrderId,
-  dateRange,
-  setDateRange,
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate,
 }: Props) => {
   return (
     <>
@@ -39,29 +38,14 @@ const OrdersTable = ({
         id="ordersTable"
         title="Zamówienia"
         customAction={
-          <>
-            <OrdersRange
-              dateRange={dateRange}
-              setDateRange={setDateRange}
-              ordersByRange={ordersByRange}
-              maxOrderId={maxOrderId}
-            />
-            {orders ? (
-              <S.UpdateButtonWrapper>
-                <Button isLoading={isLoading} onClick={handleGetData}>
-                  Aktualizuj dane
-                </Button>
-                <p>Ostatnia aktualizajca:</p>
-                <p>
-                  {JSON.parse(localStorage.getItem('data') || '{}')?.lastUpdate}
-                </p>
-              </S.UpdateButtonWrapper>
-            ) : (
-              <Button isLoading={isLoading} onClick={handleGetData}>
-                Pobierz zamówienia
-              </Button>
-            )}
-          </>
+          <OrdersRange
+            startDate={startDate}
+            setStartDate={setStartDate}
+            endDate={endDate}
+            setEndDate={setEndDate}
+            ordersByRange={ordersByRange}
+            maxOrderId={maxOrderId}
+          />
         }
       >
         <S.TableWrapper>

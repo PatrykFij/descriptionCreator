@@ -45,6 +45,7 @@ export const ListSection = () => {
     });
   };
 
+  console.log(productOfferDescription?.listSection);
   return (
     <>
       <StyledFormControlLabel
@@ -73,9 +74,7 @@ export const ListSection = () => {
             multiline
             rows={10}
             value={
-              productOfferDescription?.listSection?.listItems.map(
-                (el) => el + '\n',
-              ) || ''
+              productOfferDescription?.listSection?.listItems.join('\n') || ''
             }
             variant="outlined"
             onChange={handleListItemsChange}

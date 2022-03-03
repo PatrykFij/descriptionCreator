@@ -16,6 +16,7 @@ interface Props {
   children: ReactNode;
   loading?: boolean;
   onClose: () => void;
+  onKeyUp?: (e: any) => void;
   dialogActions: ReactElement;
   subheader?: ReactElement;
   maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;
@@ -26,12 +27,13 @@ const Dialog = ({
   children,
   loading = false,
   onClose,
+  onKeyUp,
   dialogActions,
   subheader,
   maxWidth,
 }: Props) => {
   return (
-    <MDialog open={open} fullWidth maxWidth={maxWidth}>
+    <MDialog onKeyUp={onKeyUp} open={open} fullWidth maxWidth={maxWidth}>
       <>
         {loading ? (
           <Box m={2} display="flex" justifyContent="center" alignItems="center">

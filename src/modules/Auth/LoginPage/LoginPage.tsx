@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Redirect, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -57,6 +57,16 @@ const LoginPage = () => {
     }
   });
 
+  const onEnterSubmit = useCallback(
+    (e: any) => {
+      const ENTER = 13;
+      if (e.keyCode === ENTER) {
+        onSubmit();
+      }
+    },
+    [onSubmit],
+  );
+
   return (
     <>
       {isAuthenticated ? (
@@ -67,6 +77,7 @@ const LoginPage = () => {
           title="Zaloguj"
           open={loginFormOpen}
           onClose={closeLoginForm}
+          onKeyUp={onEnterSubmit}
           dialogActions={
             <>
               <Button onClick={onSubmit}>Save</Button>

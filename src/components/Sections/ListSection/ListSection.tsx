@@ -45,7 +45,6 @@ export const ListSection = () => {
     });
   };
 
-  console.log(productOfferDescription?.listSection);
   return (
     <>
       <StyledFormControlLabel

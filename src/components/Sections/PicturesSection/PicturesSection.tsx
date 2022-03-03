@@ -1,19 +1,15 @@
-import { useContext, useEffect, useState } from 'react';
-import uuid from 'react-uuid';
+import { useContext, useMemo } from 'react';
 import {
   Button,
   Checkbox,
+  debounce,
   FormControlLabel,
   TextField,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
-import RefreshIcon from '@material-ui/icons/Refresh';
 import styled from 'styled-components';
-import {
-  AppContext,
-  PictureItem,
-} from '../../../context/AppContext/AppContext';
+import { AppContext } from '../../../context/AppContext/AppContext';
 
 const StyledTitleTextField = styled(TextField)`
   width: 100%;
@@ -63,88 +59,80 @@ export const PicturesSection = () => {
   const { productOfferDescription, setProductOfferDescription } =
     useContext(AppContext);
 
-  const [pictureItems, setPictureItems] = useState<PictureItem[] | undefined>(
-    productOfferDescription?.pictureSection?.pictureItems,
+  const copyOfProductOfferDescription = useMemo(
+    () => ({ ...productOfferDescription }),
+    [productOfferDescription],
   );
 
-  useEffect(() => {
-    if (pictureItems) {
-      setProductOfferDescription((prev: any) => ({
-        ...prev,
-        pictureSection: {
-          ...prev?.pictureSection,
-          pictureItems: pictureItems,
-        },
-      }));
-    }
-  }, [pictureItems, setProductOfferDescription]);
-
   const handleEnablePictureSectionChange = (event: any) => {
-    setProductOfferDescription((prev: any) => ({
-      ...prev,
-      pictureSection: {
-        ...prev?.pictureSection,
-        disabled: !event.target.checked,
-      },
-    }));
+    if (copyOfProductOfferDescription.pictureSection) {
+      copyOfProductOfferDescription.pictureSection.disabled =
+        !event.target.checked;
+      setProductOfferDescription(copyOfProductOfferDescription);
+    }
   };
 
   const handlePictureSectionTitleChange = (event: any) => {
-    setProductOfferDescription((prev: any) => ({
-      ...prev,
-      pictureSection: {
-        ...prev?.pictureSection,
-        title: event.target.value.trim(),
-      },
-    }));
+    if (copyOfProductOfferDescription.pictureSection) {
+      copyOfProductOfferDescription.pictureSection.title =
+        event.target.value.trim();
+      setProductOfferDescription(copyOfProductOfferDescription);
+    }
   };
 
-  const handleAdd = (event: any) => {
-    setPictureItems((prev) =>
-      prev
-        ? [...prev, { url: '', alt: '', title: '', description: '' }]
-        : [{ url: '', alt: '', title: '', description: '' }],
-    );
+  const handleAdd = () => {
+    if (copyOfProductOfferDescription.pictureSection) {
+      copyOfProductOfferDescription.pictureSection.pictureItems.push({
+        url: '',
+        alt: '',
+        title: '',
+        description: '',
+      });
+      setProductOfferDescription(copyOfProductOfferDescription);
+    }
   };
 
   const handleChangePictureUrl = (event: any, index: any) => {
-    if (pictureItems) {
-      pictureItems[index].url = event.target.value;
-      setPictureItems(pictureItems);
+    if (copyOfProductOfferDescription.pictureSection) {
+      copyOfProductOfferDescription.pictureSection.pictureItems[index].url =
+        event.target.value;
+      setProductOfferDescription(copyOfProductOfferDescription);
     }
   };
 
   const handleChangePicturePictureAlt = (event: any, index: any) => {
-    if (pictureItems) {
-      pictureItems[index].alt = event.target.value;
-      setPictureItems(pictureItems);
+    if (copyOfProductOfferDescription.pictureSection) {
+      copyOfProductOfferDescription.pictureSection.pictureItems[index].alt =
+        event.target.value;
+      setProductOfferDescription(copyOfProductOfferDescription);
     }
   };
 
   const handleChangePictureTitle = (event: any, index: any) => {
-    if (pictureItems) {
-      pictureItems[index].title = event.target.value;
-      setPictureItems(pictureItems);
+    if (copyOfProductOfferDescription.pictureSection) {
+      copyOfProductOfferDescription.pictureSection.pictureItems[index].title =
+        event.target.value;
+      setProductOfferDescription(copyOfProductOfferDescription);
     }
   };
 
   const handleChangePictureDescription = (event: any, index: any) => {
-    if (pictureItems) {
-      pictureItems[index].description = event.target.value;
-      setPictureItems(pictureItems);
+    if (copyOfProductOfferDescription.pictureSection) {
+      copyOfProductOfferDescription.pictureSection.pictureItems[
+        index
+      ].description = event.target.value;
+      setProductOfferDescription(copyOfProductOfferDescription);
     }
   };
 
   const handleDeleteItem = (index: any) => {
-    if (pictureItems) {
-      let newValue = [...pictureItems];
-      newValue.splice(index, 1);
-      setPictureItems(newValue);
+    if (copyOfProductOfferDescription.pictureSection) {
+      copyOfProductOfferDescription.pictureSection.pictureItems.splice(
+        index,
+        1,
+      );
+      setProductOfferDescription(copyOfProductOfferDescription);
     }
-  };
-
-  const handleRefreshItem = () => {
-    setPictureItems(pictureItems);
   };
 
   return (
@@ -170,15 +158,18 @@ export const PicturesSection = () => {
             label="Nagłówek H4"
             variant="outlined"
             defaultValue={productOfferDescription?.pictureSection?.title || ''}
-            onChange={handlePictureSectionTitleChange}
+            onChange={debounce(handlePictureSectionTitleChange, 2000)}
           />
           {productOfferDescription?.pictureSection?.pictureItems &&
             productOfferDescription?.pictureSection.pictureItems.map(
               (el: any, index: any) => (
-                <FormWrapper key={uuid()}>
+                <FormWrapper key={index}>
                   <FieldsWrapper>
                     <StyledTextField
-                      onChange={(e) => handleChangePictureUrl(e, index)}
+                      onChange={debounce(
+                        (e) => handleChangePictureUrl(e, index),
+                        2000,
+                      )}
                       defaultValue={el.url}
                       placeholder="Nazwa pliku z grafiką"
                       label="Nazwa pliku z grafiką"
@@ -186,7 +177,10 @@ export const PicturesSection = () => {
                       variant="outlined"
                     />
                     <StyledTextField
-                      onChange={(e) => handleChangePicturePictureAlt(e, index)}
+                      onChange={debounce(
+                        (e) => handleChangePicturePictureAlt(e, index),
+                        2000,
+                      )}
                       defaultValue={el.alt}
                       placeholder="ALT tag"
                       label="ALT tag"
@@ -194,14 +188,20 @@ export const PicturesSection = () => {
                       variant="outlined"
                     />
                     <StyledTextField
-                      onChange={(e) => handleChangePictureTitle(e, index)}
+                      onChange={debounce(
+                        (e) => handleChangePictureTitle(e, index),
+                        2000,
+                      )}
                       defaultValue={el.title}
                       placeholder="Tytuł pod grafiką"
                       label="Tytuł pod grafiką"
                       variant="outlined"
                     />
                     <StyledTextField
-                      onChange={(e) => handleChangePictureDescription(e, index)}
+                      onChange={debounce(
+                        (e) => handleChangePictureDescription(e, index),
+                        2000,
+                      )}
                       defaultValue={el.description}
                       placeholder="Opis pod grafiką"
                       label="Opis pod grafiką"
@@ -209,13 +209,6 @@ export const PicturesSection = () => {
                     />
                   </FieldsWrapper>
                   <ButtonsWrapper>
-                    <Button
-                      onClick={() => handleRefreshItem()}
-                      variant="contained"
-                      color="primary"
-                    >
-                      <RefreshIcon />
-                    </Button>
                     <Button
                       onClick={() => handleDeleteItem(index)}
                       variant="contained"

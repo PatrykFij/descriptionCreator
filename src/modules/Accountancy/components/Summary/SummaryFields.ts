@@ -42,4 +42,20 @@ export const summaryRows = (summaryData: T.Summary): T.SummaryRowData[] => [
     label: 'Czysty zysk',
     value: summaryData.clearProfit,
   },
+  {
+    label: 'Prowizja Allegro',
+    value: summaryData.allegroCommission,
+  },
+  {
+    label: 'Koszt opakowań',
+    value: summaryData.packingCost,
+  },
+  {
+    label: 'Koszt InPost który trzeba ponieść (zamówienia powyżej 199.00zł)',
+    value: summaryData.inpostShippingCost,
+  },
+  {
+    label: 'Czysty zysk - prowizja allegro - koszt opakowań - inpost',
+    value: summaryData.superClearProfit,
+  },
 ];

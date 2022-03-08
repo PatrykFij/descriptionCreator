@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 import { Product } from 'types/Product';
+import Card from 'components/Card';
 import {
   sumOfAllProductsPrice,
   sumOfAllProductsPriceBuying,
 } from 'utils/counters/counters';
 import { numberFormatter } from 'utils/formatters/numberFormatter';
-import * as S from './styles';
 
 interface Props {
   products?: Product[];
@@ -27,7 +27,7 @@ const Stock = ({ products }: Props) => {
   }, [products]);
 
   return (
-    <S.StockWrapper>
+    <Card title="Stan magazynowy">
       {products && stockData ? (
         <>
           <h6>Całkowita kwota zakupu / Kwota sprzedaży</h6>
@@ -40,7 +40,7 @@ const Stock = ({ products }: Props) => {
       ) : (
         <h6>Brak produktów, pobierz dane...</h6>
       )}
-    </S.StockWrapper>
+    </Card>
   );
 };
 

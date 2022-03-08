@@ -1,7 +1,7 @@
 import { Product } from 'types/Product';
 import { Summary } from 'modules/Accountancy/components/Summary/types';
 import { numberFormatter } from 'utils/formatters/numberFormatter';
-import { MappedOrder, ProductInOrder } from 'utils/mappers/types';
+import { MappedOrder, ProductInOrder, Source } from 'utils/mappers/types';
 
 export const sumOfAllProductsPriceBuying = (products: Product[]) => {
   return products
@@ -52,16 +52,45 @@ export const sumOfAllOrdersShippings = (products: MappedOrder[]) => {
     .reduce((prev, next) => prev + next, 0);
 };
 
+export const sumOfAllegroCommission = (orders: MappedOrder[]) => {
+  return orders
+    .filter(({ source }) => source === Source.Allegro)
+    .map(
+      ({ paid, shipping_cost }) =>
+        (Number(paid) - Number(shipping_cost)) * 0.13376847003,
+    )
+    .reduce((prev, next) => prev + next, 0);
+};
+
+export const sumOfInpostShippingBelowFreeShipping = (orders: MappedOrder[]) => {
+  return orders
+    .filter(
+      ({ source, paid, shipping_cost }) =>
+        source === Source.Shoper && Number(paid) - Number(shipping_cost) > 200,
+    )
+    .map(({ shipping_cost }) => Number(shipping_cost))
+    .reduce((prev, next) => prev + next, 0);
+};
+
+export const sumOfPackingCost = (orders: MappedOrder[]) => {
+  return orders.length * 2.0;
+};
+
 export const countSummarize = (products: MappedOrder[]): Summary => {
   const ordersAmount = `${products.length}`;
   const sumOfShippings = sumOfAllOrdersShippings(products);
   const sumOfPaidPrice = sumOfAllOrdersPricePaid(products) - sumOfShippings;
   const sumOfPriceBuying = sumOfAllOrdersPriceBuying(products);
+  const allegroCommission = sumOfAllegroCommission(products);
+  const inpostShippingCost = sumOfInpostShippingBelowFreeShipping(products);
+  const packingCost = sumOfPackingCost(products);
   const profitWithVat = sumOfPaidPrice - sumOfPriceBuying;
   const profitNet = (profitWithVat * 100) / 123;
   const taxDeductible = profitWithVat - profitNet;
   const incomingTax = profitNet * 0.17;
   const clearProfit = profitNet - incomingTax;
+  const superClearProfit =
+    clearProfit - allegroCommission - inpostShippingCost - packingCost;
   const transferAmount =
     sumOfPaidPrice - taxDeductible - incomingTax + sumOfShippings;
 
@@ -76,5 +105,9 @@ export const countSummarize = (products: MappedOrder[]): Summary => {
     incomingTax: numberFormatter(incomingTax),
     clearProfit: numberFormatter(clearProfit),
     transferAmount: numberFormatter(transferAmount),
+    allegroCommission: numberFormatter(allegroCommission),
+    inpostShippingCost: numberFormatter(inpostShippingCost),
+    packingCost: numberFormatter(packingCost),
+    superClearProfit: numberFormatter(superClearProfit),
   };
 };

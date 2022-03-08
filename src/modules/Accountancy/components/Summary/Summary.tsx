@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Grid } from '@mui/material';
 import { useToggle } from 'hooks/useToggle';
 import { Button } from 'components';
 import Card from 'components/Card';
@@ -26,20 +27,27 @@ const Summary = ({ ordersByRange }: Props) => {
   const summarizeRows = useMemo(() => summaryRows(summaryData), [summaryData]);
 
   return (
-    <Card
-      title="Podsumowanie"
-      customAction={<Button onClick={openPreview}>Podgląd</Button>}
-    >
+    <>
+      <Card
+        title="Podsumowanie"
+        customAction={<Button onClick={openPreview}>Podgląd</Button>}
+      >
+        <Grid container justifyContent="flex-end" spacing={10}>
+          <Grid flexBasis="50%" item>
+            <DataRow data={summarizeRows} />
+          </Grid>
+          <Grid flexBasis="50%" item>
+            <DataRow data={summarizeRows} />
+          </Grid>
+        </Grid>
+      </Card>
       <PreviewDialog
         ordersByRange={ordersByRange}
         summaryData={summaryData}
         onClose={closePreview}
         open={isPreviewOpen}
       />
-      {summarizeRows.map(({ label, value }: T.SummaryRowData) => (
-        <DataRow label={label} value={value} />
-      ))}
-    </Card>
+    </>
   );
 };
 

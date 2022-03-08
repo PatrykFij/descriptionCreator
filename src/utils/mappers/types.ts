@@ -23,12 +23,17 @@ export interface ProductInOrder {
   price_buying: string;
 }
 
+export enum Source {
+  Allegro = 'Allegro',
+  Shoper = 'Shoper',
+}
 export interface MappedOrder {
   order_id: string;
   paid: string;
   date: string;
   is_paid: string;
   sum: string;
+  source: Source;
   shipping_name: string;
   shipping_cost: string;
   productsInOrder: ProductInOrder[];

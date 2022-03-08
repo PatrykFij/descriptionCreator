@@ -120,9 +120,7 @@ const PreviewDialog = ({
         </S.OrdersTableWrapper>
         <S.PreviewSummarize>
           <h1>Podsumowanie</h1>
-          {summarizeRows.map(({ label, value }: T.SummaryRowData) => (
-            <DataRow label={label} value={value} />
-          ))}
+          <DataRow data={summarizeRows} />
         </S.PreviewSummarize>
       </div>
     </Dialog>

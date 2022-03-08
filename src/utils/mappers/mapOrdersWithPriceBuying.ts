@@ -1,4 +1,4 @@
-import { Data, MappedOrder } from './types';
+import { Data, MappedOrder, Source } from './types';
 
 export const mapOrdersWithBuyingPrice = (data: Data): MappedOrder[] => {
   const ordersWithBuyingPrice: any = [];
@@ -14,6 +14,7 @@ export const mapOrdersWithBuyingPrice = (data: Data): MappedOrder[] => {
           date,
           shipping_cost,
           shipping_id,
+          auction,
         }) => {
           const obj: any = {
             order_id,
@@ -24,6 +25,7 @@ export const mapOrdersWithBuyingPrice = (data: Data): MappedOrder[] => {
             shipping_cost,
           };
 
+          obj.source = auction ? Source.Allegro : Source.Shoper;
           obj.shipping_name = data.shippingMethods.filter(
             (el) => el.shipping_id === shipping_id,
           )[0].name;

@@ -1,16 +1,13 @@
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { Container, Grid } from '@material-ui/core';
 import moment, { Moment } from 'moment';
-import Card from 'components/Card';
 import { dateAndTimeDisplayFormat } from 'utils/constants';
 import { mapOrdersRange } from 'utils/mappers/mapOrdersRange';
 import { mapOrdersWithBuyingPrice } from 'utils/mappers/mapOrdersWithPriceBuying';
 import { Data, MappedOrder } from 'utils/mappers/types';
 import { AppContext } from '../../context/AppContext/AppContext';
 import OrdersTable from './components/OrdersTable.tsx';
-import Stock from './components/Stock';
 import Summary from './components/Summary';
-import * as S from './styles';
 
 const Accountancy = () => {
   const {
@@ -105,17 +102,13 @@ const Accountancy = () => {
   return (
     <Container maxWidth="xl">
       <Grid container spacing={2}>
-        <S.Summary item>
-          <Card title="Stan magazynowy">
-            <Stock products={products} />
-          </Card>
-        </S.Summary>
-        <S.Summary item>
+        {/* <Grid xs={6} item>
+          <Stock products={products} />
+        </Grid> */}
+        <Grid xs={12} item>
           <Summary ordersByRange={ordersByRange} />
-        </S.Summary>
-      </Grid>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
+        </Grid>
+        <Grid xs={12} item>
           <OrdersTable
             ordersByRange={ordersByRange}
             isLoading={isLoading}

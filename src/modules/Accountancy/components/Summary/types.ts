@@ -9,6 +9,10 @@ export interface Summary {
   incomingTax: string;
   clearProfit: string;
   transferAmount: string;
+  allegroCommission: string;
+  inpostShippingCost: string;
+  packingCost: string;
+  superClearProfit: string;
 }
 export interface SummaryRowData {
   label: string;

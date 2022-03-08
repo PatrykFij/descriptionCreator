@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { Moment } from 'moment';
 import { useAxios } from 'utils/hooks/useAxios';
 import {
@@ -33,20 +33,8 @@ export const useGetProducts = () => {
       { manual: true },
     );
 
-  const mappedOffers = useMemo(
-    () =>
-      products?.map((el) => ({
-        id: el.product_id,
-        name: el.translations.pl_PL.name,
-        description: el.translations.pl_PL.description,
-        url: `${el.translations.pl_PL.permalink}?preview=true`,
-      })),
-    [products],
-  );
-
   return {
     products,
-    mappedOffers,
     isLoadingProducts,
     getProducts,
   };
@@ -84,34 +72,45 @@ export const useGetOrderedProducts = () => {
   const [
     { data: orderedProducts, loading: isLoadingOrderedProducts },
     getOrderedProducts,
-  ] = useAxios<OrderedProduct[]>(
-    {
-      url: `/ordered-products`,
+  ] = useAxios<OrderedProduct[]>({}, { manual: true });
+
+  const getOrderedProductsFromToRange = useCallback(
+    async (startDate: Moment, endDate: Moment) => {
+      const url = `/ordered-products?dateFrom=${startDate.format(
+        'YYYY-MM-DD HH:mm:ss',
+      )}&dateTo=${endDate.format('YYYY-MM-DD HH:mm:ss')}`;
+      return await getOrderedProducts({ url });
     },
-    { manual: true },
+    [getOrderedProducts],
   );
+
   return {
     isLoadingOrderedProducts,
     getOrderedProducts,
     orderedProducts,
+    getOrderedProductsFromToRange,
   };
 };
 
-export const useGetOrders = (startDate: Moment, endDate: Moment) => {
+export const useGetOrders = () => {
   const [{ data: orders, loading: isLoadingOrders }, getOrders] = useAxios<
     Order[]
-  >(
-    {
-      url: `/orders?dateFrom=${startDate.format(
+  >({}, { manual: true });
+
+  const getOrdersFromToRange = useCallback(
+    async (startDate: Moment, endDate: Moment) => {
+      const url = `/orders?dateFrom=${startDate.format(
         'YYYY-MM-DD HH:mm:ss',
-      )}&dateTo=${endDate.format('YYYY-MM-DD HH:mm:ss')}`,
+      )}&dateTo=${endDate.format('YYYY-MM-DD HH:mm:ss')}`;
+      return await getOrders({ url });
     },
-    { manual: true },
+    [getOrders],
   );
+
   return {
     isLoadingOrders,
-    getOrders,
     orders,
+    getOrdersFromToRange,
   };
 };
 export const useGetShippingMethod = () => {

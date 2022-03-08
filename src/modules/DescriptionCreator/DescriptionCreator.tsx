@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { toast } from 'react-toastify';
 import Delete from '@material-ui/icons/Delete';
 import Search from '@material-ui/icons/Search';
@@ -24,18 +30,35 @@ export interface MappedOffer {
 }
 
 const DescriptionCreator = () => {
-  const { productOfferDescription, setProductOfferDescription } =
-    useContext(AppContext);
+  const {
+    productOfferDescription,
+    setProductOfferDescription,
+    products,
+    getProducts,
+    isLoadingProducts,
+  } = useContext(AppContext);
 
   const [editedOffer, setEditedOffer] = useState<MappedOffer>();
   const [currentDescription, setCurrentDescription] = useState<string>();
 
-  const { mappedOffers, isLoadingProducts, getProducts } = api.useGetProducts();
+  const mappedOffers = useMemo(
+    () =>
+      products?.map((el) => ({
+        id: el.product_id,
+        name: el.translations.pl_PL.name,
+        description: el.translations.pl_PL.description,
+        url: `${el.translations.pl_PL.permalink}?preview=true`,
+      })),
+    [products],
+  );
+
   const { updateOffer, isUpdateLoading } = api.useUpdateOffer();
 
   useEffect(() => {
-    getProducts();
-  }, [getProducts]);
+    if (!products) {
+      getProducts();
+    }
+  }, [getProducts, products]);
 
   const [isOpenConfirmation, handleOpenConfirmation, handleCloseConfirmation] =
     useToggle();

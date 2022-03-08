@@ -1,4 +1,4 @@
-import { ProductOfferDescription } from 'context/AppContext/AppContext';
+import { ProductOfferDescription } from 'context/AppContext/AppContext.types';
 import styled from 'styled-components';
 import { MappedOffer } from 'modules/DescriptionCreator/DescriptionCreator';
 import { mediaQuery } from '../../constants/MediaQueries';

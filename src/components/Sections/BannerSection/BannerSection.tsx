@@ -1,10 +1,8 @@
 import { useContext } from 'react';
 import { Checkbox, FormControlLabel, TextField } from '@material-ui/core';
+import { ProductOfferDescription } from 'context/AppContext/AppContext.types';
 import styled from 'styled-components';
-import {
-  AppContext,
-  ProductOfferDescription,
-} from '../../../context/AppContext/AppContext';
+import { AppContext } from '../../../context/AppContext/AppContext';
 
 const StyledTextField = styled(TextField)`
   width: 100%;

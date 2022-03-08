@@ -1,8 +1,6 @@
 import { useContext } from 'react';
-import {
-  AppContext,
-  ProductOfferDescription,
-} from '../../../context/AppContext/AppContext';
+import { ProductOfferDescription } from 'context/AppContext/AppContext.types';
+import { AppContext } from '../../../context/AppContext/AppContext';
 import { TextEditor } from '../../ContentEditable/ContentEditable';
 
 export const DescriptionSection = () => {

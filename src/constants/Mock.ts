@@ -1,4 +1,4 @@
-import { ProductOfferDescription } from 'context/AppContext/AppContext';
+import { ProductOfferDescription } from 'context/AppContext/AppContext.types';
 
 export const Mock: ProductOfferDescription = {
   producer: '',

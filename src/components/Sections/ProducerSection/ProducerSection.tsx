@@ -1,7 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import styled from 'styled-components';
-import * as api from '../../../api/api';
 import { AppContext } from '../../../context/AppContext/AppContext';
 
 const StyledFormControl = styled(FormControl)`
@@ -13,14 +12,18 @@ const StyledFormControl = styled(FormControl)`
 `;
 
 export const ProducerSection = () => {
-  const { productOfferDescription, setProductOfferDescription } =
-    useContext(AppContext);
-
-  const { producers, getProducers } = api.useGetProducers();
+  const {
+    productOfferDescription,
+    setProductOfferDescription,
+    getProducers,
+    producers,
+  } = useContext(AppContext);
 
   useEffect(() => {
-    getProducers();
-  }, [getProducers]);
+    if (!producers) {
+      getProducers();
+    }
+  }, [getProducers, producers]);
 
   const handleChange = (event: any) => {
     setProductOfferDescription((prev: any) => ({

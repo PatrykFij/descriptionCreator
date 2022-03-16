@@ -26,6 +26,7 @@ export const ProducerSection = () => {
     setProductOfferDescription((prev: any) => ({
       ...prev,
       producer: event.target.value,
+      producerLogo: producers?.filter(el => el.name.toLocaleLowerCase() === event.target.value)[0].gfx
     }));
   };
 

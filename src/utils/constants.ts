@@ -17,6 +17,7 @@ export enum SectionsID {
 
 export enum SectionsQuerySelectors {
   Producer = `#producer-logo-section [data-id="a_1"]`,
+  ProducerLogo = `#producer-logo-section img`,
   TopHeader = '#headers-section [data-id="h2_1"]',
   MiddleHeader = '#headers-section [data-id="h3_1"]',
   BottomHeader = '#headers-section [data-id="h4_1"]',

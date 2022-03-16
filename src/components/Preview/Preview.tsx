@@ -44,6 +44,7 @@ export const Preview = ({ productOfferDescription, editedOffer }: Props) => {
   if (productOfferDescription) {
     const {
       producer,
+      producerLogo,
       topHeader,
       middleHeader,
       bottomHeader,
@@ -66,9 +67,8 @@ export const Preview = ({ productOfferDescription, editedOffer }: Props) => {
               >
                 <img
                   src={
-                    'https://www.brillar-sklep.pl/userdata/public/assets/producer-' +
-                    producer +
-                    '.png'
+                    'https://www.brillar-sklep.pl/userdata/public/producers/' +
+                    producerLogo
                   }
                   alt="Logo producenta"
                   width="auto"

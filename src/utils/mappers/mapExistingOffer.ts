@@ -9,6 +9,11 @@ export const mapExistingOffer = (existingOffer: any) => {
     .querySelector(SectionsQuerySelectors.Producer)
     .href.replace('https://www.brillar-sklep.pl/', '');
 
+  const producerLogo = existingOffer
+    .querySelector(SectionsQuerySelectors.ProducerLogo)
+    .getAttribute('src')
+    .replace('/userdata/public/producers/', '');
+
   const topHeader = existingOffer.querySelector(
     SectionsQuerySelectors.TopHeader,
   )?.innerHTML;
@@ -96,6 +101,7 @@ export const mapExistingOffer = (existingOffer: any) => {
 
   return {
     producer,
+    producerLogo,
     topHeader,
     middleHeader,
     bottomHeader,

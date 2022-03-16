@@ -28,6 +28,7 @@ export interface Product {
 }
 
 export interface Producers {
+  gfx: string;
   producer_id: string;
   name: string;
 }

@@ -40,6 +40,7 @@ interface VideoSection {
 
 export interface ProductOfferDescription {
   producer?: string;
+  producerLogo?: string;
   topHeader?: string;
   middleHeader?: string;
   bottomHeader?: string;
